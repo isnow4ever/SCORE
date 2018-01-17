@@ -4,7 +4,7 @@ SCARA Controller based On ROS and EtherCAT
 ########################
 ##+ traj_planner
 ##----------------------
-##+ minas_control
+##+ minus_control
 ##----------------------
 ##+ ethercat_manager
 ##----------------------
