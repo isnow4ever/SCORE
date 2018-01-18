@@ -1019,6 +1019,123 @@ public:
     }
 };
 
+class MOVJ_LSPB_Processor_SCARA : public CommandProcessor
+{
+public:
+    MOVJ_LSPB_Processor()
+        : CommandProcessor ( COORDINATOR_CMD_NUMBER_TIME ( MOVJ_LSPB, 6 ) )
+    {  }
+
+    std::string _ret Process ( std::string _in command,
+                               Parameter  _in  params,
+                               State      _in  state,
+                               Actor      _out actor )
+    {
+        // 1. explain command
+        std::vector<std::string> result;
+        boost::split ( result, command, boost::is_any_of ( " " ), boost::algorithm::token_compress_on );
+        std::string ID      = result[0];
+        std::string COMMAND = result[1];
+        std::string TARGET  = result[2];
+        std::vector<double> VALUES;
+        for ( size_t i = 3; i < result.size() - 3; ++i )
+        {
+            VALUES.push_back ( atof ( result[i].c_str() ) );
+        }
+        std::string TIME = result[result.size() - 3];
+        std::string UNIT = result[result.size() - 2];
+        std::string FRAME = result[result.size() - 1];
+
+        // 3. update state.ref
+        actor.ref_joint = state.jointState;
+        actor.ref_state->setVariableValues ( actor.ref_joint );
+
+        // 4. generate commands
+        if( (VALUES.size())%4  !=0 )
+            return "wrong number of points";
+
+        std::vector<double> values = VALUES;
+        values[0] = VALUES[0] / 180.0 * 3.1415926;
+        values[1] = VALUES[1] / 180.0 * 3.1415926;
+        values[2] = VALUES[2] / 1000;
+        values[3] = VALUES[3] / 180.0 * 3.1415926;
+
+        double time = atof(TIME.substr(1,TIME.size()-1).c_str());
+        if(time <= 0.0)
+            return "time error";
+
+        xc::math::colvecX indexes = xc::math::lspb ( 0.0, 1.0, time, params.pmac_time );
+        xc::math::matrix4X joints_in;
+        joints_in.resize(4,2);
+        joints_in << actor.ref_joint.position[0] , values[0],
+                actor.ref_joint.position[1] , values[1],
+                actor.ref_joint.position[2] , values[2],
+                actor.ref_joint.position[3] , values[3];
+        xc::math::matrix4X joints_out = xc::math::mcspline<4> ( joints_in, indexes );
+
+        // add
+        std::cout << "MOVJ_LSPB" << std::endl;
+        //
+
+        trajectory_msgs::JointTrajectory output_command;
+        output_command.header.stamp = ros::Time::now();
+        output_command.joint_names = params.joints;
+        output_command.points.resize ( joints_out.cols () );
+        std::vector<double> last_joint_values = actor.ref_joint.position;
+        for ( size_t i = 0; i < joints_out.cols (); ++i )
+        {
+            std::vector<double> joint_values;
+            joint_values.resize(joints_out.rows());
+            for ( size_t j = 0; j < joints_out.rows() ; ++j )
+            {
+                joint_values[j] = joints_out(j,i);
+            }
+
+            // 5. check over speed
+            for ( size_t j = 0; j < joint_values.size() ; ++j )
+            {
+                double v = fabs ( joint_values[j] - last_joint_values[j] ) / params.pmac_time ;
+                if ( v > params.max_vel[j] )
+                {
+                    ROS_WARN ( "over speed: v[%ld] = %f (%f)",
+                               j,
+                               v / 3.1415926 * 180.0, params.max_vel[j] / 3.1415926 * 180.0);
+                    return "over speed";
+                }
+            }
+            last_joint_values = joint_values;
+
+            output_command.points[i].time_from_start = ros::Duration ( ( i + 1 ) * params.pmac_time );
+            output_command.points[i].positions = joint_values;
+
+            // 6. update state.ref if required
+            actor.ref_joint.header.stamp = ros::Time::now();
+            actor.ref_joint.name = params.joints;
+            actor.ref_joint.position = joint_values;
+            actor.ref_state->setVariableValues ( actor.ref_joint );
+
+            // add
+            for(int i = 0 ; i < state.jointState.position.size(); ++i)
+            {
+                std::cout << std::setprecision(12) << state.jointState.position[i] << " ";
+            }
+            std::cout << ",";
+            for(int i = 0 ; i < joint_values.size(); ++i)
+            {
+                std::cout << joint_values[i] << " ";
+            }
+            std::cout << std::endl;
+            //
+        }
+
+        // 5. publish
+        actor.pIntferfaceJointPath.publish ( output_command );
+
+        // 7. set actor.cur_error to success
+        return "succeed";
+    }
+};
+
 class MOVL_RPY_LSPB_Processor : public CommandProcessor
 {
 public:
@@ -1061,6 +1178,110 @@ public:
         values[3] = VALUES[3] / 180.0 * 3.1415926;
         values[4] = VALUES[4] / 180.0 * 3.1415926;
         values[5] = VALUES[5] / 180.0 * 3.1415926;
+
+        double time = atof(TIME.substr(1,TIME.size()-1).c_str());
+        if(time <= 0.0)
+            return "time error";
+
+        xc::math::Affine3 T1 = actor.ref_state->getFrameTransform ( params.eef );
+        xc::math::colvecX indexes = xc::math::lspb ( 0.0, 1.0, time, params.pmac_time );
+        xc::math::Affine3 T2 = xc::math::translation ( values[0], values[1], values[2] ) * xc::math::rpy ( values[3], values[4], values[5] );
+        xc::math::VectorAffine3 traj_cs = xc::math::interpolate_linear_transform ( T1, T2, indexes );
+
+        trajectory_msgs::JointTrajectory output_command;
+        output_command.header.stamp = ros::Time::now();
+        output_command.joint_names = params.joints;
+        output_command.points.resize ( traj_cs.size () ); // we do not use the first data
+        robot_state::RobotStatePtr trajectory_state ( new robot_state::RobotState ( *actor.ref_state ) );
+        std::vector<double> last_joint_values;
+        actor.ref_state->copyJointGroupPositions ( params.joint_group, last_joint_values );
+        for ( size_t i = 0; i < traj_cs.size (); ++i )
+        {
+            Eigen::Affine3d pose = traj_cs[i];
+            std::vector<double> joint_values;
+            bool found_ik = trajectory_state->setFromIK ( params.joint_group, pose, params.eef, 5 );
+            if ( !found_ik )
+            {
+                std::cout << "cannot find IK solution for pose" << std::endl
+                          << pose.matrix() << std::endl;
+                return "did not find IK solution";
+            }
+            trajectory_state->copyJointGroupPositions ( params.joint_group, joint_values );
+
+            // 5. check over speed
+            for ( size_t j = 0; j < joint_values.size() ; ++j )
+            {
+                double v = fabs ( joint_values[j] - last_joint_values[j] ) / params.pmac_time ;
+                if ( v > params.max_vel[j] )
+                {
+                    ROS_WARN ( "over speed: v[%ld] = %f (%f)",
+                               j,
+                               v / 3.1415926 * 180.0, params.max_vel[j] / 3.1415926 * 180.0);
+                    return "over speed";
+                }
+            }
+            last_joint_values = joint_values;
+
+            output_command.points[i].time_from_start = ros::Duration ( ( i + 1 ) * params.pmac_time );
+            output_command.points[i].positions = joint_values;
+
+            // 6. update state.ref if required
+            actor.ref_joint.header.stamp = ros::Time::now();
+            actor.ref_joint.name = params.joints;
+            actor.ref_joint.position = joint_values;
+            actor.ref_state->setVariableValues ( actor.ref_joint );
+        }
+
+        // 5. publish
+        actor.pIntferfaceJointPath.publish ( output_command );
+
+        // 7. set actor.cur_error to success
+        return "succeed";
+    }
+};
+
+class MOVL_RPY_LSPB_Processor_SCARA : public CommandProcessor
+{
+public:
+    MOVL_RPY_LSPB_Processor()
+        : CommandProcessor ( COORDINATOR_CMD_NUMBER_TIME ( MOVL_RPY_LSPB, 6 ) )
+    {  }
+
+    std::string _ret Process ( std::string _in command,
+                               Parameter  _in  params,
+                               State      _in  state,
+                               Actor      _out actor )
+    {
+        // 1. explain command
+        std::vector<std::string> result;
+        boost::split ( result, command, boost::is_any_of ( " " ), boost::algorithm::token_compress_on );
+        std::string ID      = result[0];
+        std::string COMMAND = result[1];
+        std::string TARGET  = result[2];
+        std::vector<double> VALUES;
+        for ( size_t i = 3; i < result.size() - 3; ++i )
+        {
+            VALUES.push_back ( atof ( result[i].c_str() ) );
+        }
+        std::string TIME = result[result.size() - 3];
+        std::string UNIT = result[result.size() - 2];
+        std::string FRAME = result[result.size() - 1];
+
+        // 3. update state.ref
+        actor.ref_joint = state.jointState;
+        actor.ref_state->setVariableValues ( actor.ref_joint );
+
+        // 4. generate commands
+        if( (VALUES.size())%4  !=0 )
+            return "wrong number of points";
+
+        std::vector<double> values（6）;
+        values[0] = VALUES[0] / 1000.0;
+        values[1] = VALUES[1] / 1000.0;
+        values[2] = VALUES[3] / 1000.0;
+        values[3] = 0;
+        values[4] = 0;
+        values[5] = VALUES[2] / 180.0 * 3.1415926;
 
         double time = atof(TIME.substr(1,TIME.size()-1).c_str());
         if(time <= 0.0)
@@ -1239,6 +1460,120 @@ public:
     }
 };
 
+class MOVJ_SPLINE_LSPB_Processor_SCARA : public CommandProcessor
+{
+public:
+    MOVJ_SPLINE_LSPB_Processor()
+        : CommandProcessor ( COORDINATOR_CMD_MULTI_NUMBER_TIME ( MOVJ_SPLINE_LSPB ) )
+    {  }
+
+    std::string _ret Process ( std::string _in command,
+                               Parameter  _in  params,
+                               State      _in  state,
+                               Actor      _out actor )
+    {
+        // 1. explain command
+        std::vector<std::string> result;
+        boost::split ( result, command, boost::is_any_of ( " " ), boost::algorithm::token_compress_on );
+        std::string ID      = result[0];
+        std::string COMMAND = result[1];
+        std::string TARGET  = result[2];
+        std::vector<double> VALUES;
+        for ( size_t i = 3; i < result.size() - 3; ++i )
+        {
+            VALUES.push_back ( atof ( result[i].c_str() ) );
+        }
+        std::string TIME = result[result.size() - 3];
+        std::string UNIT = result[result.size() - 2];
+        std::string FRAME = result[result.size() - 1];
+
+        // 3. update state.ref
+        actor.ref_joint = state.jointState;
+        actor.ref_state->setVariableValues ( actor.ref_joint );
+
+        // 4. generate commands
+        if( (VALUES.size())%4  !=0 )
+            return "wrong number of points";
+
+        xc::math::matrix6X joints_in;
+        joints_in.resize(4,(VALUES.size() )/4);
+        for(size_t i = 0; i < (VALUES.size() )/4; ++i)
+        {
+            joints_in(0,i) = VALUES[0+i*6] / 180.0 * 3.1415926;
+            joints_in(1,i) = VALUES[1+i*6] / 180.0 * 3.1415926;
+            joints_in(2,i) = VALUES[2+i*6] / 1000;
+            joints_in(3,i) = VALUES[3+i*6] / 180.0 * 3.1415926;
+        }
+        double time = atof(TIME.substr(1,TIME.size()-1).c_str());
+        if(time <= 0.0)
+            return "time error";
+
+        xc::math::colvecX indexes = xc::math::lspb ( 0.0, 1.0, time, params.pmac_time );
+        xc::math::matrix4X joints_out = xc::math::spline<4> ( joints_in, indexes );
+
+        // add
+        std::cout << "MOVJ_LSPB" << std::endl;
+        //
+
+        trajectory_msgs::JointTrajectory output_command;
+        output_command.header.stamp = ros::Time::now();
+        output_command.joint_names = params.joints;
+        output_command.points.resize ( joints_out.cols () );
+        std::vector<double> last_joint_values = actor.ref_joint.position;
+        for ( size_t i = 0; i < joints_out.cols (); ++i )
+        {
+            std::vector<double> joint_values;
+            joint_values.resize(joints_out.rows());
+            for ( size_t j = 0; j < joints_out.rows() ; ++j )
+            {
+                joint_values[j] = joints_out(j,i);
+            }
+
+            // 5. check over speed
+            for ( size_t j = 0; j < joint_values.size() ; ++j )
+            {
+                double v = fabs ( joint_values[j] - last_joint_values[j] ) / params.pmac_time ;
+                if ( v > params.max_vel[j] )
+                {
+                    ROS_WARN ( "over speed: v[%ld] = %f (%f)",
+                               j,
+                               v / 3.1415926 * 180.0, params.max_vel[j] / 3.1415926 * 180.0);
+                    return "over speed";
+                }
+            }
+            last_joint_values = joint_values;
+
+            output_command.points[i].time_from_start = ros::Duration ( ( i + 1 ) * params.pmac_time );
+            output_command.points[i].positions = joint_values;
+
+            // 6. update state.ref if required
+            actor.ref_joint.header.stamp = ros::Time::now();
+            actor.ref_joint.name = params.joints;
+            actor.ref_joint.position = joint_values;
+            actor.ref_state->setVariableValues ( actor.ref_joint );
+
+            // add
+            for(int i = 0 ; i < state.jointState.position.size(); ++i)
+            {
+                std::cout << state.jointState.position[i] << " ";
+            }
+            std::cout << ",";
+            for(int i = 0 ; i < joint_values.size(); ++i)
+            {
+                std::cout << joint_values[i] << " ";
+            }
+            std::cout << std::endl;
+            //
+        }
+
+        // 5. publish
+        actor.pIntferfaceJointPath.publish ( output_command );
+
+        // 7. set actor.cur_error to success
+        return "succeed";
+    }
+};
+
 class MOVJ_MCHP_LSPB_Processor : public CommandProcessor
 {
 public:
@@ -1291,6 +1626,103 @@ public:
 
         xc::math::colvecX indexes = xc::math::lspb ( 0.0, 1.0, time, params.pmac_time );
         xc::math::matrix6X joints_out = xc::math::mcspline<6> ( joints_in, indexes );
+
+        trajectory_msgs::JointTrajectory output_command;
+        output_command.header.stamp = ros::Time::now();
+        output_command.joint_names = params.joints;
+        output_command.points.resize ( joints_out.cols () );
+        std::vector<double> last_joint_values = actor.ref_joint.position;
+        for ( size_t i = 0; i < joints_out.cols (); ++i )
+        {
+            std::vector<double> joint_values;
+            joint_values.resize(joints_out.rows());
+            for ( size_t j = 0; j < joints_out.rows() ; ++j )
+            {
+                joint_values[j] = joints_out(j,i);
+            }
+
+            // 5. check over speed
+            for ( size_t j = 0; j < joint_values.size() ; ++j )
+            {
+                double v = fabs ( joint_values[j] - last_joint_values[j] ) / params.pmac_time ;
+                if ( v > params.max_vel[j] )
+                {
+                    ROS_WARN ( "over speed: v[%ld] = %f (%f)",
+                               j,
+                               v / 3.1415926 * 180.0, params.max_vel[j] / 3.1415926 * 180.0);
+                    return "over speed";
+                }
+            }
+            last_joint_values = joint_values;
+
+            output_command.points[i].time_from_start = ros::Duration ( ( i + 1 ) * params.pmac_time );
+            output_command.points[i].positions = joint_values;
+
+            // 6. update state.ref if required
+            actor.ref_joint.header.stamp = ros::Time::now();
+            actor.ref_joint.name = params.joints;
+            actor.ref_joint.position = joint_values;
+            actor.ref_state->setVariableValues ( actor.ref_joint );
+        }
+
+        // 5. publish
+        actor.pIntferfaceJointPath.publish ( output_command );
+
+        // 7. set actor.cur_error to success
+        return "succeed";
+    }
+};
+
+class MOVJ_MCHP_LSPB_Processor_SCARA : public CommandProcessor
+{
+public:
+    MOVJ_MCHP_LSPB_Processor()
+        : CommandProcessor ( COORDINATOR_CMD_MULTI_NUMBER_TIME ( MOVJ_MCHP_LSPB ) )
+    {  }
+
+    std::string _ret Process ( std::string _in command,
+                               Parameter  _in  params,
+                               State      _in  state,
+                               Actor      _out actor )
+    {
+        // 1. explain command
+        std::vector<std::string> result;
+        boost::split ( result, command, boost::is_any_of ( " " ), boost::algorithm::token_compress_on );
+        std::string ID      = result[0];
+        std::string COMMAND = result[1];
+        std::string TARGET  = result[2];
+        std::vector<double> VALUES;
+        for ( size_t i = 3; i < result.size() - 3; ++i )
+        {
+            VALUES.push_back ( atof ( result[i].c_str() ) );
+        }
+        std::string TIME = result[result.size() - 3];
+        std::string UNIT = result[result.size() - 2];
+        std::string FRAME = result[result.size() - 1];
+
+        // 3. update state.ref
+        actor.ref_joint = state.jointState;
+        actor.ref_state->setVariableValues ( actor.ref_joint );
+
+        // 4. generate commands
+        if( (VALUES.size())%4  !=0 )
+            return "wrong number of points";
+
+        xc::math::matrix4X joints_in;
+        joints_in.resize(4,(VALUES.size() )/4);
+        for(size_t i = 0; i < (VALUES.size() )/6; ++i)
+        {
+            joints_in(0,i) = VALUES[0+i*6] / 180.0 * 3.1415926;
+            joints_in(1,i) = VALUES[1+i*6] / 180.0 * 3.1415926;
+            joints_in(2,i) = VALUES[2+i*6] / 1000;
+            joints_in(3,i) = VALUES[3+i*6] / 180.0 * 3.1415926;
+        }
+        double time = atof(TIME.substr(1,TIME.size()-1).c_str());
+        if(time <= 0.0)
+            return "time error";
+
+        xc::math::colvecX indexes = xc::math::lspb ( 0.0, 1.0, time, params.pmac_time );
+        xc::math::matrix4X joints_out = xc::math::mcspline<4> ( joints_in, indexes );
 
         trajectory_msgs::JointTrajectory output_command;
         output_command.header.stamp = ros::Time::now();
