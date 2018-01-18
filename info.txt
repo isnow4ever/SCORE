@@ -1,10 +1,7 @@
-# SCORE
-SCARA Controller based On ROS and EtherCAT
-
 ########################
 ##+ traj_planner
 ##----------------------
-##+ minus_control
+##+ minas_control
 ##----------------------
 ##+ ethercat_manager
 ##----------------------
