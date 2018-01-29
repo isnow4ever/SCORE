@@ -29,6 +29,7 @@
 
 #include <QSlider>
 #include <QLabel>
+#include <QPushButton>
 #include <QGridLayout>
 #include <QVBoxLayout>
 
@@ -44,32 +45,66 @@ MyViz::MyViz( QWidget* parent )
   : QWidget( parent )
 {
   // Construct and lay out labels and slider controls.
-  QLabel* thickness_label = new QLabel( "Line Thickness" );
-  QSlider* thickness_slider = new QSlider( Qt::Horizontal );
-  thickness_slider->setMinimum( 1 );
-  thickness_slider->setMaximum( 100 );
-  QLabel* cell_size_label = new QLabel( "Cell Size" );
-  QSlider* cell_size_slider = new QSlider( Qt::Horizontal );
-  cell_size_slider->setMinimum( 1 );
-  cell_size_slider->setMaximum( 100 );
-  QGridLayout* controls_layout = new QGridLayout();
-  controls_layout->addWidget( thickness_label, 0, 0 );
-  controls_layout->addWidget( thickness_slider, 0, 1 );
-  controls_layout->addWidget( cell_size_label, 1, 0 );
-  controls_layout->addWidget( cell_size_slider, 1, 1 );
+  // QLabel* thickness_label = new QLabel( "Line Thickness" );
+  // QSlider* thickness_slider = new QSlider( Qt::Horizontal );
+  // thickness_slider->setMinimum( 1 );
+  // thickness_slider->setMaximum( 100 );
+  // QLabel* cell_size_label = new QLabel( "Cell Size" );
+  // QSlider* cell_size_slider = new QSlider( Qt::Horizontal );
+  // cell_size_slider->setMinimum( 1 );
+  // cell_size_slider->setMaximum( 100 );
+  // QGridLayout* controls_layout = new QGridLayout();
+  // controls_layout->addWidget( thickness_label, 0, 0 );
+  // controls_layout->addWidget( thickness_slider, 0, 1 );
+  // controls_layout->addWidget( cell_size_label, 1, 0 );
+  // controls_layout->addWidget( cell_size_slider, 1, 1 );
+  double j1,j2,j3,j4;
+
+  QLabel* joint_state_label = new QLabel( "Joint State" );
+  QLabel* joint_name_1_label = new QLabel( "Joint 1:" );
+  QLabel* joint_state_1_label = new QLabel( QString::number(j1) );
+  QLabel* joint_name_2_label = new QLabel( "Joint 2:" );
+  QLabel* joint_state_2_label = new QLabel( QString::number(j2) );
+  QLabel* joint_name_3_label = new QLabel( "Joint 3:" );
+  QLabel* joint_state_3_label = new QLabel( QString::number(j3) );
+  QLabel* joint_name_4_label = new QLabel( "Joint 4:" );
+  QLabel* joint_state_4_label = new QLabel( QString::number(j4) );
+
+  QGridLayout* state_layout = new QGridLayout();
+  state_layout->addWidget( joint_state_label, 0, 0, 2, 1);
+  state_layout->addWidget( joint_name_1_label, 1, 0);
+  state_layout->addWidget( joint_state_1_label, 1, 1);
+  state_layout->addWidget( joint_name_2_label, 2, 0);
+  state_layout->addWidget( joint_state_2_label, 2, 1);
+  state_layout->addWidget( joint_name_3_label, 3, 0);
+  state_layout->addWidget( joint_state_3_label, 3, 1);
+  state_layout->addWidget( joint_name_4_label, 4, 0);
+  state_layout->addWidget( joint_state_4_label, 4, 1);
+
+  QLabel* indicator_running_label = new QLabel( "Running" );
+  QLabel* indicator_error_label = new QLabel( "Error" );
+  QPushButton* alarm_clear_Btn = new QPushButton( "ALMCLR", this );
+  QLabel* indicator_auto_label = new QLabel( "M/A" );
+
+  QHBoxLayout* indicator_layout = new QHBoxLayout;
+  indicator_layout->addWidget( indicator_running_label );
+  indicator_layout->addWidget( indicator_error_label );
+  indicator_layout->addWidget( alarm_clear_Btn );
+  indicator_layout->addWidget( indicator_auto_label );
 
   // Construct and lay out render panel.
   render_panel_ = new rviz::RenderPanel();
-  QVBoxLayout* main_layout = new QVBoxLayout;
-  main_layout->addLayout( controls_layout );
-  main_layout->addWidget( render_panel_ );
+  QGridLayout* main_layout = new QGridLayout;
+  main_layout->addLayout( indicator_layout, 0, 0, 1, 6 );
+  main_layout->addLayout( state_layout, 1, 0, 6, 1 );
+  main_layout->addWidget( render_panel_, 1, 1, 6, 5 );
 
   // Set the top-level layout for this MyViz widget.
   setLayout( main_layout );
 
   // Make signal/slot connections.
-  connect( thickness_slider, SIGNAL( valueChanged( int )), this, SLOT( setThickness( int )));
-  connect( cell_size_slider, SIGNAL( valueChanged( int )), this, SLOT( setCellSize( int )));
+  // connect( thickness_slider, SIGNAL( valueChanged( int )), this, SLOT( setThickness( int )));
+  // connect( cell_size_slider, SIGNAL( valueChanged( int )), this, SLOT( setCellSize( int )));
 
   // Next we initialize the main RViz classes.
   //
@@ -87,12 +122,15 @@ MyViz::MyViz( QWidget* parent )
   ROS_ASSERT( grid_ != NULL );
 
   // Configure the GridDisplay the way we like it.
-  grid_->subProp( "Line Style" )->setValue( "Billboards" );
+  grid_->subProp( "Line Style" )->setValue( "Lines" );
   grid_->subProp( "Color" )->setValue( Qt::yellow );
 
+  grid_ = manager_->createDisplay("rviz/RobotModel", "x50", true);
+  grid_ = manager_->createDisplay("rviz/Axes", "root", true);
+
   // Initialize the slider values.
-  thickness_slider->setValue( 25 );
-  cell_size_slider->setValue( 10 );
+  // thickness_slider->setValue( 25 );
+  // cell_size_slider->setValue( 10 );
 }
 
 // Destructor.

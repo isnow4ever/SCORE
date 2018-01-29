@@ -1,0 +1,24 @@
+<package>
+
+  <name>x50_description</name>
+
+  <version>0.3.1</version>
+
+  <description>
+    The X50_description package
+  </description >
+
+  <maintainer email = "suyanyucn@163.com" > Yanyu Su </maintainer>
+
+  <license>MIT </license>
+
+  <url type="website">https://www.suyanyu.com/</url>
+  <url type="repository">https://suyanyucn@bitbucket.org/suyanyucn/x50</url>
+
+  <buildtool_depend>catkin </buildtool_depend>
+
+  <build_depend>urdf </build_depend>
+
+  <run_depend>urdf </run_depend>
+
+</package>

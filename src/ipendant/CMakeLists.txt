@@ -1,181 +1,109 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(ipendant)
 
-## Find catkin macros and libraries
-## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
-## is used, also find other catkin packages
-find_package(catkin REQUIRED)
+find_package(catkin REQUIRED COMPONENTS roscpp std_msgs tf)
 
-## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package(Qt4 COMPONENTS QTCORE QTGUI QTDECLARATIVE)
+include(${QT_USE_FILE})
 
+find_package(Boost COMPONENTS system regex REQUIRED)
+#find_package(Boost COMPONENTS regex REQUIRED)
 
-## Uncomment this if the package has a setup.py. This macro ensures
-## modules and global scripts declared therein get installed
-## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
-# catkin_python_setup()
+#generate_messages(DEPENDENCIES std_msgs)
 
-################################################
-## Declare ROS messages, services and actions ##
-################################################
+#############
+##  catkin  #
+#############
 
-## To declare and build messages, services or actions from within this
-## package, follow these steps:
-## * Let MSG_DEP_SET be the set of packages whose message types you use in
-##   your messages/services/actions (e.g. std_msgs, actionlib_msgs, ...).
-## * In the file package.xml:
-##   * add a build_depend tag for "message_generation"
-##   * add a build_depend and a run_depend tag for each package in MSG_DEP_SET
-##   * If MSG_DEP_SET isn't empty the following dependency has been pulled in
-##     but can be declared for certainty nonetheless:
-##     * add a run_depend tag for "message_runtime"
-## * In this file (CMakeLists.txt):
-##   * add "message_generation" and every package in MSG_DEP_SET to
-##     find_package(catkin REQUIRED COMPONENTS ...)
-##   * add "message_runtime" and every package in MSG_DEP_SET to
-##     catkin_package(CATKIN_DEPENDS ...)
-##   * uncomment the add_*_files sections below as needed
-##     and list every .msg/.srv/.action file to be processed
-##   * uncomment the generate_messages entry below
-##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
+catkin_package(INCLUDE_DIRS CATKIN_DEPENDS roscpp std_msgs)
 
-## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+#############
+## includes #
+#############
 
-## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+include_directories(
+	${catkin_INCLUDE_DIRS}
+	${QT_INCLUDE_DIR}
+        ${Boost_INCLUDE_DIR}
+        ${CMAKE_CURRENT_BINARY_DIR}
+        # "/home/isnow4ever/Qt4.8.5/mkspecs/linux-g++-64/" #x86-64
+	# "/usr/local/qt4.8.5/mkspecs/linux-arm-gnueabi-g++/" #arm
+#	"/usr/local/regex/include/"
+	)
 
-## Generate actions in the 'action' folder
-# add_action_files(
-#   FILES
-#   Action1.action
-#   Action2.action
-# )
+#############
+## settings #
+#############
 
-## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
-# )
-
-################################################
-## Declare ROS dynamic reconfigure parameters ##
-################################################
-
-## To declare and build dynamic reconfigure parameters within this
-## package, follow these steps:
-## * In the file package.xml:
-##   * add a build_depend and a run_depend tag for "dynamic_reconfigure"
-## * In this file (CMakeLists.txt):
-##   * add "dynamic_reconfigure" to
-##     find_package(catkin REQUIRED COMPONENTS ...)
-##   * uncomment the "generate_dynamic_reconfigure_options" section below
-##     and list every .cfg file to be processed
-
-## Generate dynamic reconfigure parameters in the 'cfg' folder
-# generate_dynamic_reconfigure_options(
-#   cfg/DynReconf1.cfg
-#   cfg/DynReconf2.cfg
-# )
-
-###################################
-## catkin specific configuration ##
-###################################
-## The catkin_package macro generates cmake config files for your package
-## Declare things to be passed to dependent projects
-## INCLUDE_DIRS: uncomment this if you package contains header files
-## LIBRARIES: libraries you create in this project that dependent projects also need
-## CATKIN_DEPENDS: catkin_packages dependent projects also need
-## DEPENDS: system dependencies of this project that dependent projects also need
-catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES ipendant
-#  CATKIN_DEPENDS other_catkin_pkg
-#  DEPENDS system_lib
+set(SRCS
+        src/interface/mainwindow.cpp
+        src/interface/newfiledialog.cpp
+        src/interface/notificationdialog.cpp
+        src/interface/insertprogdialog.cpp
+	src/interface/virtualkeyboard.cpp
+        src/interface/commandHandler.cpp
+        src/interface/indicatorlamp.cpp
+        src/interface/working_thread.cpp
+        src/interface/res.h
+	src/interface/commandProcessor.cpp
+	src/interface/project.cpp
+        src/interface/projectHandler.cpp
+        src/interface/playback.cpp
 )
 
-###########
-## Build ##
-###########
+set(MOC_HDRS
+        src/interface/mainwindow.h
+        src/interface/newfiledialog.h
+        src/interface/notificationdialog.h
+        src/interface/insertprogdialog.h
+	src/interface/virtualkeyboard.h
+        src/interface/commandHandler.h
+        src/interface/indicatorlamp.h        
+        src/interface/working_thread.h
+	src/interface/commandProcessor.h
+	src/interface/project.h
+        src/interface/projectHandler.h
+        src/interface/playback.h
+)
 
-## Specify additional locations of header files
-## Your package locations should be listed before other locations
-# include_directories(include)
+set(ipendant_UI
+        src/interface/mainwindow.ui
+        src/interface/newfiledialog.ui
+        src/interface/notificationdialog.ui
+        src/interface/insertprogdialog.ui
+        src/interface/virtualkeyboard.ui
+)
 
-## Declare a C++ library
-# add_library(ipendant
-#   src/${PROJECT_NAME}/ipendant.cpp
-# )
+set(ipendant_RESOURCES
+        src/interface/images.qrc
+)
 
-## Add cmake target dependencies of the library
-## as an example, code may need to be generated before libraries
-## either from message generation or dynamic reconfigure
-# add_dependencies(ipendant ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+set(CMAKE_DEVEL_DIR ${CMAKE_CURRENT_BINARY_DIR}/devel/lib/ipendant/)
 
-## Declare a C++ executable
-# add_executable(ipendant_node src/ipendant_node.cpp)
-
-## Add cmake target dependencies of the executable
-## same as for the library above
-# add_dependencies(ipendant_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-
-## Specify libraries to link a library or executable target against
-# target_link_libraries(ipendant_node
-#   ${catkin_LIBRARIES}
-# )
-
-#############
-## Install ##
-#############
-
-# all install targets should use catkin DESTINATION variables
-# See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
-
-## Mark executable scripts (Python etc.) for installation
-## in contrast to setup.py, you can choose the destination
-# install(PROGRAMS
-#   scripts/my_python_script
-#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
-
-## Mark executables and/or libraries for installation
-# install(TARGETS ipendant ipendant_node
-#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
-
-## Mark cpp header files for installation
-# install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-#   FILES_MATCHING PATTERN "*.h"
-#   PATTERN ".svn" EXCLUDE
-# )
-
-## Mark other files for installation (e.g. launch and bag files, etc.)
-# install(FILES
-#   # myfile1
-#   # myfile2
-#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-# )
 
 #############
-## Testing ##
+##   GUI   ##
+#############
+QT4_WRAP_UI(ipendant_UI_HDRS ${ipendant_UI})
+QT4_ADD_RESOURCES(ipendant_RESOURCES_RCC ${ipendant_RESOURCES})
+QT4_WRAP_UI(startup_UI_HDRS src/startup/dialog.ui)
+
+#############
+##  Build  ##
 #############
 
-## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_ipendant.cpp)
-# if(TARGET ${PROJECT_NAME}-test)
-#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
-# endif()
+qt4_wrap_cpp(MOC_SRCS ${MOC_HDRS})
+qt4_wrap_cpp(MOC_startup src/startup/dialog.h)
 
-## Add folders to be run by python nosetests
-# catkin_add_nosetests(test)
+add_definitions(${QT_DEFINITIONS})
+add_definitions(-DQT_NO_KEYWORDS)
+
+add_executable(startup src/startup/startup.cpp src/startup/dialog.cpp ${MOC_startup} ${startup_UI_HDRS})
+target_link_libraries(startup ${QT_LIBRARIES} ${catkin_LIBRARIES})
+
+add_executable(ipendant src/interface/main.cpp ${SRCS}  ${MOC_SRCS} ${ipendant_UI_HDRS} ${ipendant_RESOURCES} ${ipendant_RESOURCES_RCC})
+link_directories(ipendant include/)
+target_link_libraries(ipendant Xtst X11 ${catkin_LIBRARIES} ${QT_LIBRARIES} ${Boost_LIBRARIES})
+
+#file(COPY src/qml DESTINATION ${CMAKE_DEVEL_DIR})
+file(COPY src/interface/indicatorlamp.h DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

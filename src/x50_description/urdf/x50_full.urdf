@@ -1,0 +1,225 @@
+<?xml version="1.0"?>
+<robot name="x50">
+
+	<material name="white">
+		<color rgba="0.5 0.5 0.5 1"/>
+	</material>
+
+	<link name="root">
+		<visual>
+			<geometry>
+				<mesh filename="package://x50_description/meshes/RBase.stl" scale="0.001 0.001 0.001"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<material name="white" />
+		</visual>
+		<collision>
+			<geometry>
+				<mesh filename="package://x50_description/meshes/RBase.stl" scale="0.001 0.001 0.001"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+		</collision>
+	</link>
+
+	<link name="link1">
+		<visual>
+			<geometry>
+				<mesh filename="package://x50_description/meshes/RLink1.stl" scale="0.001 0.001 0.001"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<material name="white" />
+		</visual>
+		<collision>
+			<geometry>
+				<mesh filename="package://x50_description/meshes/RLink1.stl" scale="0.001 0.001 0.001"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+		</collision>
+	</link>
+
+	<link name="link2">
+		<visual>
+			<geometry>
+				<mesh filename="package://x50_description/meshes/RLink2.stl" scale="0.001 0.001 0.001"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<material name="white" />
+		</visual>
+		<collision>
+			<geometry>
+				<mesh filename="package://x50_description/meshes/RLink2.stl" scale="0.001 0.001 0.001"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+		</collision>
+	</link>
+
+	<link name="link3">
+		<visual>
+			<geometry>
+				<mesh filename="package://x50_description/meshes/RLink3.stl" scale="0.001 0.001 0.001"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<material name="white" />
+		</visual>
+		<collision>
+			<geometry>
+				<mesh filename="package://x50_description/meshes/RLink3.stl" scale="0.001 0.001 0.001"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+		</collision>
+	</link>
+
+	<link name="link4">
+		<visual>
+			<geometry>
+				<mesh filename="package://x50_description/meshes/RLink4.stl" scale="0.001 0.001 0.001"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<material name="white" />
+		</visual>
+		<collision>
+			<geometry>
+				<mesh filename="package://x50_description/meshes/RLink4.stl" scale="0.001 0.001 0.001"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+		</collision>
+	</link>
+
+	<link name="link5">
+		<visual>
+			<geometry>
+				<mesh filename="package://x50_description/meshes/RLink5.stl" scale="0.001 0.001 0.001"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<material name="white" />
+		</visual>
+		<collision>
+			<geometry>
+				<mesh filename="package://x50_description/meshes/RLink5.stl" scale="0.001 0.001 0.001"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+		</collision>
+	</link>
+
+	<link name="link6">
+	</link>
+
+	<link name="linkB1">
+		<visual>
+			<geometry>
+				<mesh filename="package://x50_description/meshes/RLinkB1.stl" scale="0.001 0.001 0.001"/>
+			</geometry>
+			<origin rpy="0.19 0 0" xyz="0 0 0"/>
+			<material name="white" />
+		</visual>
+		<collision>
+			<geometry>
+				<mesh filename="package://x50_description/meshes/RLinkB1.stl" scale="0.001 0.001 0.001"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+		</collision>
+	</link>
+
+	<link name="linkB2">
+		<visual>
+			<geometry>
+				<mesh filename="package://x50_description/meshes/RLinkB2.stl" scale="0.001 0.001 0.001"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<material name="white" />
+		</visual>
+		<collision>
+			<geometry>
+				<mesh filename="package://x50_description/meshes/RLinkB2.stl" scale="0.001 0.001 0.001"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+		</collision>
+	</link>
+
+	<link name="tool">
+		<visual>
+			<geometry>
+				<box size="0.1 0.1 0.1"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+			<material name="white" />
+		</visual>
+		<collision>
+			<geometry>
+				<box size="0.1 0.1 0.1"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+		</collision>
+	</link>
+
+	<joint name="joint1" type="continuous">
+		<parent link="root"/>
+		<child link="link1"/>
+		<origin xyz="0 0 0.23" rpy="0 0 0" />
+		<axis xyz="0 0 1" />
+		<limit effort="2548.0" velocity="1.7453" lower="-2.9671" upper="2.9671" />
+	</joint>
+
+	<joint name="joint2" type="continuous">
+		<parent link="link1"/>
+		<child link="link2"/>
+		<origin xyz="0 0.200 0.449" rpy="0 0 0" />
+		<axis xyz="1 0 0" />
+		<limit effort="3136.0" velocity="1.7453" lower="-1.2217" upper="1.2217" />
+	</joint>
+
+	<joint name="joint3" type="continuous">
+		<parent link="link2"/>
+		<child link="link3"/>
+		<origin xyz="0 0 0.890" rpy="0 0 0" />
+		<axis xyz="1 0 0" />
+		<limit effort="1225.0" velocity="1.7453" lower="-1.1345" upper="1.1345" />
+	</joint>
+
+	<joint name="joint4" type="continuous">
+		<parent link="link3"/>
+		<child link="link4"/>
+		<origin xyz="0 0.4369 0.195" rpy="0 0 0" />
+		<axis xyz="0 1 0" />
+		<limit effort="588.0" velocity="3.4907" lower="-6.2832" upper="6.2832" />
+	</joint>
+
+	<joint name="joint5" type="continuous">
+		<parent link="link4"/>
+		<child link="link5"/>
+		<origin xyz="0 0.1995 0" rpy="0 0 0" />
+		<axis xyz="1 0 0" />
+		<limit effort="412.0" velocity="3.8397" lower="-2.1817" upper="2.1817" />
+	</joint>
+
+	<joint name="joint6" type="continuous">
+		<parent link="link5"/>
+		<child link="link6"/>
+		<origin xyz="0 0.238 0" rpy="0 0 0" />
+		<axis xyz="0 1 0" />
+		<limit effort="1000.0" velocity="0.5" lower="0.0" upper="0.548" />
+	</joint>
+
+	<joint name="joint7" type="continuous">
+		<parent link="link1"/>
+		<child link="linkB1"/>
+		<origin xyz="0.07  0.200 0.449" rpy="0 0 0" />
+		<axis xyz="1 0 0" />
+		<limit effort="1000.0" velocity="0.5" lower="0.0" upper="0.548" />
+	</joint>
+
+	<joint name="joint8" type="continuous">
+		<parent link="linkB1"/>
+		<child link="linkB2"/>
+		<origin xyz="0.03 -0.300 0" rpy="0 0 0" />
+		<axis xyz="1 0 0" />
+		<limit effort="1000.0" velocity="0.5" lower="0.0" upper="0.548" />
+	</joint>
+
+	<joint name="jointT" type="fixed">
+		<parent link="link6"/>
+		<child link="tool"/>
+		<origin xyz="0 0.1 0" rpy="0 0 0" />
+	</joint>
+	
+</robot>
