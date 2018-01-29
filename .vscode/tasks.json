@@ -11,7 +11,7 @@
 		{
 			"taskName": "Debug",
 			"args": [
-				"catkin_make -C ${workspaceRoot} -DCMAKE_BUILD_TYPE=Debug"
+				"catkin_make --pkg scara_gui -C ${workspaceRoot} -DCMAKE_BUILD_TYPE=Debug"
 			],
 			"problemMatcher": [
 				{
@@ -106,7 +106,7 @@
 		{
 			"taskName": "Release",
 			"args": [
-				"catkin_make -C ${workspaceRoot}"
+				"catkin_make --pkg scara_gui -C ${workspaceRoot}"
 			],
 			"problemMatcher": [
 				{
@@ -196,12 +196,13 @@
 						}
 					]
 				}
-			]
+			],
+			"isBuildCommand": true
 		},
 		{
 			"taskName": "Debug (isolated)",
 			"args": [
-				"catkin_make_isolated -C ${workspaceRoot} -DCMAKE_BUILD_TYPE=Debug"
+				"catkin_make_isolated --pkg scara_gui -C ${workspaceRoot} -DCMAKE_BUILD_TYPE=Debug"
 			],
 			"problemMatcher": [
 				{
@@ -296,7 +297,7 @@
 		{
 			"taskName": "Release (isolated)",
 			"args": [
-				"catkin_make_isolated -C ${workspaceRoot}"
+				"catkin_make_isolated --pkg scara_gui -C ${workspaceRoot}"
 			],
 			"problemMatcher": [
 				{
@@ -771,7 +772,7 @@
 		{
 			"taskName": "Debug (catkin)",
 			"args": [
-				"catkin build -w ${workspaceRoot} -DCMAKE_BUILD_TYPE=Debug"
+				"catkin build scara_gui -w ${workspaceRoot} -DCMAKE_BUILD_TYPE=Debug"
 			],
 			"problemMatcher": [
 				{
@@ -866,7 +867,7 @@
 		{
 			"taskName": "Release (catkin)",
 			"args": [
-				"catkin build -w ${workspaceRoot}"
+				"catkin build scara_gui -w ${workspaceRoot}"
 			],
 			"problemMatcher": [
 				{
@@ -1152,8 +1153,7 @@
 			"taskName": "Remote Deploy",
 			"args": [
 				"echo \"Remote Arguments not configured!\""
-			],
-			"isBuildCommand": true
+			]
 		}
 	]
 }
