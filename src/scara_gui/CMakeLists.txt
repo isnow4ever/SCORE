@@ -1,19 +1,32 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(scara_gui)
+project(rqt_scara_gui)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED)
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+  roslint
+  rqt_gui
+  rqt_gui_cpp
+  std_msgs
+)
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
 
+if("${qt_gui_cpp_USE_QT_MAJOR_VERSION} " STREQUAL "5 ")
+  find_package(Qt5Widgets REQUIRED)
+else()
+  find_package(Qt4 COMPONENTS QtCore QtGui REQUIRED)
+  include(${QT_USE_FILE})
+endif()
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
 ## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
-# catkin_python_setup()
+catkin_python_setup()
+
+roslint_cpp()
 
 ################################################
 ## Declare ROS messages, services and actions ##
@@ -24,17 +37,14 @@ find_package(catkin REQUIRED)
 ## * Let MSG_DEP_SET be the set of packages whose message types you use in
 ##   your messages/services/actions (e.g. std_msgs, actionlib_msgs, ...).
 ## * In the file package.xml:
+##   * add a build_depend tag for "message_generation"
 ##   * add a build_depend and a run_depend tag for each package in MSG_DEP_SET
-##   * If MSG_DEP_SET isn't empty the following dependencies might have been
-##     pulled in transitively but can be declared for certainty nonetheless:
-##     * add a build_depend tag for "message_generation"
+##   * If MSG_DEP_SET isn't empty the following dependency has been pulled in
+##     but can be declared for certainty nonetheless:
 ##     * add a run_depend tag for "message_runtime"
 ## * In this file (CMakeLists.txt):
 ##   * add "message_generation" and every package in MSG_DEP_SET to
-find_package(catkin REQUIRED COMPONENTS
-  rviz
-  roscpp
-)
+##     find_package(catkin REQUIRED COMPONENTS ...)
 ##   * add "message_runtime" and every package in MSG_DEP_SET to
 ##     catkin_package(CATKIN_DEPENDS ...)
 ##   * uncomment the add_*_files sections below as needed
@@ -66,7 +76,27 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
+#   std_msgs
+# )
+
+################################################
+## Declare ROS dynamic reconfigure parameters ##
+################################################
+
+## To declare and build dynamic reconfigure parameters within this
+## package, follow these steps:
+## * In the file package.xml:
+##   * add a build_depend and a run_depend tag for "dynamic_reconfigure"
+## * In this file (CMakeLists.txt):
+##   * add "dynamic_reconfigure" to
+##     find_package(catkin REQUIRED COMPONENTS ...)
+##   * uncomment the "generate_dynamic_reconfigure_options" section below
+##     and list every .cfg file to be processed
+
+## Generate dynamic reconfigure parameters in the 'cfg' folder
+# generate_dynamic_reconfigure_options(
+#   cfg/DynReconf1.cfg
+#   cfg/DynReconf2.cfg
 # )
 
 ###################################
@@ -80,11 +110,34 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES scara_gui
-#  CATKIN_DEPENDS other_catkin_pkg
+  LIBRARIES ${PROJECT_NAME}
+  CATKIN_DEPENDS roscpp rqt_gui_cpp std_msgs
 #  DEPENDS system_lib
 )
 
+
+set (rqt_scara_gui_SRCS
+  src/rqt_scara_gui/my_plugin.cpp
+  src/rqt_scara_gui/indicatorlamp.cpp
+)
+
+set(rqt_scara_gui_HDRS
+  include/rqt_scara_gui/my_plugin.h
+  include/rqt_scara_gui/indicatorlamp.h
+)
+
+set(rqt_scara_gui_UIS
+  src/rqt_scara_gui/my_plugin.ui
+)
+
+if("${qt_gui_cpp_USE_QT_MAJOR_VERSION} " STREQUAL "5 ")
+  qt5_wrap_cpp(rqt_scara_gui_MOCS ${rqt_scara_gui_HDRS})
+  qt5_wrap_ui(rqt_scara_gui_UIS_H ${rqt_scara_gui_UIS})
+else()
+  qt4_wrap_cpp(rqt_scara_gui_MOCS ${rqt_scara_gui_HDRS})
+  qt4_wrap_ui(rqt_scara_gui_UIS_H ${rqt_scara_gui_UIS})
+endif()
+file(COPY include/rqt_scara_gui/indicatorlamp.h DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 ###########
 ## Build ##
 ###########
@@ -92,25 +145,35 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-  include ${catkin_INCLUDE_DIRS}
+  include
+  ${CMAKE_CURRENT_BINARY_DIR}/..
+  ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a cpp library
-# add_library(scara_gui
-#   src/${PROJECT_NAME}/scara_gui.cpp
-# )
+add_library(${PROJECT_NAME}
+    ${rqt_scara_gui_SRCS}
+    ${rqt_scara_gui_MOCS}
+    ${rqt_scara_gui_UIS_H}
+    )
 
-## Declare a cpp executable
-# add_executable(scara_gui_node src/scara_gui_node.cpp)
+## Declare a C++ executable
+# add_executable(rqt_example_cpp_node src/rqt_example_cpp_node.cpp)
 
-## Add cmake target dependencies of the executable/library
-## as an example, message headers may need to be generated before nodes
-# add_dependencies(scara_gui_node scara_gui_generate_messages_cpp)
+## Add cmake target dependencies of the executable
+## same as for the library above
+# add_dependencies(rqt_example_cpp_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(scara_gui_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(${PROJECT_NAME}
+  ${catkin_LIBRARIES}
+)
+
+if("${qt_gui_cpp_USE_QT_MAJOR_VERSION} " STREQUAL "5 ")
+  target_link_libraries(${PROJECT_NAME} Qt5::Widgets)
+else()
+  target_link_libraries(${PROJECT_NAME} ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY})
+endif()
 
 #############
 ## Install ##
@@ -127,7 +190,7 @@ include_directories(
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS scara_gui scara_gui_node
+# install(TARGETS rqt_example_cpp rqt_example_cpp_node
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -152,24 +215,10 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_scara_gui.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_rqt_example_cpp.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-find_package(Qt4 COMPONENTS QtCore QtGui REQUIRED)
-include(${QT_USE_FILE})
-add_definitions(${QT_DEFINITIONS})
-add_definitions(-DQT_NO_KEYWORDS)
-
-qt4_wrap_cpp(MOC_FILES myviz.h)
-
-add_executable(scara_gui main.cpp myviz.cpp ${MOC_FILES})
-
-add_dependencies(scara_gui ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(scara_gui
-  ${catkin_LIBRARIES}
-  ${QT_LIBRARIES}
-)

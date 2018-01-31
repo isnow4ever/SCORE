@@ -11,7 +11,7 @@
 		{
 			"taskName": "Debug",
 			"args": [
-				"catkin_make --pkg ipendant -C ${workspaceRoot} -DCMAKE_BUILD_TYPE=Debug"
+				"catkin_make -C ${workspaceRoot} -DCMAKE_BUILD_TYPE=Debug"
 			],
 			"problemMatcher": [
 				{
@@ -106,7 +106,7 @@
 		{
 			"taskName": "Release",
 			"args": [
-				"catkin_make --pkg ipendant -C ${workspaceRoot}"
+				"catkin_make -C ${workspaceRoot}"
 			],
 			"problemMatcher": [
 				{
@@ -202,7 +202,7 @@
 		{
 			"taskName": "Debug (isolated)",
 			"args": [
-				"catkin_make_isolated --pkg ipendant -C ${workspaceRoot} -DCMAKE_BUILD_TYPE=Debug"
+				"catkin_make_isolated -C ${workspaceRoot} -DCMAKE_BUILD_TYPE=Debug"
 			],
 			"problemMatcher": [
 				{
@@ -297,7 +297,7 @@
 		{
 			"taskName": "Release (isolated)",
 			"args": [
-				"catkin_make_isolated --pkg ipendant -C ${workspaceRoot}"
+				"catkin_make_isolated -C ${workspaceRoot}"
 			],
 			"problemMatcher": [
 				{
@@ -772,7 +772,7 @@
 		{
 			"taskName": "Debug (catkin)",
 			"args": [
-				"catkin build ipendant -w ${workspaceRoot} -DCMAKE_BUILD_TYPE=Debug"
+				"catkin build -w ${workspaceRoot} -DCMAKE_BUILD_TYPE=Debug"
 			],
 			"problemMatcher": [
 				{
@@ -867,7 +867,7 @@
 		{
 			"taskName": "Release (catkin)",
 			"args": [
-				"catkin build ipendant -w ${workspaceRoot}"
+				"catkin build -w ${workspaceRoot}"
 			],
 			"problemMatcher": [
 				{
