@@ -17,6 +17,7 @@
 #include <rqt_gui_cpp/plugin.h>
 #include <scara_gui/ui_my_plugin.h>
 #include <QWidget>
+#include <QMessageBox>
 
 namespace rqt_scara_gui
 {
@@ -38,12 +39,17 @@ public:
   // bool hasConfiguration() const;
   // void triggerConfiguration();
 
+
+
   void jointStateCallback(const sensor_msgs::JointState& msg);
-  void robotStateCallback(const std_msgs::Bool& msg);
+  void robotStateCallback(const std_msgs::Byte& msg);
   void errorStateCallback(const std_msgs::String& msg);
 
   //void testNodeCallback(const std_msgs::String msg); //test node
-
+protected slots:
+  void alarm_clear();
+  void servo_ON();
+  void servo_OFF();
 private:
   Ui::MyPluginWidget ui_;
   QWidget* widget_;
@@ -51,11 +57,19 @@ private:
   ros::Subscriber joint_state_subscriber;
   ros::Subscriber error_state_subscriber;
   ros::Subscriber robot_state_subscriber;
+
   ros::Publisher alarm_clear_publisher;
+  ros::Publisher servo_switch_publisher;
 
   tf::StampedTransform transform;
 
   //ros::Subscriber test_node_subscriber;  //test node
+
+  bool robot_running;
+  bool servo_state;
+  bool error_state;
+  bool enable_state;
+  bool com_state;
 };
 }  // namespace rqt_scara_gui
 #endif  // RQT_SCARA_GUI_MY_PLUGIN_H
