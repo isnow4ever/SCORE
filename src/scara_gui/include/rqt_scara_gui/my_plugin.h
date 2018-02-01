@@ -40,6 +40,8 @@ public:
 
   void newDataCallback(const sensor_msgs::JointState& msg);
 
+  void testNodeCallback(const std_msgs::String msg);
+
 private:
   Ui::MyPluginWidget ui_;
   QWidget* widget_;
@@ -48,6 +50,8 @@ private:
   ros::Subscriber err_states_subscriber;
   ros::Subscriber running_states_subscriber;
   ros::Publisher alarm_clear_publisher;
+
+  ros::Subscriber test_node_subscriber;
 };
 }  // namespace rqt_scara_gui
 #endif  // RQT_SCARA_GUI_MY_PLUGIN_H

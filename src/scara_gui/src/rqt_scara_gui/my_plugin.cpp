@@ -11,6 +11,11 @@ namespace rqt_scara_gui
 {
 
 // Callbacks
+void MyPlugin::testNodeCallback(const std_msgs::String msg)
+{
+  ui_.jointState_1->setText(QString::fromStdString(msg.data.c_str()));
+}
+
 void MyPlugin::newDataCallback(const sensor_msgs::JointState& msg)
 {
   ui_.jointState_1->setText(QString::number(msg.position.at(0), 10, 2));
@@ -47,6 +52,7 @@ void MyPlugin::initPlugin(qt_gui_cpp::PluginContext& context)
 
   // Subscribe to new data
   joint_states_subscriber = getNodeHandle().subscribe ("/joint_states", 1, &rqt_scara_gui::MyPlugin::newDataCallback, this);
+  test_node_subscriber = getNodeHandle().subscribe ("/chatter", 3, &rqt_scara_gui::MyPlugin::testNodeCallback, this);
 }
 
 void MyPlugin::shutdownPlugin()

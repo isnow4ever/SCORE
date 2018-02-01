@@ -145,6 +145,7 @@ file(COPY include/rqt_scara_gui/indicatorlamp.h DESTINATION ${CMAKE_CURRENT_BINA
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
+  include ${catkin_INCLUDE_DIRS}
   include
   ${CMAKE_CURRENT_BINARY_DIR}/..
   ${catkin_INCLUDE_DIRS}
@@ -222,3 +223,20 @@ endif()
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+
+add_executable(test_node_pub
+  src/test_node_pub.cpp
+)
+add_dependencies(test_node_pub ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(test_node_pub
+  ${catkin_LIBRARIES}
+)
+
+add_executable(test_node_sub
+  src/test_node_sub.cpp
+)
+add_dependencies(test_node_sub ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(test_node_sub
+  ${catkin_LIBRARIES}
+)
