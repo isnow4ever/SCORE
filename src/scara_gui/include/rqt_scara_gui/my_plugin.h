@@ -38,20 +38,24 @@ public:
   // bool hasConfiguration() const;
   // void triggerConfiguration();
 
-  void newDataCallback(const sensor_msgs::JointState& msg);
+  void jointStateCallback(const sensor_msgs::JointState& msg);
+  void robotStateCallback(const std_msgs::Bool& msg);
+  void errorStateCallback(const std_msgs::String& msg);
 
-  void testNodeCallback(const std_msgs::String msg);
+  //void testNodeCallback(const std_msgs::String msg); //test node
 
 private:
   Ui::MyPluginWidget ui_;
   QWidget* widget_;
 
-  ros::Subscriber joint_states_subscriber;
-  ros::Subscriber err_states_subscriber;
-  ros::Subscriber running_states_subscriber;
+  ros::Subscriber joint_state_subscriber;
+  ros::Subscriber error_state_subscriber;
+  ros::Subscriber robot_state_subscriber;
   ros::Publisher alarm_clear_publisher;
 
-  ros::Subscriber test_node_subscriber;
+  tf::StampedTransform transform;
+
+  //ros::Subscriber test_node_subscriber;  //test node
 };
 }  // namespace rqt_scara_gui
 #endif  // RQT_SCARA_GUI_MY_PLUGIN_H

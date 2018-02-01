@@ -11,19 +11,49 @@ namespace rqt_scara_gui
 {
 
 // Callbacks
-void MyPlugin::testNodeCallback(const std_msgs::String msg)
-{
-  ui_.jointState_1->setText(QString::fromStdString(msg.data.c_str()));
-}
 
-void MyPlugin::newDataCallback(const sensor_msgs::JointState& msg)
+//**********testnode***********//
+
+// void MyPlugin::testNodeCallback(const std_msgs::String msg)
+// {
+//   ui_.jointState_1->setText(QString::fromStdString(msg.data.c_str()));
+// }
+
+void MyPlugin::jointStateCallback(const sensor_msgs::JointState& msg)
 {
   ui_.jointState_1->setText(QString::number(msg.position.at(0), 10, 2));
   ui_.jointState_2->setText(QString::number(msg.position.at(1), 10, 2));
   ui_.jointState_3->setText(QString::number(msg.position.at(2), 10, 2));
   ui_.jointState_4->setText(QString::number(msg.position.at(3), 10, 2));
+
+  try
+  {
+    listener.lookupTransform("/root", "/tool", ros::Time(0), transform);
+  }
+  catch (tf::TransformException ex)
+  {
+    ROS_ERROR("%s", ex.what());
+  }
+
+  ui_.cartState_1->setText(QString::number(transform.getOrigin().x() * 1000);
+  ui_.cartState_2->setText(QString::number(transform.getOrigin().y() * 1000);
+  ui_.cartState_3->setText(QString::number(transform.getOrigin().z() * 1000);
 }
 
+
+void robotStateCallback(const std_msgs::Byte& msg)
+{
+  
+  ui_.robotStateLamp->setAlarm(false);
+  ui_.comStateLamp->setAlarm(false);
+  ui_.enableStateLamp->setAlarm(false);
+  ui_.errorStateLamp->setAlarm(true);
+}
+
+void errorStateCallback(const std_msgs::String& msg)
+{
+
+}
 
 MyPlugin::MyPlugin()
   : rqt_gui_cpp::Plugin()
@@ -45,14 +75,22 @@ void MyPlugin::initPlugin(qt_gui_cpp::PluginContext& context)
   ui_.setupUi(widget_);
   // add widget to the user interface
   context.addWidget(widget_);
-  ui_.robotStateLamp->setAlarm(false);
-  ui_.comStateLamp->setAlarm(false);
-  ui_.enableStateLamp->setAlarm(false);
-  ui_.errorStateLamp->setAlarm(true);
 
   // Subscribe to new data
-  joint_states_subscriber = getNodeHandle().subscribe ("/joint_states", 1, &rqt_scara_gui::MyPlugin::newDataCallback, this);
-  test_node_subscriber = getNodeHandle().subscribe ("/chatter", 3, &rqt_scara_gui::MyPlugin::testNodeCallback, this);
+  joint_state_subscriber = getNodeHandle().subscribe ("/joint_states", 1, &rqt_scara_gui::MyPlugin::jointStateCallback, this);
+  //test_node_subscriber = getNodeHandle().subscribe ("/chatter", 3, &rqt_scara_gui::MyPlugin::testNodeCallback, this);
+  robot_state_subscriber = getNodeHandle().subscribe ("/robot_state", 1, &rqt_scara_gui::MyPlugin::robotStateCallback, this);
+  error_state_subscriber = getNodeHandle().subscribe ("/error_state", 1, &rqt_scara_gui::MyPlugin::errorStateCallback, this);
+
+  try
+  {
+    listener.waitForTransform("/root", "/tool", ros::Time (0), ros::Duration(10.0));
+  }
+  catch (tf::TransformException ex)
+  {
+    ROS_ERROR("%s", ex.what());
+  }
+
 }
 
 void MyPlugin::shutdownPlugin()

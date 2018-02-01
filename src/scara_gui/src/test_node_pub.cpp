@@ -1,5 +1,6 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
+#include "sensor_msgs/JointState.h"
 
 #include <sstream>
 
@@ -46,13 +47,30 @@ int main(int argc, char *argv[])
 	 */
 	ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
 
-	ros::Rate loop_rate(1);
+	ros::Publisher jointstate_pub = n.advertise<sensor_msgs::JointState>("/joint_states", 1000);
+
+	ros::Rate loop_rate(10);
+
+
+	sensor_msgs::JointState js;
+
+	js.name.push_back("joint1");
+	js.name.push_back("joint2");
+	js.name.push_back("joint3");
+	js.name.push_back("joint4");
+	
+	for(int i = 0; i < 4; i++)
+	{
+		js.position.push_back(0.0);
+		js.velocity.push_back(0.1);
+		js.effort.push_back(0.3);			
+	}
 
 	/**
 	 * A count of how many messages we have sent. This is used to create
 	 * a unique string for each message.
 	 */
-	int count = 0;
+	double count = 0.1;
 	while (ros::ok())
 	{
 		/**
@@ -64,7 +82,7 @@ int main(int argc, char *argv[])
 		ss << "hello world " << count;
 		msg.data = ss.str();
 
-		ROS_INFO("%s", msg.data.c_str());
+		//ROS_INFO("%s", msg.data.c_str());
 
 		/**
 		 * The publish() function is how you send messages. The parameter
@@ -72,12 +90,31 @@ int main(int argc, char *argv[])
 		 * given as a template parameter to the advertise<>() call, as was done
 		 * in the constructor above.
 		 */
-		chatter_pub.publish(msg);
+		//chatter_pub.publish(msg);
+
+
+
+		for(int i = 0; i < 4; i++)
+		{
+			if(js.position[i] > 100)
+			{
+				js.position[i] = 0.00;
+				count = 0;
+			}
+			js.position[i] = 0.00 + count;
+			count = count + 0.1;			
+		}
+		
+		std::stringstream sss;
+		sss << js.position.at(0) << " " << js.position.at(1) << " " << js.position.at(2) << " " << js.position.at(3) << std::endl;
+		ROS_INFO("%s", sss.str().c_str());
+		jointstate_pub.publish(js);
 
 		ros::spinOnce();
 
 		loop_rate.sleep();
-		++count;
+
+
 	}
 
 	return 0;
