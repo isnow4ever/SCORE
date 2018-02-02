@@ -42,14 +42,19 @@ public:
 
 
   void jointStateCallback(const sensor_msgs::JointState& msg);
-  void robotStateCallback(const std_msgs::Byte& msg);
+  void robotStateCallback(const std_msgs::String& msg);
   void errorStateCallback(const std_msgs::String& msg);
+
+  
+  void comStateCallback(const std_msgs::String& msg);
 
   //void testNodeCallback(const std_msgs::String msg); //test node
 protected slots:
   void alarm_clear();
   void servo_ON();
   void servo_OFF();
+
+  void timerDone();
 private:
   Ui::MyPluginWidget ui_;
   QWidget* widget_;
@@ -61,6 +66,11 @@ private:
   ros::Publisher alarm_clear_publisher;
   ros::Publisher servo_switch_publisher;
 
+  QTimer *timer
+
+  ros::Publisher tp_com_publisher;
+  ros::Subscriber tp_com_subscriber;
+
   tf::StampedTransform transform;
 
   //ros::Subscriber test_node_subscriber;  //test node
@@ -68,7 +78,7 @@ private:
   bool robot_running;
   bool servo_state;
   bool error_state;
-  bool enable_state;
+  bool auto_state;
   bool com_state;
 };
 }  // namespace rqt_scara_gui

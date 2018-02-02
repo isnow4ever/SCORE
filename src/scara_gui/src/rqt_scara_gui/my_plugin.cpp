@@ -48,16 +48,46 @@ void MyPlugin::jointStateCallback(const sensor_msgs::JointState& msg)
 
 void MyPlugin::robotStateCallback(const std_msgs::String& msg)
 {
-  // QString qs = QString::fromStdString(msg.data);
-  // qs.split
-  ui_.robotStateLamp->setAlarm(false);
-  ui_.enableStateLamp->setAlarm(false);
-  ui_.errorStateLamp->setAlarm(true);
+  QString qs = QString::fromStdString(msg.data);
+  QStringList list = qs.split(QRegExp("\\b"));
+
+  QVariant tempValue = list.at(0);
+  robot_running = tempValue.toBool();
+  QVariant tempValue = list.at(1);
+  servo_state = tempValue.toBool();
+  QVariant tempValue = list.at(2);
+  error_state = tempValue.toBool();
+  QVariant tempValue = list.at(3);
+  auto_state = tempValue.toBool();
+
+  ui_.robotStateLamp->setAlarm(robot_running);
+  ui_.autoStateLamp->setAlarm(auto_state);
+  ui_.errorStateLamp->setAlarm(error_state);
+  ui_.servoLamp->setAlarm(servo_state);
 }
 
 void MyPlugin::errorStateCallback(const std_msgs::String& msg)
 {
 
+}
+
+void MyPlugin::timerDone()
+{
+  tp_com_publisher = getNodeHandle().advertise<std_msgs::String>("/tp_com/tx", 1);
+  std_msgs::String cmd;
+  std::stringstream ss;
+  ss << "1";
+  cmd.data = ss.str();
+  tp_com_publisher.publish(cmd);
+
+  com_state = false;
+  ui_->comStateLamp->setAlarm(com_state);
+}
+
+void MyPlugin::comStateCallback(const std_msgs::String& msg)
+{
+  com_state = true;
+  ui_->comStateLamp->setAlarm(com_state);
 }
 
 MyPlugin::MyPlugin()
@@ -83,14 +113,14 @@ void MyPlugin::initPlugin(qt_gui_cpp::PluginContext& context)
 
   ui_.robotStateLamp->setAlarm(false);
   ui_.comStateLamp->setAlarm(false);
-  ui_.enableStateLamp->setAlarm(false);
+  ui_.autoStateLamp->setAlarm(false);
   ui_.errorStateLamp->setAlarm(true);
   ui_.servoLamp->setAlarm(false);
 
   robot_running = false;
   servo_state = false;
   error_state = true;
-  enable_state = false;
+  auto_state = false;
   com_state = false;
 
   QPalette pa;
@@ -102,12 +132,16 @@ void MyPlugin::initPlugin(qt_gui_cpp::PluginContext& context)
   connect(ui_.servoONBtn, SIGNAL(pressed()), this, SLOT(servo_ON()));
   connect(ui_.servoOFFBtn, SIGNAL(pressed()), this, SLOT(servo_OFF()));
   
+  timer = new QTimer( this );
+  connect( timer, SIGNAL(timeout()), this, SLOT(timerDone()));
+  timer->start( 1000, TRUE ); // 2秒单触发定时器
 
   // Subscribe to new data
   joint_state_subscriber = getNodeHandle().subscribe ("/joint_states", 1, &rqt_scara_gui::MyPlugin::jointStateCallback, this);
   //test_node_subscriber = getNodeHandle().subscribe ("/chatter", 3, &rqt_scara_gui::MyPlugin::testNodeCallback, this);
-  robot_state_subscriber = getNodeHandle().subscribe ("/robot_state", 1, &rqt_scara_gui::MyPlugin::robotStateCallback, this);
+  robot_state_subscriber = getNodeHandle().subscribe ("/driver_state", 1, &rqt_scara_gui::MyPlugin::robotStateCallback, this);
   error_state_subscriber = getNodeHandle().subscribe ("/error_state", 1, &rqt_scara_gui::MyPlugin::errorStateCallback, this);
+  tp_com_subscriber = getNodeHandle().subscribe ("/tp_com/rx", 1, &rqt_scara_gui::MyPlugin::comStateCallback, this);
 
   alarm_clear_publisher = getNodeHandle().advertise<std_msgs::String>("/alarm_clear", 1);
   servo_switch_publisher = getNodeHandle().advertise<std_msgs::String>("/servo_command", 1);

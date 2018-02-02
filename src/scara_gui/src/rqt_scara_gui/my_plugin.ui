@@ -68,7 +68,7 @@
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QcwIndicatorLamp" name="enableStateLamp" native="true">
+         <widget class="QcwIndicatorLamp" name="autoStateLamp" native="true">
           <property name="alarm" stdset="0">
            <bool>true</bool>
           </property>
@@ -104,7 +104,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QLabel" name="enableStateLabel">
+         <widget class="QLabel" name="autoStateLabel">
           <property name="font">
            <font>
             <family>Ubuntu Mono</family>
@@ -114,7 +114,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Enable State</string>
+           <string>Auto State</string>
           </property>
          </widget>
         </item>
