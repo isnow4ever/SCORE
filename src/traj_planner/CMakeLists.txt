@@ -1,181 +1,108 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(traj_planner)
+set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_MODULE_PATH $(CMAKE_MODULE_PATH) "/home/lgl/master/SCARA/xCLib/src")
+find_package(catkin REQUIRED roscpp std_msgs moveit_ros_planning_interface tf)
 
-## Find catkin macros and libraries
-## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
-## is used, also find other catkin packages
-find_package(catkin REQUIRED)
+find_package(cmake_modules REQUIRED)
 
-## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package(Eigen REQUIRED)
+find_package(Boost REQUIRED regex)
+find_package(xC    REQUIRED)
+find_package(xCDev REQUIRED)
+find_package(Qt4   REQUIRED)
+
+#############
+##  catkin  #
+#############
+catkin_package()
+
+#############
+## includes #
+#############
+include(${QT_USE_FILE})
+include_directories(include)
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+include_directories(${catkin_INCLUDE_DIRS})
+include_directories(${EIGEN_INCLUDE_DIR})
+include_directories(${Boost_INCLUDE_DIRS})
+include_directories(${XC_INCLUDE_DIRS})
+include_directories(${XCDEV_INCLUDE_DIRS})
+
+link_directories(${XC_LIBRARY_PATH})
+link_directories(${XCBRIDGE_LIBRARY_PATH})
+link_directories(${XCDEV_LIBRARY_PATH})
+
+#############
+##   GUI   ##
+#############
+#QT4_WRAP_UI(INTERFACE_UI_HDRS src/interface_dialog.ui)
+#QT4_WRAP_CPP(INTERFACE_MOC_SRCS src/interface_dialog.h)
+
+#QT4_WRAP_UI(COORDINATOR_UI_HDRS src/coordinator_dialog.ui)
+#QT4_WRAP_CPP(COORDINATOR_MOC_SRCS src/coordinator_dialog.h)
+
+#############
+##  Build  ##
+#############
+#add_executable(interface src/interface.cpp src/spline.cpp src/constants.h)
+#target_link_libraries(interface ${XC_LIBRARIES} ${XCDEV_LIBRARIES} ${catkin_LIBRARIES})
+
+add_executable(coordinator src/coordinator.cpp src/constants.h)
+target_link_libraries(coordinator ${catkin_LIBRARIES} ${XC_LIBRARIES} ${Boost_LIBRARIES})
+
+#add_executable(calibration src/calibration.cpp src/constants.h)
+#target_link_libraries(calibration ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
 
-## Uncomment this if the package has a setup.py. This macro ensures
-## modules and global scripts declared therein get installed
-## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
-# catkin_python_setup()
+#add_executable(recorder src/recorder.cpp src/constants.h)
+#target_link_libraries(recorder ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
-################################################
-## Declare ROS messages, services and actions ##
-################################################
+#add_executable(coordinator src/coordinator.cpp src/constants.h)
+#target_link_libraries(coordinator ${catkin_LIBRARIES} ${XC_LIBRARIES} ${Boost_LIBRARIES})
 
-## To declare and build messages, services or actions from within this
-## package, follow these steps:
-## * Let MSG_DEP_SET be the set of packages whose message types you use in
-##   your messages/services/actions (e.g. std_msgs, actionlib_msgs, ...).
-## * In the file package.xml:
-##   * add a build_depend tag for "message_generation"
-##   * add a build_depend and a run_depend tag for each package in MSG_DEP_SET
-##   * If MSG_DEP_SET isn't empty the following dependency has been pulled in
-##     but can be declared for certainty nonetheless:
-##     * add a run_depend tag for "message_runtime"
-## * In this file (CMakeLists.txt):
-##   * add "message_generation" and every package in MSG_DEP_SET to
-##     find_package(catkin REQUIRED COMPONENTS ...)
-##   * add "message_runtime" and every package in MSG_DEP_SET to
-##     catkin_package(CATKIN_DEPENDS ...)
-##   * uncomment the add_*_files sections below as needed
-##     and list every .msg/.srv/.action file to be processed
-##   * uncomment the generate_messages entry below
-##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
+#add_executable(gui_interface src/interface_gui.cpp src/interface_dialog.cpp ${INTERFACE_UI_HDRS} ${INTERFACE_MOC_SRCS})
+#target_link_libraries(gui_interface ${Boost_LIBRARIES} ${catkin_LIBRARIES} ${QT_LIBRARIES} )
 
-## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+#add_executable(gui_coordinator src/coordinator_gui.cpp src/coordinator_dialog.cpp ${COORDINATOR_UI_HDRS} ${COORDINATOR_MOC_SRCS})
+#target_link_libraries(gui_coordinator ${Boost_LIBRARIES} ${catkin_LIBRARIES} ${QT_LIBRARIES} )
 
-## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+#add_executable(x50_simulator src/simulator.cpp)
+#target_link_libraries(x50_simulator ${XCDEV_LIBRARIES} ${catkin_LIBRARIES})
 
-## Generate actions in the 'action' folder
-# add_action_files(
-#   FILES
-#   Action1.action
-#   Action2.action
-# )
+#add_executable(x50_controller src/controller.cpp)
+#target_link_libraries(x50_controller ${XCDEV_LIBRARIES} ${catkin_LIBRARIES})
 
-## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
-# )
 
-################################################
-## Declare ROS dynamic reconfigure parameters ##
-################################################
+#add_executable(x50_planner src/planner.cpp src/constants.h)
+#target_link_libraries(x50_planner ${catkin_LIBRARIES})
 
-## To declare and build dynamic reconfigure parameters within this
-## package, follow these steps:
-## * In the file package.xml:
-##   * add a build_depend and a run_depend tag for "dynamic_reconfigure"
-## * In this file (CMakeLists.txt):
-##   * add "dynamic_reconfigure" to
-##     find_package(catkin REQUIRED COMPONENTS ...)
-##   * uncomment the "generate_dynamic_reconfigure_options" section below
-##     and list every .cfg file to be processed
+#add_executable(scene_operator src/_scene_operator.cpp)
+#target_link_libraries(scene_operator  ${catkin_LIBRARIES})
 
-## Generate dynamic reconfigure parameters in the 'cfg' folder
-# generate_dynamic_reconfigure_options(
-#   cfg/DynReconf1.cfg
-#   cfg/DynReconf2.cfg
-# )
-
-###################################
-## catkin specific configuration ##
-###################################
-## The catkin_package macro generates cmake config files for your package
-## Declare things to be passed to dependent projects
-## INCLUDE_DIRS: uncomment this if you package contains header files
-## LIBRARIES: libraries you create in this project that dependent projects also need
-## CATKIN_DEPENDS: catkin_packages dependent projects also need
-## DEPENDS: system dependencies of this project that dependent projects also need
-catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES traj_planner
-#  CATKIN_DEPENDS other_catkin_pkg
-#  DEPENDS system_lib
-)
-
-###########
-## Build ##
-###########
-
-## Specify additional locations of header files
-## Your package locations should be listed before other locations
-# include_directories(include)
-
-## Declare a C++ library
-# add_library(traj_planner
-#   src/${PROJECT_NAME}/traj_planner.cpp
-# )
-
-## Add cmake target dependencies of the library
-## as an example, code may need to be generated before libraries
-## either from message generation or dynamic reconfigure
-# add_dependencies(traj_planner ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-
-## Declare a C++ executable
-# add_executable(traj_planner_node src/traj_planner_node.cpp)
-
-## Add cmake target dependencies of the executable
-## same as for the library above
-# add_dependencies(traj_planner_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-
-## Specify libraries to link a library or executable target against
-# target_link_libraries(traj_planner_node
-#   ${catkin_LIBRARIES}
-# )
+#add_executable(x50_pipline src/_pipline.cpp)
+#target_link_libraries(x50_pipline  ${catkin_LIBRARIES})
 
 #############
 ## Install ##
 #############
+#install(TARGETS interface
+#        ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#        LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#        RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+#       )
 
-# all install targets should use catkin DESTINATION variables
-# See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
+#install(TARGETS coordinator
+#        ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#        LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#        RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+#       )
 
-## Mark executable scripts (Python etc.) for installation
-## in contrast to setup.py, you can choose the destination
-# install(PROGRAMS
-#   scripts/my_python_script
-#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+#install(DIRECTORY include/ ${PROJECT_NAME}/
+#        DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+#        FILES_MATCHING PATTERN "*.h"
+#        PATTERN ".svn" EXCLUDE
+#       )
 
-## Mark executables and/or libraries for installation
-# install(TARGETS traj_planner traj_planner_node
-#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
-
-## Mark cpp header files for installation
-# install(DIRECTORY include/${PROJECT_NAME}/
-#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-#   FILES_MATCHING PATTERN "*.h"
-#   PATTERN ".svn" EXCLUDE
-# )
-
-## Mark other files for installation (e.g. launch and bag files, etc.)
-# install(FILES
-#   # myfile1
-#   # myfile2
-#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-# )
-
-#############
-## Testing ##
-#############
-
-## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_traj_planner.cpp)
-# if(TARGET ${PROJECT_NAME}-test)
-#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
-# endif()
-
-## Add folders to be run by python nosetests
-# catkin_add_nosetests(test)
+#install(DIRECTORY launch DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+#install(DIRECTORY config DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
