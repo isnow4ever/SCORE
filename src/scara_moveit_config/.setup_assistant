@@ -1,0 +1,10 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: description
+    relative_path: urdf/scara.urdf
+  SRDF:
+    relative_path: config/scara.srdf
+  CONFIG:
+    author_name: lgl
+    author_email: 1583077452@qq.com
+    generated_timestamp: 1517580095
