@@ -1,0 +1,8 @@
+prefix=/usr/local
+
+Name: traj_planner
+Description: Description of traj_planner
+Version: 0.2.1
+Cflags: 
+Libs: -L/usr/local/lib 
+Requires: 
