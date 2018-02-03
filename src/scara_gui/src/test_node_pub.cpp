@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 	 * than we can send them, the number here specifies how many messages to
 	 * buffer up before throwing some away.
 	 */
-	ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000);
+	ros::Publisher chatter_pub = n.advertise<std_msgs::String>("/tp_com/rx", 1000);
 
 	ros::Publisher jointstate_pub = n.advertise<sensor_msgs::JointState>("/joint_states", 1000);
 
@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
 		ss << "hello world " << count;
 		msg.data = ss.str();
 
-		//ROS_INFO("%s", msg.data.c_str());
+		ROS_INFO("%s", msg.data.c_str());
 
 		/**
 		 * The publish() function is how you send messages. The parameter
@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
 		 * given as a template parameter to the advertise<>() call, as was done
 		 * in the constructor above.
 		 */
-		//chatter_pub.publish(msg);
+		chatter_pub.publish(msg);
 
 
 

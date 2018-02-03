@@ -18,6 +18,8 @@
 #include <scara_gui/ui_my_plugin.h>
 #include <QWidget>
 #include <QMessageBox>
+#include <QTimer>
+#include <QVariant>
 
 namespace rqt_scara_gui
 {
@@ -44,7 +46,6 @@ public:
   void jointStateCallback(const sensor_msgs::JointState& msg);
   void robotStateCallback(const std_msgs::String& msg);
   void errorStateCallback(const std_msgs::String& msg);
-
   
   void comStateCallback(const std_msgs::String& msg);
 
@@ -66,7 +67,7 @@ private:
   ros::Publisher alarm_clear_publisher;
   ros::Publisher servo_switch_publisher;
 
-  QTimer *timer
+  QTimer *timer;
 
   ros::Publisher tp_com_publisher;
   ros::Subscriber tp_com_subscriber;
@@ -80,6 +81,7 @@ private:
   bool error_state;
   bool auto_state;
   bool com_state;
+  int com_state_retry_counts;
 };
 }  // namespace rqt_scara_gui
 #endif  // RQT_SCARA_GUI_MY_PLUGIN_H

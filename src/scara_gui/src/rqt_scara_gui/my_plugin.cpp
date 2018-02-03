@@ -4,9 +4,9 @@
 
 #include "rqt_scara_gui/my_plugin.h"
 #include <pluginlib/class_list_macros.h>
-#include <QStringList>
 #include "rqt_scara_gui/indicatorlamp.h"
 
+#include <QStringList>
 
 #include <tf/transform_listener.h>
 #include <tf/LinearMath/Matrix3x3.h>
@@ -51,14 +51,10 @@ void MyPlugin::robotStateCallback(const std_msgs::String& msg)
   QString qs = QString::fromStdString(msg.data);
   QStringList list = qs.split(QRegExp("\\b"));
 
-  QVariant tempValue = list.at(0);
-  robot_running = tempValue.toBool();
-  QVariant tempValue = list.at(1);
-  servo_state = tempValue.toBool();
-  QVariant tempValue = list.at(2);
-  error_state = tempValue.toBool();
-  QVariant tempValue = list.at(3);
-  auto_state = tempValue.toBool();
+  robot_running = QVariant::fromValue(list.at(0)).toBool();
+  servo_state = QVariant::fromValue(list.at(1)).toBool();
+  error_state = QVariant::fromValue(list.at(2)).toBool();
+  auto_state = QVariant::fromValue(list.at(3)).toBool();
 
   ui_.robotStateLamp->setAlarm(robot_running);
   ui_.autoStateLamp->setAlarm(auto_state);
@@ -68,7 +64,8 @@ void MyPlugin::robotStateCallback(const std_msgs::String& msg)
 
 void MyPlugin::errorStateCallback(const std_msgs::String& msg)
 {
-
+  QString str = QString::fromStdString(msg.data);
+  ui_.lcdNumber->display(str.toDouble());
 }
 
 void MyPlugin::timerDone()
@@ -80,14 +77,26 @@ void MyPlugin::timerDone()
   cmd.data = ss.str();
   tp_com_publisher.publish(cmd);
 
-  com_state = false;
-  ui_->comStateLamp->setAlarm(com_state);
+  if(com_state_retry_counts == 4)
+  {
+    com_state = false;
+    ui_.comStateLamp->setAlarm(com_state);
+    QMessageBox::warning(NULL, "warning", "TP is disconnected.", QMessageBox::Ok);
+  }
+
+  com_state_retry_counts++;
+  return;
 }
 
 void MyPlugin::comStateCallback(const std_msgs::String& msg)
 {
   com_state = true;
-  ui_->comStateLamp->setAlarm(com_state);
+  ui_.comStateLamp->setAlarm(com_state);
+  if(com_state_retry_counts >= 2)
+  {
+    com_state_retry_counts = 0;
+  }
+
 }
 
 MyPlugin::MyPlugin()
@@ -95,6 +104,7 @@ MyPlugin::MyPlugin()
   , widget_(0)
 {
   // Constructor is called first before initPlugin function, needless to say.
+
 
   // give QObjects reasonable names
   setObjectName("MyPlugin");
@@ -122,6 +132,7 @@ void MyPlugin::initPlugin(qt_gui_cpp::PluginContext& context)
   error_state = true;
   auto_state = false;
   com_state = false;
+  com_state_retry_counts = 0;
 
   QPalette pa;
   pa.setColor(QPalette::WindowText,Qt::red);
@@ -131,10 +142,11 @@ void MyPlugin::initPlugin(qt_gui_cpp::PluginContext& context)
   connect(ui_.alarmClearBtn, SIGNAL(pressed()), this, SLOT(alarm_clear()));
   connect(ui_.servoONBtn, SIGNAL(pressed()), this, SLOT(servo_ON()));
   connect(ui_.servoOFFBtn, SIGNAL(pressed()), this, SLOT(servo_OFF()));
-  
-  timer = new QTimer( this );
-  connect( timer, SIGNAL(timeout()), this, SLOT(timerDone()));
-  timer->start( 1000, TRUE ); // 2秒单触发定时器
+
+
+  QTimer *timer = new QTimer(this);
+  connect(timer, SIGNAL(timeout()), this, SLOT(timerDone()));
+  timer->start(500);
 
   // Subscribe to new data
   joint_state_subscriber = getNodeHandle().subscribe ("/joint_states", 1, &rqt_scara_gui::MyPlugin::jointStateCallback, this);
@@ -162,6 +174,8 @@ void MyPlugin::initPlugin(qt_gui_cpp::PluginContext& context)
 void MyPlugin::shutdownPlugin()
 {
   // unregister all publishers here
+  timer->stop();
+  delete timer;
 }
 
 void MyPlugin::saveSettings(qt_gui_cpp::Settings& plugin_settings,
@@ -200,7 +214,7 @@ void MyPlugin::alarm_clear()
     count++;
   }
   if((error_state)&&(count >= 5))
-    QMessageBox::warning(NULL, "warning", "Cannot Clear Driver's Errors", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+    QMessageBox::warning(NULL, "warning", "Cannot Clear Driver's Errors", QMessageBox::Ok);
 }
 
 void MyPlugin::servo_ON()
@@ -217,7 +231,7 @@ void MyPlugin::servo_ON()
     count++;
   }
   if((!servo_state)&&(count >= 5))
-    QMessageBox::warning(NULL, "warning", "Cannot SERVO ON", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+    QMessageBox::warning(NULL, "warning", "Cannot SERVO ON", QMessageBox::Ok);
 }
 
 void MyPlugin::servo_OFF()
@@ -234,7 +248,7 @@ void MyPlugin::servo_OFF()
     count++;
   }
   if((servo_state)&&(count >= 5))
-    QMessageBox::warning(NULL, "warning", "Cannot SERVO OFF", QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+    QMessageBox::warning(NULL, "warning", "Cannot SERVO OFF", QMessageBox::Ok);
 }
 
 }  // namespace rqt_example_cpp
