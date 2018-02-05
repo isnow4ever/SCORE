@@ -56,6 +56,10 @@ MainWindow::MainWindow(QWidget *parent) :
     QObject::connect(working_thread, SIGNAL(comON()),                   this, SLOT(comON()));
     QObject::connect(working_thread, SIGNAL(comOFF()),                  this, SLOT(comOFF()));
 
+    //Auto state
+    QObject::connect(working_thread, SIGNAL(autoModeON()),              this, SLOT(autoModeON()));
+    QObject::connect(working_thread, SIGNAL(autoModeOFF()),             this, SLOT(autoModeOFF()));
+
     //Joystick state
     QObject::connect(working_thread, SIGNAL(joystickChange()),          this, SLOT(joystickChange()));
 
@@ -136,6 +140,17 @@ void MainWindow::isMoving()
 void MainWindow::isStable()
 {
     ui->robotStateLamp->setAlarm(1);
+}
+
+void MainWindow::autoModeON()
+{
+    ui->content->setCurrentIndex(3);
+}
+
+void MainWindow::autoModeOFF()
+{
+    ui->content->setCurrentIndex(2);
+    working_thread->states->imode == STANDBY;
 }
 
 /*****************************************************************************
@@ -261,8 +276,8 @@ void MainWindow::on_manualMenu_1_pressed()
     ui->jointStateLabel_2->setText("Joint 2 : ");
     ui->jointStateLabel_3->setText("Joint 3 : ");
     ui->jointStateLabel_4->setText("Joint 4 : ");
-    ui->jointStateLabel_5->setText("Joint 5 : ");
-    ui->jointStateLabel_6->setText("Joint 6 : ");
+    // ui->jointStateLabel_5->setText("Joint 5 : ");
+    // ui->jointStateLabel_6->setText("Joint 6 : ");
 }
 
 void MainWindow::on_manualMenu_2_clicked()
@@ -282,8 +297,8 @@ void MainWindow::on_manualMenu_3_pressed()
     ui->jointStateLabel_2->setText("Y axis  : ");
     ui->jointStateLabel_3->setText("Z axis  : ");
     ui->jointStateLabel_4->setText("Roll    : ");
-    ui->jointStateLabel_5->setText("Pitch   : ");
-    ui->jointStateLabel_6->setText("Yaw     : ");
+    // ui->jointStateLabel_5->setText("Pitch   : ");
+    // ui->jointStateLabel_6->setText("Yaw     : ");
 }
 
 void MainWindow::on_manualMenu_4_pressed()
@@ -297,8 +312,8 @@ void MainWindow::on_manualMenu_4_pressed()
     ui->jointStateLabel_2->setText("Y axis  : ");
     ui->jointStateLabel_3->setText("Z axis  : ");
     ui->jointStateLabel_4->setText("Roll    : ");
-    ui->jointStateLabel_5->setText("Pitch   : ");
-    ui->jointStateLabel_6->setText("Yaw     : ");
+    // ui->jointStateLabel_5->setText("Pitch   : ");
+    // ui->jointStateLabel_6->setText("Yaw     : ");
 }
 
 void MainWindow::on_manualMenu_5_pressed()
@@ -313,8 +328,8 @@ void MainWindow::on_manualMenu_5_pressed()
     ui->jointStateLabel_2->setText("Y axis  : ");
     ui->jointStateLabel_3->setText("Z axis  : ");
     ui->jointStateLabel_4->setText("Roll    : ");
-    ui->jointStateLabel_5->setText("Pitch   : ");
-    ui->jointStateLabel_6->setText("Yaw     : ");
+    // ui->jointStateLabel_5->setText("Pitch   : ");
+    // ui->jointStateLabel_6->setText("Yaw     : ");
 }
 
 /*********************
@@ -393,21 +408,21 @@ void MainWindow::on_disabledButton_4_pressed()
         working_thread->states->joint_disabled_state[3] = true;
 }
 
-void MainWindow::on_disabledButton_5_pressed()
-{
-    if(working_thread->states->joint_disabled_state[4] == true)
-        working_thread->states->joint_disabled_state[4] = false;
-    else
-        working_thread->states->joint_disabled_state[4] = true;
-}
+// void MainWindow::on_disabledButton_5_pressed()
+// {
+//     if(working_thread->states->joint_disabled_state[4] == true)
+//         working_thread->states->joint_disabled_state[4] = false;
+//     else
+//         working_thread->states->joint_disabled_state[4] = true;
+// }
 
-void MainWindow::on_disabledButton_6_pressed()
-{
-    if(working_thread->states->joint_disabled_state[5] == true)
-        working_thread->states->joint_disabled_state[5] = false;
-    else
-        working_thread->states->joint_disabled_state[5] = true;
-}
+// void MainWindow::on_disabledButton_6_pressed()
+// {
+//     if(working_thread->states->joint_disabled_state[5] == true)
+//         working_thread->states->joint_disabled_state[5] = false;
+//     else
+//         working_thread->states->joint_disabled_state[5] = true;
+// }
 
 void MainWindow::on_disabledButton_7_pressed()
 {
@@ -441,21 +456,21 @@ void MainWindow::on_disabledButton_10_pressed()
         working_thread->states->cartesian_disabled_state[3] = true;
 }
 
-void MainWindow::on_disabledButton_11_pressed()
-{
-    if(working_thread->states->cartesian_disabled_state[4] == true)
-        working_thread->states->cartesian_disabled_state[4] = false;
-    else
-        working_thread->states->cartesian_disabled_state[4] = true;
-}
+// void MainWindow::on_disabledButton_11_pressed()
+// {
+//     if(working_thread->states->cartesian_disabled_state[4] == true)
+//         working_thread->states->cartesian_disabled_state[4] = false;
+//     else
+//         working_thread->states->cartesian_disabled_state[4] = true;
+// }
 
-void MainWindow::on_disabledButton_12_pressed()
-{
-    if(working_thread->states->cartesian_disabled_state[5] == true)
-        working_thread->states->cartesian_disabled_state[5] = false;
-    else
-        working_thread->states->cartesian_disabled_state[5] = true;
-}
+// void MainWindow::on_disabledButton_12_pressed()
+// {
+//     if(working_thread->states->cartesian_disabled_state[5] == true)
+//         working_thread->states->cartesian_disabled_state[5] = false;
+//     else
+//         working_thread->states->cartesian_disabled_state[5] = true;
+// }
 
 /*********************
     ** ManualMode Button
@@ -464,6 +479,12 @@ void MainWindow::on_manual_button_pressed()
 {
     if(working_thread->states->imode == STANDBY)
     {
+        if(working_thread->controller_states->auto_state == true)
+        {
+            notificationDialog->setNotification("Manual Mode is Needed!");
+            notificationDialog->show();
+            return;
+        }
         working_thread->states->imode = MANUAL;
         ui->contextMenu->setEnabled(0);
         ui->manualContext->setEnabled(0);
@@ -945,14 +966,14 @@ void MainWindow::newProj(const QString projName)//newProj slot.
         ui->setCmd_pos_4->setText(QString::number(projName.toDouble()));
         setCommand->motion_params[3] = projName.toDouble();
         break;
-    case 75:
-        ui->setCmd_pos_5->setText(QString::number(projName.toDouble()));
-        setCommand->motion_params[4] = projName.toDouble();
-        break;
-    case 76:
-        ui->setCmd_pos_6->setText(QString::number(projName.toDouble()));
-        setCommand->motion_params[5] = projName.toDouble();
-        break;
+    // case 75:
+    //     ui->setCmd_pos_5->setText(QString::number(projName.toDouble()));
+    //     setCommand->motion_params[4] = projName.toDouble();
+    //     break;
+    // case 76:
+    //     ui->setCmd_pos_6->setText(QString::number(projName.toDouble()));
+    //     setCommand->motion_params[5] = projName.toDouble();
+    //     break;
     default:
         break;
     }
@@ -1471,6 +1492,12 @@ void MainWindow::on_playbackButton_2_clicked()//step
 
 void MainWindow::on_playbackButton_3_clicked()//cycle
 {
+    if(working_thread->controller_states->auto_state == false)
+    {
+        notificationDialog->setNotification("Auto Mode is Needed!");
+        notificationDialog->show();
+        return;
+    }
 //    if (!cycleToggle) {
         cycleTimes = ui->cycleSpinBox->text().toInt();
 //        cycleToggle = true;
@@ -1937,22 +1964,22 @@ void MainWindow::update_robot_states()
     ui->stateInJ_2->setText(QString::number(working_thread->params->joint_state.at(1), 10, 2));
     ui->stateInJ_3->setText(QString::number(working_thread->params->joint_state.at(2), 10, 2));
     ui->stateInJ_4->setText(QString::number(working_thread->params->joint_state.at(3), 10, 2));
-    ui->stateInJ_5->setText(QString::number(working_thread->params->joint_state.at(4), 10, 2));
-    ui->stateInJ_6->setText(QString::number(working_thread->params->joint_state.at(5), 10, 2));
+    // ui->stateInJ_5->setText(QString::number(working_thread->params->joint_state.at(4), 10, 2));
+    // ui->stateInJ_6->setText(QString::number(working_thread->params->joint_state.at(5), 10, 2));
 
     ui->stateInB_1->setText(QString::number(working_thread->params->cartesian_state.at(0), 10, 2));
     ui->stateInB_2->setText(QString::number(working_thread->params->cartesian_state.at(1), 10, 2));
     ui->stateInB_3->setText(QString::number(working_thread->params->cartesian_state.at(2), 10, 2));
     ui->stateInB_4->setText(QString::number(working_thread->params->cartesian_state.at(3), 10, 2));
-    ui->stateInB_5->setText(QString::number(working_thread->params->cartesian_state.at(4), 10, 2));
-    ui->stateInB_6->setText(QString::number(working_thread->params->cartesian_state.at(5), 10, 2));
+    // ui->stateInB_5->setText(QString::number(working_thread->params->cartesian_state.at(4), 10, 2));
+    // ui->stateInB_6->setText(QString::number(working_thread->params->cartesian_state.at(5), 10, 2));
 
     ui->stateInU_1->setText(QString::number(working_thread->params->cartesian_state_in_U.at(0), 10, 2));
     ui->stateInU_2->setText(QString::number(working_thread->params->cartesian_state_in_U.at(1), 10, 2));
     ui->stateInU_3->setText(QString::number(working_thread->params->cartesian_state_in_U.at(2), 10, 2));
     ui->stateInU_4->setText(QString::number(working_thread->params->cartesian_state_in_U.at(3), 10, 2));
-    ui->stateInU_5->setText(QString::number(working_thread->params->cartesian_state_in_U.at(4), 10, 2));
-    ui->stateInU_6->setText(QString::number(working_thread->params->cartesian_state_in_U.at(5), 10, 2));
+    // ui->stateInU_5->setText(QString::number(working_thread->params->cartesian_state_in_U.at(4), 10, 2));
+    // ui->stateInU_6->setText(QString::number(working_thread->params->cartesian_state_in_U.at(5), 10, 2));
 
     switch (robot_state_disp) {
     case SHOW_JOINTS:
@@ -1960,24 +1987,24 @@ void MainWindow::update_robot_states()
         ui->robotState_2->setText(QString::number(working_thread->params->joint_state.at(1), 10, 2));
         ui->robotState_3->setText(QString::number(working_thread->params->joint_state.at(2), 10, 2));
         ui->robotState_4->setText(QString::number(working_thread->params->joint_state.at(3), 10, 2));
-        ui->robotState_5->setText(QString::number(working_thread->params->joint_state.at(4), 10, 2));
-        ui->robotState_6->setText(QString::number(working_thread->params->joint_state.at(5), 10, 2));
+        // ui->robotState_5->setText(QString::number(working_thread->params->joint_state.at(4), 10, 2));
+        // ui->robotState_6->setText(QString::number(working_thread->params->joint_state.at(5), 10, 2));
         break;
     case SHOW_BASE:
         ui->robotState_1->setText(QString::number(working_thread->params->cartesian_state.at(0), 10, 2));
         ui->robotState_2->setText(QString::number(working_thread->params->cartesian_state.at(1), 10, 2));
         ui->robotState_3->setText(QString::number(working_thread->params->cartesian_state.at(2), 10, 2));
         ui->robotState_4->setText(QString::number(working_thread->params->cartesian_state.at(3), 10, 2));
-        ui->robotState_5->setText(QString::number(working_thread->params->cartesian_state.at(4), 10, 2));
-        ui->robotState_6->setText(QString::number(working_thread->params->cartesian_state.at(5), 10, 2));
+        // ui->robotState_5->setText(QString::number(working_thread->params->cartesian_state.at(4), 10, 2));
+        // ui->robotState_6->setText(QString::number(working_thread->params->cartesian_state.at(5), 10, 2));
         break;
     case SHOW_USER:
         ui->robotState_1->setText(QString::number(working_thread->params->cartesian_state_in_U.at(0), 10, 2));
         ui->robotState_2->setText(QString::number(working_thread->params->cartesian_state_in_U.at(1), 10, 2));
         ui->robotState_3->setText(QString::number(working_thread->params->cartesian_state_in_U.at(2), 10, 2));
         ui->robotState_4->setText(QString::number(working_thread->params->cartesian_state_in_U.at(3), 10, 2));
-        ui->robotState_5->setText(QString::number(working_thread->params->cartesian_state_in_U.at(4), 10, 2));
-        ui->robotState_6->setText(QString::number(working_thread->params->cartesian_state_in_U.at(5), 10, 2));
+        // ui->robotState_5->setText(QString::number(working_thread->params->cartesian_state_in_U.at(4), 10, 2));
+        // ui->robotState_6->setText(QString::number(working_thread->params->cartesian_state_in_U.at(5), 10, 2));
         break;
     default:
         break;
@@ -2001,8 +2028,8 @@ void MainWindow::on_change_frame_disp_pressed()
         ui->jointStateLabel_2->setText("Y axis  : ");
         ui->jointStateLabel_3->setText("Z axis  : ");
         ui->jointStateLabel_4->setText("Roll    : ");
-        ui->jointStateLabel_5->setText("Pitch   : ");
-        ui->jointStateLabel_6->setText("Yaw     : ");
+        // ui->jointStateLabel_5->setText("Pitch   : ");
+        // ui->jointStateLabel_6->setText("Yaw     : ");
         break;
     case SHOW_BASE:
         robot_state_disp = SHOW_USER;
@@ -2012,8 +2039,8 @@ void MainWindow::on_change_frame_disp_pressed()
         ui->jointStateLabel_2->setText("Y axis  : ");
         ui->jointStateLabel_3->setText("Z axis  : ");
         ui->jointStateLabel_4->setText("Roll    : ");
-        ui->jointStateLabel_5->setText("Pitch   : ");
-        ui->jointStateLabel_6->setText("Yaw     : ");
+        // ui->jointStateLabel_5->setText("Pitch   : ");
+        // ui->jointStateLabel_6->setText("Yaw     : ");
         break;
     case SHOW_USER:
         robot_state_disp = SHOW_JOINTS;
@@ -2023,8 +2050,8 @@ void MainWindow::on_change_frame_disp_pressed()
         ui->jointStateLabel_2->setText("Joint 2 : ");
         ui->jointStateLabel_3->setText("Joint 3 : ");
         ui->jointStateLabel_4->setText("Joint 4 : ");
-        ui->jointStateLabel_5->setText("Joint 5 : ");
-        ui->jointStateLabel_6->setText("Joint 6 : ");
+        // ui->jointStateLabel_5->setText("Joint 5 : ");
+        // ui->jointStateLabel_6->setText("Joint 6 : ");
         break;
     default:
         break;
@@ -2091,17 +2118,17 @@ void MainWindow::on_setCmd_pos_4_pressed()
     newFileDialog->show();
 }
 
-void MainWindow::on_setCmd_pos_5_pressed()
-{
-    newDialogFlag = 75;
-    newFileDialog->show();
-}
+// void MainWindow::on_setCmd_pos_5_pressed()
+// {
+//     newDialogFlag = 75;
+//     newFileDialog->show();
+// }
 
-void MainWindow::on_setCmd_pos_6_pressed()
-{
-    newDialogFlag = 76;
-    newFileDialog->show();
-}
+// void MainWindow::on_setCmd_pos_6_pressed()
+// {
+//     newDialogFlag = 76;
+//     newFileDialog->show();
+// }
 
 void MainWindow::on_setCmdButton_up_pressed()
 {

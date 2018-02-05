@@ -93,20 +93,23 @@ private Q_SLOTS:
     void isMoving();
     void isStable();
 
+    void autoModeON();
+    void autoModeOFF();
+
     void joystickChange();
 
     void on_disabledButton_1_pressed();
     void on_disabledButton_2_pressed();
     void on_disabledButton_3_pressed();
     void on_disabledButton_4_pressed();
-    void on_disabledButton_5_pressed();
-    void on_disabledButton_6_pressed();
+    // void on_disabledButton_5_pressed();
+    // void on_disabledButton_6_pressed();
     void on_disabledButton_7_pressed();
     void on_disabledButton_8_pressed();
     void on_disabledButton_9_pressed();
     void on_disabledButton_10_pressed();
-    void on_disabledButton_11_pressed();
-    void on_disabledButton_12_pressed();
+    // void on_disabledButton_11_pressed();
+    // void on_disabledButton_12_pressed();
 
     void on_manual_button_pressed();
 
@@ -316,9 +319,9 @@ private Q_SLOTS:
 
     void on_setCmd_pos_4_pressed();
 
-    void on_setCmd_pos_5_pressed();
+    // void on_setCmd_pos_5_pressed();
 
-    void on_setCmd_pos_6_pressed();
+    // void on_setCmd_pos_6_pressed();
 
     void on_setCmdButton_up_pressed();
 

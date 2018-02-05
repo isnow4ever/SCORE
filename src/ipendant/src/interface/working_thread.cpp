@@ -173,20 +173,27 @@ void ROS_Communication::run()
     connect(robotState, SIGNAL(indicatorON()), this, SIGNAL(isMovingState()));
     connect(robotState, SIGNAL(indicatorOFF()), this, SIGNAL(isStableState()));
 
+    StatesIndicator *autoMode = new StatesIndicator;
+    connect(autoMode, SIGNAL(indicatorON()), this, SIGNAL(autoModeON()));
+    connect(autoMode, SIGNAL(indicatorOFF()), this, SIGNAL(autoModeOFF()));
+    autoMode->getState(controller_states->auto_state);
+
     // Subscribers Initialize.
     JointStateHandler joint_state_handler;
     StringMsgsHandler controller_state_handler;
     StringMsgsHandler joystick_handler;
     StringMsgsHandler keypad_handler;
     StringMsgsHandler io_state_handler;
-    StringMsgsHandler time_modify_handler;
+    // StringMsgsHandler time_modify_handler;
+    StringMsgsHandler driver_state_handler;
 
     ros::Subscriber coordinator_states_sub = n.subscribe("coordinator_states", 2, &StringMsgsHandler::callback, &controller_state_handler);
     ros::Subscriber joint_states_sub = n.subscribe("joint_states", 2, &JointStateHandler::callback, &joint_state_handler);
     ros::Subscriber joystick_sub = n.subscribe("u_pendant/devices/joystick", 50, &StringMsgsHandler::callback, &joystick_handler);
     ros::Subscriber keypad_sub = n.subscribe("u_pendant/devices/keypad", 5, &StringMsgsHandler::callback, &keypad_handler);
     ros::Subscriber io_states_sub = n.subscribe("io_states", 2, &StringMsgsHandler::callback, &io_state_handler);
-    ros::Subscriber time_modify_sub = n.subscribe("mtime", 1000, &StringMsgsHandler::callback, &time_modify_handler);
+    //ros::Subscriber time_modify_sub = n.subscribe("mtime", 1000, &StringMsgsHandler::callback, &time_modify_handler);
+    ros::Subscriber time_modify_sub = n.subscribe("/driver_state", 1000, &StringMsgsHandler::callback, &driver_state_handler);
 
     tf::TransformListener listener;
 
@@ -196,6 +203,8 @@ void ROS_Communication::run()
     actors.userFrame_pub = n.advertise<std_msgs::String>("coordinator_user_frame", 1);
 
     actors.u_devices_pub = n.advertise<std_msgs::String>("u_pendant/devices/control", 1);
+
+    actors.connection_feedback = n.advertise<std_msgs::String>("/tp_com/rx", 1);
 
     /*****************************************************************************
     ** Parameters Initialize
@@ -215,6 +224,12 @@ void ROS_Communication::run()
         {
             comState->getState(ros::master::check());
         } while (!ros::master::check());
+
+        std_msgs::String tp_com;
+        std::stringstream ssss;
+        ssss << "1";
+        tp_com.data = ssss.str();
+        actors.connection_feedback.publish(tp_com);
 
         /*********************
             ** Subscribe
@@ -274,8 +289,8 @@ void ROS_Communication::run()
         params->cartesian_state[2] = transform.getOrigin().z() * 1000;
         transform.getBasis().getRPY(params->roll, params->pitch, params->yaw);
         params->cartesian_state[3] = params->roll * 180 / PI;
-        params->cartesian_state[4] = params->pitch * 180 / PI;
-        params->cartesian_state[5] = params->yaw * 180 / PI;
+        params->cartesian_state[4] = 0;//params->pitch * 180 / PI;
+        params->cartesian_state[5] = 0;//params->yaw * 180 / PI;
 
         if (states->new_userframe)
         {
@@ -298,43 +313,55 @@ void ROS_Communication::run()
                 params->cartesian_state_in_U[2] = transform_in_U.getOrigin().z() * 1000;
                 transform_in_U.getBasis().getRPY(params->roll, params->pitch, params->yaw);
                 params->cartesian_state_in_U[3] = params->roll * 180 / PI;
-                params->cartesian_state_in_U[4] = params->pitch * 180 / PI;
-                params->cartesian_state_in_U[5] = params->yaw * 180 / PI;
+                params->cartesian_state_in_U[4] = 0;//params->pitch * 180 / PI;
+                params->cartesian_state_in_U[5] = 0;//params->yaw * 180 / PI;
             }
         }
 
         // 2.  Handle Joint States Msgs.
         if (joint_state_handler.newMsg())
         {
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 4; i++)
             {
                 params->joint_state[i] = (joint_state_handler.mCrtMsg.position[i]) * 180 / PI;
             }
+            params->joint_state[4] = 0;
+            params->joint_state[5] = 0;
         }
 
         // 3. Handle Controller States Msgs.
-        if (controller_state_handler.newMsg())
+        if (driver_state_handler.newMsg())
         {
-            boost::regex reg(STATE_FORMAT);
-            boost::smatch mat;
-            std::string cmd = controller_state_handler.fetchMsg().data;
-            bool r = boost::regex_match(cmd, mat, reg);
-            if (r)
-            {
-                controller_states->_robot_state = mat[1];
-                controller_states->current_id = mat[2];
-                controller_states->action_result = mat[3];
+            QString qs = QString::fromStdString(driver_state_handler.fetchMsg().data);
+            QStringList list = qs.split(QRegExp("\\b"));
 
-                if (controller_states->_robot_state == "moving")
-                    controller_states->robot_state = true;
-                else
-                    controller_states->robot_state = false;
-            }
-            else
-            {
-                ROS_WARN("unknown robot state!");
-            }
+            controller_states->robot_state = QVariant::fromValue(list.at(0)).toBool();
+            controller_states->servo_state = QVariant::fromValue(list.at(1)).toBool();
+            controller_states->error_state = QVariant::fromValue(list.at(2)).toBool();
+            controller_states->auto_state = QVariant::fromValue(list.at(3)).toBool();
         }
+        // if (controller_state_handler.newMsg())
+        // {
+        //     boost::regex reg(STATE_FORMAT);
+        //     boost::smatch mat;
+        //     std::string cmd = controller_state_handler.fetchMsg().data;
+        //     bool r = boost::regex_match(cmd, mat, reg);
+        //     if (r)
+        //     {
+        //         controller_states->_robot_state = mat[1];
+        //         controller_states->current_id = mat[2];
+        //         controller_states->action_result = mat[3];
+
+        //         if (controller_states->_robot_state == "moving")
+        //             controller_states->robot_state = true;
+        //         else
+        //             controller_states->robot_state = false;
+        //     }
+        //     else
+        //     {
+        //         ROS_WARN("unknown robot state!");
+        //     }
+        // }
 
         // 4. Handle Joystick Signals Msgs.
         if (joystick_handler.newMsg())
@@ -346,16 +373,16 @@ void ROS_Communication::run()
             params->value_for_cartesian[0] = QString::fromStdString(result.at(0)).toDouble();
             params->value_for_cartesian[1] = QString::fromStdString(result.at(1)).toDouble();
             params->value_for_cartesian[2] = QString::fromStdString(result.at(2)).toDouble();
-            params->value_for_cartesian[3] = QString::fromStdString(result.at(0)).toDouble();
-            params->value_for_cartesian[4] = QString::fromStdString(result.at(1)).toDouble();
-            params->value_for_cartesian[5] = QString::fromStdString(result.at(2)).toDouble();
+            params->value_for_cartesian[3] = QString::fromStdString(result.at(2)).toDouble();
+            params->value_for_cartesian[4] = 0;//QString::fromStdString(result.at(1)).toDouble();
+            params->value_for_cartesian[5] = 0;//QString::fromStdString(result.at(2)).toDouble();
 
             params->value_for_joint[0] = QString::fromStdString(result.at(2)).toDouble();
             params->value_for_joint[1] = QString::fromStdString(result.at(1)).toDouble();
             params->value_for_joint[2] = QString::fromStdString(result.at(0)).toDouble();
-            params->value_for_joint[3] = QString::fromStdString(result.at(0)).toDouble();
-            params->value_for_joint[4] = QString::fromStdString(result.at(1)).toDouble();
-            params->value_for_joint[5] = QString::fromStdString(result.at(2)).toDouble();
+            params->value_for_joint[3] = QString::fromStdString(result.at(2)).toDouble();
+            params->value_for_joint[4] = 0;//QString::fromStdString(result.at(1)).toDouble();
+            params->value_for_joint[5] = 0;//QString::fromStdString(result.at(2)).toDouble();
 
             states->enable_value = atoi(result[3].c_str());
         }
@@ -635,6 +662,7 @@ void ROS_Communication::run()
 
         //Robot moving state notification
         robotState->getState(controller_states->robot_state);
+        autoMode->getState(controller_states->auto_state);
 
         //Robot beyond workspace notification
         workspaceNotification(*params, *states);
@@ -650,7 +678,7 @@ void ROS_Communication::run()
 
 void ROS_Communication::get_axis_states(Parameter &params, State &states)
 {
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 4; i++)
     {
         if (states.joint_disabled_state[i] == true)
         {
@@ -671,7 +699,7 @@ void ROS_Communication::get_axis_states(Parameter &params, State &states)
             joint_value[i] = 0;
     }
 
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 4; i++)
     {
         if (states.cartesian_disabled_state[i] == true)
         {

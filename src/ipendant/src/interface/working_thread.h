@@ -80,6 +80,9 @@ Q_SIGNALS:
     void joystickChange();
     void keyfunc(int);
 
+    void autoModeON();
+    void autoModeOFF();
+
     void playbackStepControl(int);
 };
 

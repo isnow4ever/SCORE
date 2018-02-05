@@ -267,6 +267,7 @@ struct Actor
     ros::Publisher              command_pub;
     ros::Publisher              userFrame_pub;
     ros::Publisher              u_devices_pub;
+    ros::Publisher              connection_feedback;
 };
 
 //*****************************************************//
@@ -279,6 +280,10 @@ struct Controller_State
     bool robot_state;
     string current_id;
     string action_result;
+
+    bool servo_state;
+    bool error_state;
+    bool auto_state;
 };
 
 //*****************************************************//
