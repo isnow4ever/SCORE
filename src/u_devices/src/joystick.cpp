@@ -33,9 +33,18 @@ int Joystick::offset(int adcid)
 int Joystick::floor(int adc_id)
 {
     int value = analogRead(adc_id) - offset(adc_id);
-    if((value > -180)&&(value <= 180))
+    if(adc_id == adc_id3)
+    {
+        value = value * 3;
+    }
+    int element = 16;
+
+    int level = value / element;
+    return level;
+/*
+    if((value > -16)&&(value <= 16))
         return 0;
-    else if((value > -240)&&(value <= -180))
+    else if((value > -)&&(value <= -16))
         return -1;
     else if((value > -300)&&(value <= -180))
         return -2;
@@ -63,6 +72,7 @@ int Joystick::floor(int adc_id)
         return 6;
     else if(value >= 540)
         return 7;
+*/
 }
 
 int Joystick::fliter(int adc_id)
@@ -97,7 +107,7 @@ void initialize()
         sum_x = sum_x + analogRead(adc_id1);
         sum_y = sum_y + analogRead(adc_id2);
         sum_z = sum_z + analogRead(adc_id3);
-      //  delayMicroseconds(2);
+     //   delayMicroseconds(2);//zhe li bei zhu shi diao le 
     }
     joystick_axis_X_offset = int(sum_x / 1000);
     joystick_axis_Y_offset = int(sum_y / 1000);
@@ -122,7 +132,7 @@ void callback(const std_msgs::String::ConstPtr& msg)
 int main(int argc, char *argv[])
 {
     ros::init(argc, argv, "joystick");    //ros initial
-  //  init();                             //aduino initial
+   // init();                             //aduino initial
 
     Joystick js;
 
@@ -132,7 +142,7 @@ int main(int argc, char *argv[])
 
     ros::Rate loop_rate(50);
 
-   initialize();
+    initialize();
 
     while(1) {
         if(!ros::master::check())
@@ -173,9 +183,9 @@ int main(int argc, char *argv[])
         else
             digitalWrite(LED_GREEN, HIGH);
 //        if(moving == 1)
-//            digitalWrite(1, LOW);
+//            digitalWrite(LED_RED, LOW);
 //        else
-//            digitalWrite(1, HIGH);
+//            digitalWrite(LED_RED, HIGH);
     }
     ros::shutdown();
     return 0;

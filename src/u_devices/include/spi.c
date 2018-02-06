@@ -27,8 +27,8 @@ int8_t analogRead(uint8_t channel)
             buf2_w[1]=0x00;
             break;
         case 2:
-            buf2_w[0]=0x8f;
-            buf2_w[1]=0x80;
+            buf2_w[0]=0x8b;
+            buf2_w[1]=0x00;
             break;
         default :
             break;
@@ -39,7 +39,7 @@ int8_t analogRead(uint8_t channel)
     buf2_w[1]=0x00;//set the value just to read
     spi_write_read(buf2_w,buf2_r,2,file);
 
- //   printf("data:%x%x\r\n",buf2_r[0],buf2_r[1]);
+    //printf("data:%x%x\r\n",buf2_r[0],buf2_r[1]);
     if(file)
     close(file);
 

@@ -1,6 +1,9 @@
 #include "ros/ros.h"
 #include "devices.h"
-#include <Arduino.h>
+extern "C"
+{
+#include "marsboard.h"
+}
 #include "std_msgs/String.h"
 
 
@@ -8,21 +11,21 @@
 
 void Keypad::pins_setup()
 {
-    pinMode(5, INPUT);
-    digitalWrite(5, HIGH);
-    pinMode(0, OUTPUT);
-    digitalWrite(0, HIGH);
-    pinMode(1,OUTPUT);
-    digitalWrite(1, HIGH);
+ //   pinMode(5, INPUT);
+    digitalWrite(JOY_KEY, HIGH);
+ //   pinMode(0, OUTPUT);
+    digitalWrite(LED_GREEN, HIGH);
+ //   pinMode(1,OUTPUT);
+    digitalWrite(LED_RED, HIGH);
 }
 
 char Keypad::key_check()
 {
     char key = '0';
 
-    if(digitalRead(5) == LOW){
-    delay(20);
-    while(digitalRead(5) == LOW){
+    if(digitalRead(JOY_KEY) == LOW){
+  //  delay(20);
+    while(digitalRead(JOY_KEY) == LOW){
         key = 'O';}
     }
     return key;
@@ -31,7 +34,7 @@ char Keypad::key_check()
 int main(int argc, char *argv[])
 {
     ros::init(argc, argv, "keypad");    //ros initial
-    init();                             //aduino initial
+  //  init();                             //aduino initial
 
     Keypad kp;
 
