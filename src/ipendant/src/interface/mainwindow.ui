@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1280</width>
-    <height>720</height>
+    <width>1020</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="focusPolicy">
@@ -22,8 +22,8 @@
      <rect>
       <x>-5</x>
       <y>-5</y>
-      <width>1290</width>
-      <height>130</height>
+      <width>1020</width>
+      <height>81</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -31,156 +31,22 @@
 		border-image: url(:/topBar/images/topBar/top_bar_bg.png)
 }</string>
     </property>
-    <widget class="QFrame" name="logo">
-     <property name="geometry">
-      <rect>
-       <x>44</x>
-       <y>27</y>
-       <width>785</width>
-       <height>68</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QFrame#logo {
-border-image: url(:/topBar/images/topBar/logo_text.png)
-}</string>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-    </widget>
-    <widget class="QWidget" name="robotStates" native="true">
-     <property name="geometry">
-      <rect>
-       <x>600</x>
-       <y>10</y>
-       <width>201</width>
-       <height>100</height>
-      </rect>
-     </property>
-     <widget class="QWidget" name="verticalLayoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>0</y>
-        <width>41</width>
-        <height>101</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="lampsLayout">
-       <item>
-        <widget class="QcwIndicatorLamp" name="robotStateLamp" native="true">
-         <property name="alarm" stdset="0">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QcwIndicatorLamp" name="comStateLamp" native="true">
-         <property name="alarm" stdset="0">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QcwIndicatorLamp" name="enableStateLamp" native="true">
-         <property name="alarm" stdset="0">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="verticalLayoutWidget_2">
-      <property name="geometry">
-       <rect>
-        <x>60</x>
-        <y>0</y>
-        <width>170</width>
-        <height>107</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="statesLayout">
-       <item>
-        <widget class="QLabel" name="robotStateLabel">
-         <property name="font">
-          <font>
-           <family>Ubuntu Mono</family>
-           <pointsize>14</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>机器人状态</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="comStateLabel">
-         <property name="font">
-          <font>
-           <family>Ubuntu Mono</family>
-           <pointsize>14</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>通讯状态</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="enableStateLabel">
-         <property name="font">
-          <font>
-           <family>Ubuntu Mono</family>
-           <pointsize>14</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>使能状态</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </widget>
-    <widget class="Line" name="line">
-     <property name="geometry">
-      <rect>
-       <x>840</x>
-       <y>10</y>
-       <width>20</width>
-       <height>110</height>
-      </rect>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-    </widget>
     <widget class="QWidget" name="jointState" native="true">
      <property name="geometry">
       <rect>
-       <x>860</x>
-       <y>20</y>
-       <width>411</width>
-       <height>91</height>
+       <x>620</x>
+       <y>10</y>
+       <width>401</width>
+       <height>61</height>
       </rect>
      </property>
      <widget class="QWidget" name="formLayoutWidget">
       <property name="geometry">
        <rect>
-        <x>20</x>
+        <x>10</x>
         <y>0</y>
         <width>244</width>
-        <height>117</height>
+        <height>71</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="jointStateLayout_1">
@@ -188,7 +54,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
        </property>
        <property name="horizontalSpacing">
-        <number>20</number>
+        <number>10</number>
        </property>
        <property name="verticalSpacing">
         <number>14</number>
@@ -253,7 +119,58 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
+      </layout>
+     </widget>
+     <widget class="QWidget" name="formLayoutWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>0</y>
+        <width>194</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <layout class="QFormLayout" name="jointStateLayout_2">
+       <property name="fieldGrowthPolicy">
+        <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+       </property>
+       <property name="horizontalSpacing">
+        <number>10</number>
+       </property>
+       <property name="verticalSpacing">
+        <number>14</number>
+       </property>
+       <item row="1" column="0">
+        <widget class="QLabel" name="jointStateLabel_4">
+         <property name="font">
+          <font>
+           <family>Ubuntu Mono</family>
+           <pointsize>14</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Joint 4 : </string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="robotState_4">
+         <property name="font">
+          <font>
+           <family>Ubuntu Mono</family>
+           <pointsize>14</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
         <widget class="QLabel" name="jointStateLabel_3">
          <property name="font">
           <font>
@@ -268,7 +185,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
+       <item row="0" column="1">
         <widget class="QLabel" name="robotState_3">
          <property name="font">
           <font>
@@ -285,76 +202,215 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="formLayoutWidget_2">
-      <property name="geometry">
-       <rect>
-        <x>210</x>
-        <y>0</y>
-        <width>194</width>
-        <height>117</height>
-       </rect>
-      </property>
-      <layout class="QFormLayout" name="jointStateLayout_2">
-       <property name="fieldGrowthPolicy">
-        <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-       </property>
-       <property name="horizontalSpacing">
-        <number>20</number>
-       </property>
-       <property name="verticalSpacing">
-        <number>14</number>
-       </property>
-       <item row="0" column="0">
-        <widget class="QLabel" name="jointStateLabel_4">
-         <property name="font">
-          <font>
-           <family>Ubuntu Mono</family>
-           <pointsize>14</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Joint 4 : </string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="robotState_4">
-         <property name="font">
-          <font>
-           <family>Ubuntu Mono</family>
-           <pointsize>14</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>0</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
+    </widget>
+    <widget class="QWidget" name="layoutWidget1111">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>20</y>
+       <width>371</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="3">
+       <widget class="QLabel" name="robotStateLabel">
+        <property name="font">
+         <font>
+          <family>Ubuntu Mono</family>
+          <pointsize>14</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>机器人状态</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="comStateLabel">
+        <property name="font">
+         <font>
+          <family>Ubuntu Mono</family>
+          <pointsize>14</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>通讯状态</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QcwIndicatorLamp" name="comStateLamp" native="true">
+        <property name="alarm" stdset="0">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QcwIndicatorLamp" name="enableStateLamp" native="true">
+        <property name="alarm" stdset="0">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QcwIndicatorLamp" name="robotStateLamp" native="true">
+        <property name="alarm" stdset="0">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="5">
+       <widget class="QLabel" name="enableStateLabel">
+        <property name="font">
+         <font>
+          <family>Ubuntu Mono</family>
+          <pointsize>14</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>使能状态</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QFrame" name="logo">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>381</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QFrame#logo {
+border-image: url(:/topBar/images/topBar/logo_text.png)
+}</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+    <widget class="Line" name="line">
+     <property name="geometry">
+      <rect>
+       <x>610</x>
+       <y>5</y>
+       <width>20</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
     </widget>
    </widget>
    <widget class="QWidget" name="contextMenu" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>120</y>
+      <y>75</y>
       <width>127</width>
-      <height>600</height>
+      <height>520</height>
      </rect>
     </property>
+    <widget class="QPushButton" name="menuButton_8">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>460</y>
+       <width>127</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="icon">
+      <iconset resource="images.qrc">
+       <normaloff>:/contextMenu/images/contextMenu/ContextMenu_08.png</normaloff>
+       <normalon>:/contextMenu/images/contextMenu/ContextMenu_08~.png</normalon>:/contextMenu/images/contextMenu/ContextMenu_08.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>127</width>
+       <height>80</height>
+      </size>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+     <property name="autoExclusive">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="menuButton_5">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>265</y>
+       <width>127</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="icon">
+      <iconset resource="images.qrc">
+       <normaloff>:/contextMenu/images/contextMenu/ContextMenu_05.png</normaloff>
+       <normalon>:/contextMenu/images/contextMenu/ContextMenu_05~.png</normalon>:/contextMenu/images/contextMenu/ContextMenu_05.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>127</width>
+       <height>85</height>
+      </size>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+     <property name="autoExclusive">
+      <bool>true</bool>
+     </property>
+    </widget>
     <widget class="QPushButton" name="menuButton_1">
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>0</y>
+       <y>5</y>
        <width>127</width>
-       <height>75</height>
+       <height>65</height>
       </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
      <property name="icon">
       <iconset resource="images.qrc">
@@ -377,14 +433,56 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
       <bool>true</bool>
      </property>
     </widget>
+    <widget class="QPushButton" name="menuButton_7">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>395</y>
+       <width>127</width>
+       <height>65</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="icon">
+      <iconset resource="images.qrc">
+       <normaloff>:/contextMenu/images/contextMenu/ContextMenu_07.png</normaloff>
+       <normalon>:/contextMenu/images/contextMenu/ContextMenu_07~.png</normalon>:/contextMenu/images/contextMenu/ContextMenu_07.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>127</width>
+       <height>85</height>
+      </size>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+     <property name="autoExclusive">
+      <bool>true</bool>
+     </property>
+    </widget>
     <widget class="QPushButton" name="menuButton_2">
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>75</y>
+       <y>70</y>
        <width>127</width>
-       <height>75</height>
+       <height>65</height>
       </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
      <property name="icon">
       <iconset resource="images.qrc">
@@ -411,10 +509,16 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>150</y>
+       <y>135</y>
        <width>127</width>
-       <height>75</height>
+       <height>65</height>
       </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
      <property name="icon">
       <iconset resource="images.qrc">
@@ -441,10 +545,16 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>225</y>
+       <y>200</y>
        <width>127</width>
-       <height>75</height>
+       <height>65</height>
       </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
      <property name="icon">
       <iconset resource="images.qrc">
@@ -467,44 +577,20 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QPushButton" name="menuButton_5">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>300</y>
-       <width>127</width>
-       <height>75</height>
-      </rect>
-     </property>
-     <property name="icon">
-      <iconset resource="images.qrc">
-       <normaloff>:/contextMenu/images/contextMenu/ContextMenu_05.png</normaloff>
-       <normalon>:/contextMenu/images/contextMenu/ContextMenu_05~.png</normalon>:/contextMenu/images/contextMenu/ContextMenu_05.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>127</width>
-       <height>85</height>
-      </size>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <property name="checked">
-      <bool>false</bool>
-     </property>
-     <property name="autoExclusive">
-      <bool>true</bool>
-     </property>
-    </widget>
     <widget class="QPushButton" name="menuButton_6">
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>375</y>
+       <y>330</y>
        <width>127</width>
-       <height>75</height>
+       <height>65</height>
       </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
      </property>
      <property name="icon">
       <iconset resource="images.qrc">
@@ -527,74 +613,14 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
       <bool>true</bool>
      </property>
     </widget>
-    <widget class="QPushButton" name="menuButton_7">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>450</y>
-       <width>127</width>
-       <height>75</height>
-      </rect>
-     </property>
-     <property name="icon">
-      <iconset resource="images.qrc">
-       <normaloff>:/contextMenu/images/contextMenu/ContextMenu_07.png</normaloff>
-       <normalon>:/contextMenu/images/contextMenu/ContextMenu_07~.png</normalon>:/contextMenu/images/contextMenu/ContextMenu_07.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>127</width>
-       <height>85</height>
-      </size>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <property name="checked">
-      <bool>false</bool>
-     </property>
-     <property name="autoExclusive">
-      <bool>true</bool>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="menuButton_8">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>525</y>
-       <width>127</width>
-       <height>75</height>
-      </rect>
-     </property>
-     <property name="icon">
-      <iconset resource="images.qrc">
-       <normaloff>:/contextMenu/images/contextMenu/ContextMenu_08.png</normaloff>
-       <normalon>:/contextMenu/images/contextMenu/ContextMenu_08~.png</normalon>:/contextMenu/images/contextMenu/ContextMenu_08.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>127</width>
-       <height>80</height>
-      </size>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <property name="checked">
-      <bool>false</bool>
-     </property>
-     <property name="autoExclusive">
-      <bool>true</bool>
-     </property>
-    </widget>
    </widget>
    <widget class="QStackedWidget" name="content">
     <property name="geometry">
      <rect>
       <x>127</x>
-      <y>120</y>
-      <width>1153</width>
-      <height>600</height>
+      <y>75</y>
+      <width>888</width>
+      <height>520</height>
      </rect>
     </property>
     <property name="font">
@@ -609,9 +635,9 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
      <widget class="QWidget" name="layoutWidget12">
       <property name="geometry">
        <rect>
-        <x>160</x>
-        <y>110</y>
-        <width>811</width>
+        <x>70</x>
+        <y>90</y>
+        <width>721</width>
         <height>351</height>
        </rect>
       </property>
@@ -888,7 +914,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
          <x>0</x>
          <y>242</y>
          <width>176</width>
-         <height>358</height>
+         <height>231</height>
         </rect>
        </property>
        <property name="text">
@@ -907,7 +933,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
         <x>-5</x>
         <y>0</y>
         <width>176</width>
-        <height>600</height>
+        <height>520</height>
        </rect>
       </property>
       <widget class="QPushButton" name="manualMenu_1">
@@ -1098,12 +1124,12 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <rect>
         <x>180</x>
         <y>20</y>
-        <width>640</width>
-        <height>390</height>
+        <width>531</width>
+        <height>311</height>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="frame_1_joint">
        <widget class="QWidget" name="orientation" native="true">
@@ -1118,8 +1144,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
         <widget class="QPushButton" name="controlSwitch_1">
          <property name="geometry">
           <rect>
-           <x>0</x>
-           <y>30</y>
+           <x>10</x>
+           <y>10</y>
            <width>141</width>
            <height>101</height>
           </rect>
@@ -1154,8 +1180,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
         <widget class="QPushButton" name="controlSwitch_2">
          <property name="geometry">
           <rect>
-           <x>0</x>
-           <y>220</y>
+           <x>10</x>
+           <y>160</y>
            <width>141</width>
            <height>101</height>
           </rect>
@@ -1189,8 +1215,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>620</width>
-           <height>380</height>
+           <width>501</width>
+           <height>311</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -1206,10 +1232,10 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
         <widget class="QFrame" name="orientationFrame">
          <property name="geometry">
           <rect>
-           <x>150</x>
+           <x>160</x>
            <y>10</y>
-           <width>460</width>
-           <height>360</height>
+           <width>341</width>
+           <height>291</height>
           </rect>
          </property>
          <property name="frameShape">
@@ -1226,8 +1252,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
            <rect>
             <x>10</x>
             <y>0</y>
-            <width>128</width>
-            <height>128</height>
+            <width>101</width>
+            <height>101</height>
            </rect>
           </property>
           <property name="focusPolicy">
@@ -1257,10 +1283,10 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
          <widget class="QLabel" name="label_21">
           <property name="geometry">
            <rect>
-            <x>170</x>
-            <y>132</y>
-            <width>128</width>
-            <height>52</height>
+            <x>130</x>
+            <y>110</y>
+            <width>81</width>
+            <height>31</height>
            </rect>
           </property>
           <property name="text">
@@ -1276,10 +1302,10 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
          <widget class="QLabel" name="label_20">
           <property name="geometry">
            <rect>
-            <x>170</x>
-            <y>320</y>
-            <width>128</width>
-            <height>51</height>
+            <x>120</x>
+            <y>260</y>
+            <width>101</width>
+            <height>31</height>
            </rect>
           </property>
           <property name="text">
@@ -1298,10 +1324,10 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
           </property>
           <property name="geometry">
            <rect>
-            <x>330</x>
+            <x>230</x>
             <y>0</y>
-            <width>128</width>
-            <height>128</height>
+            <width>101</width>
+            <height>101</height>
            </rect>
           </property>
           <property name="focusPolicy">
@@ -1331,10 +1357,10 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
          <widget class="QLabel" name="label_23">
           <property name="geometry">
            <rect>
-            <x>330</x>
-            <y>132</y>
-            <width>128</width>
-            <height>52</height>
+            <x>230</x>
+            <y>110</y>
+            <width>91</width>
+            <height>31</height>
            </rect>
           </property>
           <property name="text">
@@ -1353,10 +1379,10 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
           </property>
           <property name="geometry">
            <rect>
-            <x>170</x>
-            <y>180</y>
-            <width>128</width>
-            <height>128</height>
+            <x>120</x>
+            <y>150</y>
+            <width>101</width>
+            <height>101</height>
            </rect>
           </property>
           <property name="focusPolicy">
@@ -1386,10 +1412,10 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
          <widget class="QLabel" name="label_19">
           <property name="geometry">
            <rect>
-            <x>10</x>
-            <y>132</y>
-            <width>128</width>
-            <height>52</height>
+            <x>20</x>
+            <y>110</y>
+            <width>81</width>
+            <height>31</height>
            </rect>
           </property>
           <property name="text">
@@ -1408,10 +1434,10 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
           </property>
           <property name="geometry">
            <rect>
-            <x>170</x>
+            <x>120</x>
             <y>0</y>
-            <width>128</width>
-            <height>128</height>
+            <width>101</width>
+            <height>101</height>
            </rect>
           </property>
           <property name="focusPolicy">
@@ -1451,86 +1477,17 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>620</width>
-          <height>380</height>
+          <width>521</width>
+          <height>311</height>
          </rect>
         </property>
-        <widget class="QPushButton" name="controlSwitch_3">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>30</y>
-           <width>141</width>
-           <height>101</height>
-          </rect>
-         </property>
-         <property name="focusPolicy">
-          <enum>Qt::NoFocus</enum>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">border:none;background-color:transparent;</string>
-         </property>
-         <property name="icon">
-          <iconset resource="images.qrc">
-           <normaloff>:/manual/images/manual/positioncoordination_red.gif</normaloff>
-           <normalon>:/manual/images/manual/positioncoordination_green.gif</normalon>:/manual/images/manual/positioncoordination_red.gif</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>200</width>
-           <height>200</height>
-          </size>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-         <property name="autoExclusive">
-          <bool>true</bool>
-         </property>
-        </widget>
-        <widget class="QPushButton" name="controlSwitch_4">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>220</y>
-           <width>141</width>
-           <height>101</height>
-          </rect>
-         </property>
-         <property name="focusPolicy">
-          <enum>Qt::NoFocus</enum>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">border:none;background-color:transparent;</string>
-         </property>
-         <property name="icon">
-          <iconset resource="images.qrc">
-           <normaloff>:/manual/images/manual/postureangle_red.gif</normaloff>
-           <normalon>:/manual/images/manual/postureangle_green.gif</normalon>:/manual/images/manual/postureangle_red.gif</iconset>
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>200</width>
-           <height>200</height>
-          </size>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-         <property name="autoExclusive">
-          <bool>true</bool>
-         </property>
-        </widget>
         <widget class="QFrame" name="orientationBorder_2">
          <property name="geometry">
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>620</width>
-           <height>380</height>
+           <width>501</width>
+           <height>311</height>
           </rect>
          </property>
          <property name="styleSheet">
@@ -1542,314 +1499,329 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
-        </widget>
-        <widget class="QFrame" name="orientationFrame_2">
-         <property name="geometry">
-          <rect>
-           <x>150</x>
-           <y>10</y>
-           <width>460</width>
-           <height>360</height>
-          </rect>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-         <widget class="QPushButton" name="disabledButton_10">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="geometry">
-           <rect>
-            <x>170</x>
-            <y>180</y>
-            <width>128</width>
-            <height>128</height>
-           </rect>
-          </property>
-          <property name="focusPolicy">
-           <enum>Qt::NoFocus</enum>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: grey; border-radius: 20; border-image: url(:/manual/images/manual/axisZ.png)</string>
-          </property>
-          <property name="icon">
-           <iconset resource="images.qrc">
-            <normaloff>:/manual/images/manual/transparent.png</normaloff>
-            <normalon>:/manual/images/manual/no-sign.png</normalon>:/manual/images/manual/transparent.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>128</width>
-            <height>128</height>
-           </size>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="disabledButton_7">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
+         <widget class="QPushButton" name="controlSwitch_3">
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>0</y>
-            <width>128</width>
-            <height>128</height>
+            <y>10</y>
+            <width>141</width>
+            <height>101</height>
            </rect>
           </property>
           <property name="focusPolicy">
            <enum>Qt::NoFocus</enum>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: grey; border-radius: 20; border-image: url(:/manual/images/manual/axisX.png)</string>
+           <string notr="true">border:none;background-color:transparent;</string>
           </property>
           <property name="icon">
            <iconset resource="images.qrc">
-            <normaloff>:/manual/images/manual/transparent.png</normaloff>
-            <normalon>:/manual/images/manual/no-sign.png</normalon>:/manual/images/manual/transparent.png</iconset>
+            <normaloff>:/manual/images/manual/positioncoordination_red.gif</normaloff>
+            <normalon>:/manual/images/manual/positioncoordination_green.gif</normalon>:/manual/images/manual/positioncoordination_red.gif</iconset>
           </property>
           <property name="iconSize">
            <size>
-            <width>128</width>
-            <height>128</height>
+            <width>200</width>
+            <height>200</height>
            </size>
           </property>
           <property name="checkable">
            <bool>true</bool>
           </property>
           <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-         <widget class="QPushButton" name="disabledButton_8">
-          <property name="enabled">
            <bool>true</bool>
           </property>
-          <property name="geometry">
-           <rect>
-            <x>170</x>
-            <y>0</y>
-            <width>128</width>
-            <height>128</height>
-           </rect>
-          </property>
-          <property name="focusPolicy">
-           <enum>Qt::NoFocus</enum>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: grey; border-radius: 20; border-image: url(:/manual/images/manual/axisY.png)</string>
-          </property>
-          <property name="icon">
-           <iconset resource="images.qrc">
-            <normaloff>:/manual/images/manual/transparent.png</normaloff>
-            <normalon>:/manual/images/manual/no-sign.png</normalon>:/manual/images/manual/transparent.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>128</width>
-            <height>128</height>
-           </size>
-          </property>
-          <property name="checkable">
+          <property name="autoExclusive">
            <bool>true</bool>
           </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
          </widget>
-         <widget class="QPushButton" name="disabledButton_9">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <property name="geometry">
-           <rect>
-            <x>330</x>
-            <y>0</y>
-            <width>128</width>
-            <height>128</height>
-           </rect>
-          </property>
-          <property name="focusPolicy">
-           <enum>Qt::NoFocus</enum>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: grey; border-radius: 20; border-image: url(:/manual/images/manual/axisZ.png)</string>
-          </property>
-          <property name="icon">
-           <iconset resource="images.qrc">
-            <normaloff>:/manual/images/manual/transparent.png</normaloff>
-            <normalon>:/manual/images/manual/no-sign.png</normalon>:/manual/images/manual/transparent.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>128</width>
-            <height>128</height>
-           </size>
-          </property>
-          <property name="checkable">
-           <bool>true</bool>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_38">
-          <property name="geometry">
-           <rect>
-            <x>330</x>
-            <y>132</y>
-            <width>128</width>
-            <height>50</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="pixmap">
-           <pixmap resource="images.qrc">:/manual/images/manual/zaxis.gif</pixmap>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_39">
-          <property name="geometry">
-           <rect>
-            <x>174</x>
-            <y>132</y>
-            <width>128</width>
-            <height>50</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="pixmap">
-           <pixmap resource="images.qrc">:/manual/images/manual/yaxis.gif</pixmap>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_37">
-          <property name="geometry">
-           <rect>
-            <x>170</x>
-            <y>320</y>
-            <width>128</width>
-            <height>50</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="pixmap">
-           <pixmap resource="images.qrc">:/manual/images/manual/Caxis.gif</pixmap>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
-          </property>
-         </widget>
-         <widget class="QLabel" name="label_42">
+         <widget class="QPushButton" name="controlSwitch_4">
           <property name="geometry">
            <rect>
             <x>10</x>
-            <y>132</y>
-            <width>128</width>
-            <height>50</height>
+            <y>160</y>
+            <width>101</width>
+            <height>101</height>
            </rect>
           </property>
-          <property name="text">
-           <string/>
+          <property name="focusPolicy">
+           <enum>Qt::NoFocus</enum>
           </property>
-          <property name="pixmap">
-           <pixmap resource="images.qrc">:/manual/images/manual/xaxis.gif</pixmap>
+          <property name="styleSheet">
+           <string notr="true">border:none;background-color:transparent;</string>
           </property>
-          <property name="alignment">
-           <set>Qt::AlignCenter</set>
+          <property name="icon">
+           <iconset resource="images.qrc">
+            <normaloff>:/manual/images/manual/postureangle_red.gif</normaloff>
+            <normalon>:/manual/images/manual/postureangle_green.gif</normalon>:/manual/images/manual/postureangle_red.gif</iconset>
+          </property>
+          <property name="iconSize">
+           <size>
+            <width>200</width>
+            <height>200</height>
+           </size>
+          </property>
+          <property name="checkable">
+           <bool>true</bool>
+          </property>
+          <property name="autoExclusive">
+           <bool>true</bool>
           </property>
          </widget>
+         <widget class="QFrame" name="orientationFrame_2">
+          <property name="geometry">
+           <rect>
+            <x>160</x>
+            <y>10</y>
+            <width>341</width>
+            <height>301</height>
+           </rect>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Raised</enum>
+          </property>
+          <widget class="QPushButton" name="disabledButton_10">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="geometry">
+            <rect>
+             <x>120</x>
+             <y>150</y>
+             <width>101</width>
+             <height>101</height>
+            </rect>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: grey; border-radius: 20; border-image: url(:/manual/images/manual/axisZ.png)</string>
+           </property>
+           <property name="icon">
+            <iconset resource="images.qrc">
+             <normaloff>:/manual/images/manual/transparent.png</normaloff>
+             <normalon>:/manual/images/manual/no-sign.png</normalon>:/manual/images/manual/transparent.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>128</width>
+             <height>128</height>
+            </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="disabledButton_7">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>0</y>
+             <width>101</width>
+             <height>101</height>
+            </rect>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: grey; border-radius: 20; border-image: url(:/manual/images/manual/axisX.png)</string>
+           </property>
+           <property name="icon">
+            <iconset resource="images.qrc">
+             <normaloff>:/manual/images/manual/transparent.png</normaloff>
+             <normalon>:/manual/images/manual/no-sign.png</normalon>:/manual/images/manual/transparent.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>128</width>
+             <height>128</height>
+            </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="disabledButton_8">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="geometry">
+            <rect>
+             <x>120</x>
+             <y>0</y>
+             <width>101</width>
+             <height>101</height>
+            </rect>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: grey; border-radius: 20; border-image: url(:/manual/images/manual/axisY.png)</string>
+           </property>
+           <property name="icon">
+            <iconset resource="images.qrc">
+             <normaloff>:/manual/images/manual/transparent.png</normaloff>
+             <normalon>:/manual/images/manual/no-sign.png</normalon>:/manual/images/manual/transparent.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>128</width>
+             <height>128</height>
+            </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="disabledButton_9">
+           <property name="enabled">
+            <bool>true</bool>
+           </property>
+           <property name="geometry">
+            <rect>
+             <x>230</x>
+             <y>0</y>
+             <width>101</width>
+             <height>101</height>
+            </rect>
+           </property>
+           <property name="focusPolicy">
+            <enum>Qt::NoFocus</enum>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: grey; border-radius: 20; border-image: url(:/manual/images/manual/axisZ.png)</string>
+           </property>
+           <property name="icon">
+            <iconset resource="images.qrc">
+             <normaloff>:/manual/images/manual/transparent.png</normaloff>
+             <normalon>:/manual/images/manual/no-sign.png</normalon>:/manual/images/manual/transparent.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>128</width>
+             <height>128</height>
+            </size>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_38">
+           <property name="geometry">
+            <rect>
+             <x>240</x>
+             <y>110</y>
+             <width>81</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="images.qrc">:/manual/images/manual/zaxis.gif</pixmap>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_39">
+           <property name="geometry">
+            <rect>
+             <x>130</x>
+             <y>110</y>
+             <width>81</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="images.qrc">:/manual/images/manual/yaxis.gif</pixmap>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_37">
+           <property name="geometry">
+            <rect>
+             <x>110</x>
+             <y>250</y>
+             <width>128</width>
+             <height>50</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="images.qrc">:/manual/images/manual/Caxis.gif</pixmap>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+          <widget class="QLabel" name="label_42">
+           <property name="geometry">
+            <rect>
+             <x>20</x>
+             <y>110</y>
+             <width>91</width>
+             <height>31</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="images.qrc">:/manual/images/manual/xaxis.gif</pixmap>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </widget>
         </widget>
-        <zorder>orientationBorder_2</zorder>
-        <zorder>controlSwitch_3</zorder>
-        <zorder>controlSwitch_4</zorder>
-        <zorder>orientationFrame_2</zorder>
        </widget>
       </widget>
      </widget>
      <widget class="QWidget" name="manualTools" native="true">
       <property name="geometry">
        <rect>
-        <x>820</x>
+        <x>600</x>
         <y>220</y>
-        <width>320</width>
-        <height>460</height>
+        <width>281</width>
+        <height>291</height>
        </rect>
       </property>
-      <widget class="QPushButton" name="jogmodeButton">
-       <property name="geometry">
-        <rect>
-         <x>40</x>
-         <y>260</y>
-         <width>250</width>
-         <height>70</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <pointsize>14</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="focusPolicy">
-        <enum>Qt::NoFocus</enum>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">border:none;background-color:transparent;</string>
-       </property>
-       <property name="icon">
-        <iconset resource="images.qrc">
-         <normaloff>:/manual/images/manual/jogmode_0.png</normaloff>:/manual/images/manual/jogmode_0.png</iconset>
-       </property>
-       <property name="iconSize">
-        <size>
-         <width>250</width>
-         <height>250</height>
-        </size>
-       </property>
-      </widget>
-      <widget class="QLabel" name="manualNotice">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>10</y>
-         <width>301</width>
-         <height>41</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="images.qrc">:/manual/images/manual/manualnotification.gif</pixmap>
-       </property>
-      </widget>
       <widget class="QPushButton" name="manual_button">
        <property name="geometry">
         <rect>
-         <x>60</x>
-         <y>60</y>
+         <x>70</x>
+         <y>0</y>
          <width>200</width>
          <height>200</height>
         </rect>
@@ -1878,8 +1850,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
       <widget class="QWidget" name="jogState" native="true">
        <property name="geometry">
         <rect>
-         <x>40</x>
-         <y>330</y>
+         <x>15</x>
+         <y>250</y>
          <width>250</width>
          <height>30</height>
         </rect>
@@ -1928,7 +1900,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>245</width>
+          <width>251</width>
           <height>25</height>
          </rect>
         </property>
@@ -1937,142 +1909,137 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
         </property>
        </widget>
       </widget>
-     </widget>
-     <widget class="QListWidget" name="multipointsListWidget">
-      <property name="geometry">
-       <rect>
-        <x>180</x>
-        <y>410</y>
-        <width>591</width>
-        <height>170</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Ubuntu Mono</family>
-        <pointsize>20</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">border:2px groove gray;border-radius:10px;padding:2px 4px;</string>
-      </property>
-      <property name="selectionMode">
-       <enum>QAbstractItemView::NoSelection</enum>
-      </property>
-      <property name="wordWrap">
-       <bool>true</bool>
-      </property>
+      <widget class="QPushButton" name="jogmodeButton">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>190</y>
+         <width>261</width>
+         <height>70</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <pointsize>14</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::NoFocus</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">border:none;background-color:transparent;</string>
+       </property>
+       <property name="icon">
+        <iconset resource="images.qrc">
+         <normaloff>:/manual/images/manual/jogmode_0.png</normaloff>:/manual/images/manual/jogmode_0.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>250</width>
+         <height>250</height>
+        </size>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="recordBox" native="true">
       <property name="geometry">
        <rect>
-        <x>820</x>
-        <y>20</y>
-        <width>320</width>
+        <x>710</x>
+        <y>10</y>
+        <width>181</width>
         <height>200</height>
        </rect>
       </property>
-      <widget class="QPushButton" name="recordButton_3">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>170</x>
-         <y>130</y>
-         <width>140</width>
-         <height>50</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Ubuntu Mono</family>
-         <pointsize>14</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>生成SPLINE命令</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="recordButton_1">
+      <widget class="QWidget" name="layoutWidget11111">
        <property name="geometry">
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>300</width>
-         <height>50</height>
+         <width>161</width>
+         <height>191</height>
         </rect>
        </property>
-       <property name="font">
-        <font>
-         <family>Ubuntu Mono</family>
-         <pointsize>14</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="styleSheet">
-        <string notr="true"/>
-       </property>
-       <property name="text">
-        <string>记录当前示教点</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="recordButton_4">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>130</y>
-         <width>140</width>
-         <height>50</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Ubuntu Mono</family>
-         <pointsize>14</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>清空多点队列</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="recordButton_2">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>70</y>
-         <width>300</width>
-         <height>50</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Ubuntu Mono</family>
-         <pointsize>14</pointsize>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>记录多示教点</string>
-       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_9">
+        <item>
+         <widget class="QPushButton" name="recordButton_1">
+          <property name="font">
+           <font>
+            <family>Ubuntu Mono</family>
+            <pointsize>14</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>记录当前示教点</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="recordButton_2">
+          <property name="font">
+           <font>
+            <family>Ubuntu Mono</family>
+            <pointsize>14</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>记录多示教点</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="recordButton_4">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="font">
+           <font>
+            <family>Ubuntu Mono</family>
+            <pointsize>14</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>清空多点队列</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="recordButton_3">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="font">
+           <font>
+            <family>Ubuntu Mono</family>
+            <pointsize>14</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>生成SPLINE命令</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
      <widget class="QPushButton" name="scrolldown_5">
       <property name="geometry">
        <rect>
-        <x>780</x>
-        <y>530</y>
+        <x>550</x>
+        <y>460</y>
         <width>50</width>
         <height>50</height>
        </rect>
@@ -2100,11 +2067,38 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        </size>
       </property>
      </widget>
+     <widget class="QListWidget" name="multipointsListWidget">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>340</y>
+        <width>351</width>
+        <height>170</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Ubuntu Mono</family>
+        <pointsize>20</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border:2px groove gray;border-radius:10px;padding:2px 4px;</string>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::NoSelection</enum>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
      <widget class="QPushButton" name="scrollup_5">
       <property name="geometry">
        <rect>
-        <x>780</x>
-        <y>410</y>
+        <x>550</x>
+        <y>340</y>
         <width>50</width>
         <height>50</height>
        </rect>
@@ -2132,13 +2126,13 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        </size>
       </property>
      </widget>
-     <zorder>manualTools</zorder>
      <zorder>manualContext</zorder>
      <zorder>manual</zorder>
-     <zorder>multipointsListWidget</zorder>
      <zorder>recordBox</zorder>
      <zorder>scrolldown_5</zorder>
+     <zorder>multipointsListWidget</zorder>
      <zorder>scrollup_5</zorder>
+     <zorder>manualTools</zorder>
     </widget>
     <widget class="QWidget" name="page_4">
      <widget class="QStackedWidget" name="teach_Playback">
@@ -2146,8 +2140,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <rect>
         <x>0</x>
         <y>10</y>
-        <width>1151</width>
-        <height>591</height>
+        <width>888</width>
+        <height>510</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -2163,10 +2157,10 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QTableView" name="fileTableView">
         <property name="geometry">
          <rect>
-          <x>40</x>
+          <x>10</x>
           <y>40</y>
-          <width>541</width>
-          <height>501</height>
+          <width>481</width>
+          <height>461</height>
          </rect>
         </property>
         <property name="sizePolicy">
@@ -2208,9 +2202,9 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
-          <x>730</x>
-          <y>80</y>
-          <width>371</width>
+          <x>630</x>
+          <y>60</y>
+          <width>241</width>
           <height>411</height>
          </rect>
         </property>
@@ -2297,109 +2291,6 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
            </item>
           </layout>
          </item>
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
-           <property name="spacing">
-            <number>30</number>
-           </property>
-           <item>
-            <widget class="QPushButton" name="project_5">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <family>Ubuntu Mono</family>
-               <pointsize>14</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="text">
-              <string>存为工程1</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="project_4">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <family>Ubuntu Mono</family>
-               <pointsize>14</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="text">
-              <string>存为工程2</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="project_6">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <family>Ubuntu Mono</family>
-               <pointsize>14</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="text">
-              <string>存为工程3</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="project_7">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <family>Ubuntu Mono</family>
-               <pointsize>14</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="text">
-              <string>存为工程4</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
         </layout>
        </widget>
        <widget class="QLabel" name="projNotice">
@@ -2429,7 +2320,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QPushButton" name="scrollup_0">
         <property name="geometry">
          <rect>
-          <x>600</x>
+          <x>500</x>
           <y>40</y>
           <width>80</width>
           <height>80</height>
@@ -2461,8 +2352,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QPushButton" name="scrolldown_0">
         <property name="geometry">
          <rect>
-          <x>600</x>
-          <y>460</y>
+          <x>500</x>
+          <y>420</y>
           <width>80</width>
           <height>80</height>
          </rect>
@@ -2497,8 +2388,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
          <rect>
           <x>20</x>
           <y>90</y>
-          <width>931</width>
-          <height>481</height>
+          <width>641</width>
+          <height>411</height>
          </rect>
         </property>
         <property name="font">
@@ -2528,15 +2419,15 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QWidget" name="layoutWidget1">
         <property name="geometry">
          <rect>
-          <x>1034</x>
-          <y>80</y>
+          <x>750</x>
+          <y>100</y>
           <width>115</width>
-          <height>481</height>
+          <height>391</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="teachLayout_2">
          <property name="spacing">
-          <number>20</number>
+          <number>10</number>
          </property>
          <item>
           <widget class="QPushButton" name="teachButton_5">
@@ -2708,7 +2599,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
          <rect>
           <x>20</x>
           <y>10</y>
-          <width>1131</width>
+          <width>851</width>
           <height>61</height>
          </rect>
         </property>
@@ -2841,7 +2732,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QPushButton" name="scrollup_1">
         <property name="geometry">
          <rect>
-          <x>950</x>
+          <x>660</x>
           <y>90</y>
           <width>80</width>
           <height>80</height>
@@ -2873,8 +2764,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QPushButton" name="scrolldown_1">
         <property name="geometry">
          <rect>
-          <x>950</x>
-          <y>490</y>
+          <x>660</x>
+          <y>410</y>
           <width>80</width>
           <height>80</height>
          </rect>
@@ -2909,8 +2800,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
          <rect>
           <x>20</x>
           <y>90</y>
-          <width>931</width>
-          <height>481</height>
+          <width>661</width>
+          <height>411</height>
          </rect>
         </property>
         <property name="font">
@@ -2937,7 +2828,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QcwIndicatorLamp" name="cycleLamp" native="true">
         <property name="geometry">
          <rect>
-          <x>660</x>
+          <x>570</x>
           <y>20</y>
           <width>40</width>
           <height>40</height>
@@ -2950,10 +2841,10 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QWidget" name="layoutWidget3">
         <property name="geometry">
          <rect>
-          <x>1030</x>
+          <x>760</x>
           <y>90</y>
           <width>115</width>
-          <height>481</height>
+          <height>401</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="playbackLayout_2">
@@ -3077,7 +2968,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
          <rect>
           <x>20</x>
           <y>10</y>
-          <width>691</width>
+          <width>591</width>
           <height>61</height>
          </rect>
         </property>
@@ -3105,7 +2996,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
             <string notr="true"/>
            </property>
            <property name="text">
-            <string>从开始运行至指定行</string>
+            <string>从开始运行至指定行    </string>
            </property>
           </widget>
          </item>
@@ -3165,10 +3056,10 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QWidget" name="layoutWidget5">
         <property name="geometry">
          <rect>
-          <x>730</x>
-          <y>20</y>
-          <width>298</width>
-          <height>53</height>
+          <x>630</x>
+          <y>10</y>
+          <width>266</width>
+          <height>61</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="playbackLayout_3">
@@ -3252,7 +3143,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QPushButton" name="scrollup_2">
         <property name="geometry">
          <rect>
-          <x>950</x>
+          <x>680</x>
           <y>90</y>
           <width>80</width>
           <height>80</height>
@@ -3284,8 +3175,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QPushButton" name="scrolldown_2">
         <property name="geometry">
          <rect>
-          <x>950</x>
-          <y>490</y>
+          <x>680</x>
+          <y>410</y>
           <width>80</width>
           <height>80</height>
          </rect>
@@ -3316,7 +3207,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QcwIndicatorLamp" name="stepLamp" native="true">
         <property name="geometry">
          <rect>
-          <x>420</x>
+          <x>390</x>
           <y>20</y>
           <width>40</width>
           <height>40</height>
@@ -3329,7 +3220,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QcwIndicatorLamp" name="trialLamp" native="true">
         <property name="geometry">
          <rect>
-          <x>190</x>
+          <x>200</x>
           <y>20</y>
           <width>40</width>
           <height>40</height>
@@ -3357,21 +3248,21 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <rect>
         <x>0</x>
         <y>10</y>
-        <width>1151</width>
-        <height>591</height>
+        <width>888</width>
+        <height>510</height>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="prog_1">
        <widget class="QTableView" name="progTableView">
         <property name="geometry">
          <rect>
-          <x>40</x>
+          <x>10</x>
           <y>40</y>
           <width>600</width>
-          <height>500</height>
+          <height>461</height>
          </rect>
         </property>
         <property name="sizePolicy">
@@ -3401,9 +3292,9 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QWidget" name="layoutWidget6">
         <property name="geometry">
          <rect>
-          <x>780</x>
-          <y>140</y>
-          <width>241</width>
+          <x>690</x>
+          <y>100</y>
+          <width>181</width>
           <height>331</height>
          </rect>
         </property>
@@ -3488,8 +3379,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QPushButton" name="scrolldown_7">
         <property name="geometry">
          <rect>
-          <x>660</x>
-          <y>460</y>
+          <x>610</x>
+          <y>410</y>
           <width>80</width>
           <height>80</height>
          </rect>
@@ -3520,7 +3411,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QPushButton" name="scrollup_7">
         <property name="geometry">
          <rect>
-          <x>660</x>
+          <x>610</x>
           <y>40</y>
           <width>80</width>
           <height>80</height>
@@ -3578,10 +3469,10 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QWidget" name="layoutWidget7">
         <property name="geometry">
          <rect>
-          <x>1020</x>
+          <x>740</x>
           <y>20</y>
           <width>132</width>
-          <height>551</height>
+          <height>461</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="progEditingLayout">
@@ -3761,7 +3652,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QPushButton" name="scrollup_3">
         <property name="geometry">
          <rect>
-          <x>940</x>
+          <x>660</x>
           <y>20</y>
           <width>80</width>
           <height>80</height>
@@ -3793,8 +3684,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QPushButton" name="scrolldown_3">
         <property name="geometry">
          <rect>
-          <x>940</x>
-          <y>490</y>
+          <x>660</x>
+          <y>410</y>
           <width>80</width>
           <height>80</height>
          </rect>
@@ -3827,8 +3718,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
          <rect>
           <x>20</x>
           <y>10</y>
-          <width>911</width>
-          <height>571</height>
+          <width>631</width>
+          <height>491</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_6" stretch="6">
@@ -3863,16 +3754,16 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>-1</y>
         <width>176</width>
-        <height>600</height>
+        <height>521</height>
        </rect>
       </property>
       <widget class="QPushButton" name="additionMenu_3">
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>442</y>
+         <y>372</y>
          <width>176</width>
          <height>48</height>
         </rect>
@@ -3902,7 +3793,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>326</y>
+         <y>256</y>
          <width>176</width>
          <height>20</height>
         </rect>
@@ -3918,7 +3809,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>346</y>
+         <y>276</y>
          <width>176</width>
          <height>49</height>
         </rect>
@@ -3948,7 +3839,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>394</y>
+         <y>324</y>
          <width>176</width>
          <height>48</height>
         </rect>
@@ -3978,7 +3869,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>490</y>
+         <y>420</y>
          <width>176</width>
          <height>48</height>
         </rect>
@@ -4024,7 +3915,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>538</y>
+         <y>468</y>
          <width>176</width>
          <height>48</height>
         </rect>
@@ -4056,21 +3947,21 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <rect>
         <x>176</x>
         <y>10</y>
-        <width>971</width>
-        <height>581</height>
+        <width>711</width>
+        <height>510</height>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="additionPage_1">
        <widget class="QWidget" name="formLayoutWidget_3">
         <property name="geometry">
          <rect>
-          <x>260</x>
+          <x>200</x>
           <y>60</y>
           <width>194</width>
-          <height>117</height>
+          <height>71</height>
          </rect>
         </property>
         <layout class="QFormLayout" name="jointStateLayout_3">
@@ -4078,12 +3969,12 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
           <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
          </property>
          <property name="horizontalSpacing">
-          <number>20</number>
+          <number>5</number>
          </property>
          <property name="verticalSpacing">
           <number>14</number>
          </property>
-         <item row="0" column="0">
+         <item row="1" column="0">
           <widget class="QLabel" name="jointStateLabel_7">
            <property name="font">
             <font>
@@ -4098,8 +3989,38 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
            </property>
           </widget>
          </item>
-         <item row="0" column="1">
+         <item row="1" column="1">
           <widget class="QLabel" name="stateInJ_4">
+           <property name="font">
+            <font>
+             <family>Ubuntu Mono</family>
+             <pointsize>14</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="jointStateLabel_12">
+           <property name="font">
+            <font>
+             <family>Ubuntu Mono</family>
+             <pointsize>14</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Joint 3 : </string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="stateInJ_3">
            <property name="font">
             <font>
              <family>Ubuntu Mono</family>
@@ -4118,10 +4039,10 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QWidget" name="formLayoutWidget_4">
         <property name="geometry">
          <rect>
-          <x>70</x>
+          <x>10</x>
           <y>60</y>
           <width>244</width>
-          <height>117</height>
+          <height>71</height>
          </rect>
         </property>
         <layout class="QFormLayout" name="jointStateLayout_4">
@@ -4129,7 +4050,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
           <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
          </property>
          <property name="horizontalSpacing">
-          <number>20</number>
+          <number>5</number>
          </property>
          <property name="verticalSpacing">
           <number>14</number>
@@ -4194,45 +4115,15 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
            </property>
           </widget>
          </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="jointStateLabel_12">
-           <property name="font">
-            <font>
-             <family>Ubuntu Mono</family>
-             <pointsize>14</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Joint 3 : </string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QLabel" name="stateInJ_3">
-           <property name="font">
-            <font>
-             <family>Ubuntu Mono</family>
-             <pointsize>14</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>0</string>
-           </property>
-          </widget>
-         </item>
         </layout>
        </widget>
        <widget class="QWidget" name="formLayoutWidget_7">
         <property name="geometry">
          <rect>
-          <x>710</x>
+          <x>530</x>
           <y>60</y>
-          <width>194</width>
-          <height>117</height>
+          <width>171</width>
+          <height>71</height>
          </rect>
         </property>
         <layout class="QFormLayout" name="jointStateLayout_7">
@@ -4240,12 +4131,12 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
           <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
          </property>
          <property name="horizontalSpacing">
-          <number>20</number>
+          <number>5</number>
          </property>
          <property name="verticalSpacing">
           <number>14</number>
          </property>
-         <item row="0" column="0">
+         <item row="1" column="0">
           <widget class="QLabel" name="jointStateLabel_19">
            <property name="font">
             <font>
@@ -4260,8 +4151,38 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
            </property>
           </widget>
          </item>
-         <item row="0" column="1">
+         <item row="1" column="1">
           <widget class="QLabel" name="stateInB_4">
+           <property name="font">
+            <font>
+             <family>Ubuntu Mono</family>
+             <pointsize>14</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="jointStateLabel_24">
+           <property name="font">
+            <font>
+             <family>Ubuntu Mono</family>
+             <pointsize>14</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Z axis  :</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="stateInB_3">
            <property name="font">
             <font>
              <family>Ubuntu Mono</family>
@@ -4280,10 +4201,10 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QWidget" name="formLayoutWidget_8">
         <property name="geometry">
          <rect>
-          <x>520</x>
+          <x>360</x>
           <y>60</y>
-          <width>244</width>
-          <height>117</height>
+          <width>211</width>
+          <height>71</height>
          </rect>
         </property>
         <layout class="QFormLayout" name="jointStateLayout_8">
@@ -4291,7 +4212,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
           <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
          </property>
          <property name="horizontalSpacing">
-          <number>20</number>
+          <number>5</number>
          </property>
          <property name="verticalSpacing">
           <number>14</number>
@@ -4356,45 +4277,15 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
            </property>
           </widget>
          </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="jointStateLabel_24">
-           <property name="font">
-            <font>
-             <family>Ubuntu Mono</family>
-             <pointsize>14</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Z axis  :</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QLabel" name="stateInB_3">
-           <property name="font">
-            <font>
-             <family>Ubuntu Mono</family>
-             <pointsize>14</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>0</string>
-           </property>
-          </widget>
-         </item>
         </layout>
        </widget>
        <widget class="QWidget" name="formLayoutWidget_9">
         <property name="geometry">
          <rect>
-          <x>260</x>
-          <y>220</y>
+          <x>200</x>
+          <y>180</y>
           <width>194</width>
-          <height>117</height>
+          <height>71</height>
          </rect>
         </property>
         <layout class="QFormLayout" name="jointStateLayout_10">
@@ -4402,12 +4293,12 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
           <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
          </property>
          <property name="horizontalSpacing">
-          <number>20</number>
+          <number>5</number>
          </property>
          <property name="verticalSpacing">
           <number>14</number>
          </property>
-         <item row="0" column="0">
+         <item row="1" column="0">
           <widget class="QLabel" name="jointStateLabel_28">
            <property name="font">
             <font>
@@ -4422,8 +4313,38 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
            </property>
           </widget>
          </item>
-         <item row="0" column="1">
+         <item row="1" column="1">
           <widget class="QLabel" name="stateInU_4">
+           <property name="font">
+            <font>
+             <family>Ubuntu Mono</family>
+             <pointsize>14</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="jointStateLabel_33">
+           <property name="font">
+            <font>
+             <family>Ubuntu Mono</family>
+             <pointsize>14</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Z axis  : </string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="stateInU_3">
            <property name="font">
             <font>
              <family>Ubuntu Mono</family>
@@ -4442,10 +4363,10 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QWidget" name="formLayoutWidget_10">
         <property name="geometry">
          <rect>
-          <x>70</x>
-          <y>220</y>
+          <x>10</x>
+          <y>180</y>
           <width>244</width>
-          <height>117</height>
+          <height>71</height>
          </rect>
         </property>
         <layout class="QFormLayout" name="jointStateLayout_11">
@@ -4453,7 +4374,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
           <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
          </property>
          <property name="horizontalSpacing">
-          <number>20</number>
+          <number>5</number>
          </property>
          <property name="verticalSpacing">
           <number>14</number>
@@ -4518,42 +4439,12 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
            </property>
           </widget>
          </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="jointStateLabel_33">
-           <property name="font">
-            <font>
-             <family>Ubuntu Mono</family>
-             <pointsize>14</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>Z axis  : </string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QLabel" name="stateInU_3">
-           <property name="font">
-            <font>
-             <family>Ubuntu Mono</family>
-             <pointsize>14</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>0</string>
-           </property>
-          </widget>
-         </item>
         </layout>
        </widget>
        <widget class="QLabel" name="frame_label_1">
         <property name="geometry">
          <rect>
-          <x>70</x>
+          <x>10</x>
           <y>10</y>
           <width>191</width>
           <height>31</height>
@@ -4574,7 +4465,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QLabel" name="frame_label_2">
         <property name="geometry">
          <rect>
-          <x>520</x>
+          <x>360</x>
           <y>10</y>
           <width>191</width>
           <height>31</height>
@@ -4595,8 +4486,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QLabel" name="frame_label_4">
         <property name="geometry">
          <rect>
-          <x>70</x>
-          <y>170</y>
+          <x>10</x>
+          <y>140</y>
           <width>191</width>
           <height>31</height>
          </rect>
@@ -4616,8 +4507,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QPushButton" name="change_frame_disp">
         <property name="geometry">
          <rect>
-          <x>560</x>
-          <y>170</y>
+          <x>400</x>
+          <y>140</y>
           <width>300</width>
           <height>50</height>
          </rect>
@@ -4640,8 +4531,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QPushButton" name="reset_robot_state">
         <property name="geometry">
          <rect>
-          <x>560</x>
-          <y>290</y>
+          <x>400</x>
+          <y>260</y>
           <width>300</width>
           <height>50</height>
          </rect>
@@ -4664,8 +4555,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QWidget" name="layoutWidget5_2">
         <property name="geometry">
          <rect>
-          <x>570</x>
-          <y>240</y>
+          <x>410</x>
+          <y>200</y>
           <width>278</width>
           <height>53</height>
          </rect>
@@ -4757,8 +4648,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QPushButton" name="setCmd_method">
         <property name="geometry">
          <rect>
-          <x>60</x>
-          <y>390</y>
+          <x>10</x>
+          <y>320</y>
           <width>151</width>
           <height>50</height>
          </rect>
@@ -4781,8 +4672,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QLabel" name="setCmd_target">
         <property name="geometry">
          <rect>
-          <x>220</x>
-          <y>400</y>
+          <x>170</x>
+          <y>330</y>
           <width>121</width>
           <height>31</height>
          </rect>
@@ -4802,9 +4693,9 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QWidget" name="layoutWidget5_3">
         <property name="geometry">
          <rect>
-          <x>61</x>
-          <y>490</y>
-          <width>570</width>
+          <x>10</x>
+          <y>410</y>
+          <width>430</width>
           <height>53</height>
          </rect>
         </property>
@@ -4906,19 +4797,6 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
           </widget>
          </item>
          <item>
-          <spacer name="horizontalSpacer">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>100</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
           <widget class="QPushButton" name="setCmd_frame">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
@@ -4947,10 +4825,10 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QPushButton" name="setCmd">
         <property name="geometry">
          <rect>
-          <x>650</x>
-          <y>490</y>
-          <width>300</width>
-          <height>50</height>
+          <x>430</x>
+          <y>400</y>
+          <width>231</width>
+          <height>81</height>
          </rect>
         </property>
         <property name="font">
@@ -4971,9 +4849,9 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QWidget" name="layoutWidget13">
         <property name="geometry">
          <rect>
-          <x>320</x>
-          <y>390</y>
-          <width>631</width>
+          <x>270</x>
+          <y>320</y>
+          <width>431</width>
           <height>51</height>
          </rect>
         </property>
@@ -5116,8 +4994,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
          <rect>
           <x>10</x>
           <y>180</y>
-          <width>681</width>
-          <height>281</height>
+          <width>491</width>
+          <height>201</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout">
@@ -5281,10 +5159,10 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QListWidget" name="userFrameListWidget">
         <property name="geometry">
          <rect>
-          <x>705</x>
+          <x>515</x>
           <y>30</y>
-          <width>201</width>
-          <height>431</height>
+          <width>131</width>
+          <height>351</height>
          </rect>
         </property>
         <property name="font">
@@ -5419,7 +5297,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QPushButton" name="scrollup_6">
         <property name="geometry">
          <rect>
-          <x>910</x>
+          <x>650</x>
           <y>30</y>
           <width>55</width>
           <height>55</height>
@@ -5451,8 +5329,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QPushButton" name="scrolldown_6">
         <property name="geometry">
          <rect>
-          <x>910</x>
-          <y>400</y>
+          <x>650</x>
+          <y>330</y>
           <width>55</width>
           <height>55</height>
          </rect>
@@ -5484,8 +5362,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>490</y>
-          <width>891</width>
+          <y>410</y>
+          <width>691</width>
           <height>71</height>
          </rect>
         </property>
@@ -5610,8 +5488,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
          <rect>
           <x>10</x>
           <y>0</y>
-          <width>651</width>
-          <height>561</height>
+          <width>451</width>
+          <height>501</height>
          </rect>
         </property>
         <property name="verticalScrollBarPolicy">
@@ -5645,7 +5523,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
          <number>2</number>
         </property>
         <attribute name="horizontalHeaderDefaultSectionSize">
-         <number>300</number>
+         <number>200</number>
         </attribute>
         <attribute name="verticalHeaderDefaultSectionSize">
          <number>50</number>
@@ -5784,8 +5662,8 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QPushButton" name="scrolldown_8">
         <property name="geometry">
          <rect>
-          <x>670</x>
-          <y>470</y>
+          <x>470</x>
+          <y>410</y>
           <width>80</width>
           <height>80</height>
          </rect>
@@ -5816,7 +5694,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QPushButton" name="scrollup_8">
         <property name="geometry">
          <rect>
-          <x>670</x>
+          <x>470</x>
           <y>30</y>
           <width>80</width>
           <height>80</height>
@@ -5848,10 +5726,10 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QWidget" name="layoutWidget20">
         <property name="geometry">
          <rect>
-          <x>770</x>
+          <x>570</x>
           <y>40</y>
-          <width>171</width>
-          <height>481</height>
+          <width>144</width>
+          <height>431</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -6057,8 +5935,8 @@ RESET命令</string>
        <rect>
         <x>40</x>
         <y>20</y>
-        <width>671</width>
-        <height>551</height>
+        <width>501</width>
+        <height>481</height>
        </rect>
       </property>
       <property name="font">
@@ -6085,7 +5963,7 @@ RESET命令</string>
      <widget class="QPushButton" name="scrollup_4">
       <property name="geometry">
        <rect>
-        <x>720</x>
+        <x>560</x>
         <y>30</y>
         <width>80</width>
         <height>80</height>
@@ -6117,8 +5995,8 @@ RESET命令</string>
      <widget class="QPushButton" name="scrolldown_4">
       <property name="geometry">
        <rect>
-        <x>720</x>
-        <y>490</y>
+        <x>560</x>
+        <y>410</y>
         <width>80</width>
         <height>80</height>
        </rect>
@@ -6149,15 +6027,15 @@ RESET命令</string>
      <widget class="QWidget" name="layoutWidget10">
       <property name="geometry">
        <rect>
-        <x>870</x>
+        <x>680</x>
         <y>100</y>
-        <width>244</width>
-        <height>431</height>
+        <width>191</width>
+        <height>361</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_7">
        <property name="spacing">
-        <number>50</number>
+        <number>20</number>
        </property>
        <item>
         <widget class="QPushButton" name="fileButton_1">
@@ -6269,16 +6147,16 @@ RESET命令</string>
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
+        <y>-1</y>
         <width>176</width>
-        <height>600</height>
+        <height>521</height>
        </rect>
       </property>
       <widget class="QPushButton" name="systemMenu_4">
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>442</y>
+         <y>372</y>
          <width>176</width>
          <height>48</height>
         </rect>
@@ -6308,7 +6186,7 @@ RESET命令</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>277</y>
+         <y>207</y>
          <width>176</width>
          <height>20</height>
         </rect>
@@ -6324,7 +6202,7 @@ RESET命令</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>346</y>
+         <y>276</y>
          <width>176</width>
          <height>49</height>
         </rect>
@@ -6354,7 +6232,7 @@ RESET命令</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>394</y>
+         <y>324</y>
          <width>176</width>
          <height>48</height>
         </rect>
@@ -6384,7 +6262,7 @@ RESET命令</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>490</y>
+         <y>420</y>
          <width>176</width>
          <height>48</height>
         </rect>
@@ -6430,7 +6308,7 @@ RESET命令</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>538</y>
+         <y>468</y>
          <width>176</width>
          <height>48</height>
         </rect>
@@ -6460,7 +6338,7 @@ RESET命令</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>297</y>
+         <y>227</y>
          <width>176</width>
          <height>49</height>
         </rect>
@@ -6492,8 +6370,8 @@ RESET命令</string>
        <rect>
         <x>176</x>
         <y>20</y>
-        <width>971</width>
-        <height>581</height>
+        <width>701</width>
+        <height>510</height>
        </rect>
       </property>
       <property name="currentIndex">
@@ -6503,8 +6381,8 @@ RESET命令</string>
        <widget class="QWidget" name="layoutWidget11">
         <property name="geometry">
          <rect>
-          <x>130</x>
-          <y>60</y>
+          <x>170</x>
+          <y>20</y>
           <width>359</width>
           <height>421</height>
          </rect>
@@ -6615,8 +6493,8 @@ RESET命令</string>
        <widget class="QcwIndicatorLamp" name="softServoLamp" native="true">
         <property name="geometry">
          <rect>
-          <x>140</x>
-          <y>70</y>
+          <x>210</x>
+          <y>50</y>
           <width>39</width>
           <height>26</height>
          </rect>

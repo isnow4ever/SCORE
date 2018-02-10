@@ -174,8 +174,6 @@ void MyPlugin::initPlugin(qt_gui_cpp::PluginContext& context)
 void MyPlugin::shutdownPlugin()
 {
   // unregister all publishers here
-  timer->stop();
-  delete timer;
 }
 
 void MyPlugin::saveSettings(qt_gui_cpp::Settings& plugin_settings,
