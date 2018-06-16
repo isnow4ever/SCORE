@@ -1,0 +1,17 @@
+#!/bin/sh
+set -e
+ROS_DISTRO=indigo
+case "$1" in
+ configure)
+   echo "postinsta called to set cap_net_raw and cap_ipc_lock" >&2
+   for file in /opt/ros/$ROS_DISTRO/lib/minas_control/*; do
+     setcap cap_net_raw,cap_ipc_lock=+ep $file
+     getcap $file
+   done
+   ;;
+ *)
+       echo "postinst called with unknown argument \`$1'" >&2
+       exit 0
+   ;;
+esac
+#DEBHELPER#

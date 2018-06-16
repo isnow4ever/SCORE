@@ -101,8 +101,7 @@
 						}
 					]
 				}
-			],
-			"isBuildCommand": true
+			]
 		},
 		{
 			"taskName": "Release",
@@ -197,7 +196,8 @@
 						}
 					]
 				}
-			]
+			],
+			"isBuildCommand": true
 		},
 		{
 			"taskName": "Debug (isolated)",

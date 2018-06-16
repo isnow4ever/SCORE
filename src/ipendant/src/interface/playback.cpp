@@ -25,7 +25,7 @@
 
 #include "playback.h"
 
-#define new_cmd_delay 400000
+#define new_cmd_delay 800000
 
 bool wait_command_state = 0;
 
@@ -276,6 +276,10 @@ check_flag: switch (prev_cmd_states) {
                         cycle_minus:
                         count.cycle--;
                         updateGUI(2);//cycle minus
+                        count.lineNo = 0;
+                    }
+                    else if(count.cycle == -1)
+                    {
                         count.lineNo = 0;
                     }
                     else

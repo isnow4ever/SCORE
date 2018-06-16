@@ -1,10 +1,7 @@
 controller_list:
   - name: fake_manipulator_controller
     joints:
-      - Joint_1
-      - Joint_2
-      - Joint_3
-      - Joint_4
-  - name: fake_tool_controller
-    joints:
-      []
+      - joint1
+      - joint2
+      - joint4
+      - joint3

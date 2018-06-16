@@ -1,0 +1,42 @@
+<package>
+  <name>scara_interface</name>
+
+  <version>0.2.1</version>
+
+  <description>
+    The scara_interface package
+  </description >
+
+  <maintainer email = "suyanyucn@163.com" > Yanyu Su </maintainer>
+
+  <license>MIT </license>
+
+  <url type="website">https://www.suyanyu.com/</url>
+  <url type="repository">https://suyanyucn@bitbucket.org/suyanyucn/x50</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>moveit_ros_move_group</build_depend>
+  <build_depend>moveit_planners_ompl</build_depend>
+  <build_depend>moveit_ros_visualization</build_depend>
+  <build_depend>joint_state_publisher</build_depend>
+  <build_depend>robot_state_publisher</build_depend>
+  <build_depend>xacro</build_depend>
+  <build_depend>scara_description</build_depend>
+  <build_depend>ethercat_manager</build_depend>
+  <build_depend>minas_control</build_depend>
+  <build_depend>controller_manager</build_depend>
+
+  <run_depend>moveit_ros_move_group</run_depend>
+  <run_depend>moveit_planners_ompl</run_depend>
+  <run_depend>moveit_ros_visualization</run_depend>
+  <run_depend>joint_state_publisher</run_depend>
+  <run_depend>robot_state_publisher</run_depend>
+  <run_depend>xacro</run_depend>
+  <run_depend>scara_description</run_depend>
+  <run_depend>ethercat_manager</run_depend>
+  <run_depend>minas_control</run_depend>
+  <run_depend>controller_manager</run_depend>
+
+</package>
+

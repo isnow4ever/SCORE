@@ -331,13 +331,13 @@ private Q_SLOTS:
 
     void on_setCmd_clicked();
 
-    void on_project_5_pressed();
+    // void on_project_5_pressed();
 
-    void on_project_4_pressed();
+    // void on_project_4_pressed();
 
-    void on_project_6_pressed();
+    // void on_project_6_pressed();
 
-    void on_project_7_pressed();
+    // void on_project_7_pressed();
 
     void goto_prog(int);
 

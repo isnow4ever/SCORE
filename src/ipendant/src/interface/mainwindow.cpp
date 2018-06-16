@@ -615,7 +615,7 @@ void MainWindow::on_recordButton_2_clicked()//record multi-point
         multipoints.push_back(point.at(i));
     QString multipoint;
     for(int i = 0; i < 6; i++)
-        multipoint.append(" " + QString::number(point.at(i)));
+        multipoint.append(" " + QString::number(point.at(i), 'g', 4));
     multipointList.append(QString::number(multipointNum) + multipoint);
     ui->multipointsListWidget->clear();
     ui->multipointsListWidget->addItems(multipointList);
@@ -711,7 +711,7 @@ void MainWindow::record_cmdline(const Command &cmd)
         {
             ss.append(cmd.method + " {" + cmd.target + "} ");
             for(int i = 0; i < cmd.pointsNum*6; i++)
-                ss.append(QString::number(cmd.motion_params[i],'f', 3) + " ");
+                ss.append(QString::number(cmd.motion_params[i],'f', 4) + " ");
             ss.append("[" + QString::number(cmd.duration) + "] (" + cmd.units + ") {" + cmd.frame + "}");
         }
         else if(cmd.type == IO)
@@ -740,7 +740,7 @@ void MainWindow::record_cmdline(const Command &cmd)
         {
             ss.append(cmd.method + " {" + cmd.target + "} ");
             for(int i = 0; i < cmd.pointsNum*6; i++)
-                ss.append(QString::number(cmd.motion_params[i],'f', 3) + " ");
+                ss.append(QString::number(cmd.motion_params[i],'f', 4) + " ");
             ss.append("[" + QString::number(cmd.duration) + "] (" + cmd.units + ") {" + cmd.frame + "}");
         }
         else if(cmd.type == IO)
@@ -979,141 +979,141 @@ void MainWindow::newProj(const QString projName)//newProj slot.
     }
 }
 
-void MainWindow::on_project_5_pressed()// Save as prog 1
-{
-    if(ui->fileTableView->currentIndex().isValid())
-    {
-        QDir prog_dir;
-        QDir save_dir;
-        // Go to the saved directory. if not found, create it
-        QString m_prog_dir = PROG_DIR;
-        QString m_save_dir = SAVE_DIR;
-        if (prog_dir.cd(m_prog_dir) == 0) {
-            prog_dir.mkdir(m_prog_dir);
-            prog_dir.cd(m_prog_dir);
-        }
-        save_dir.cd(m_save_dir);
-        QFile sourcefile(save_dir.filePath(fileModel->fileName(ui->fileTableView->currentIndex())));
-        QFile targetfile(prog_dir.filePath("prog1.txt"));
-        QString content;
-        if (sourcefile.open(QIODevice::ReadOnly)) {
-            QTextStream inStream(&sourcefile);
-            content = inStream.readAll();
-        }
-        sourcefile.close();
-        if (targetfile.open(QFile::WriteOnly | QFile::Truncate)) {
-            QTextStream outStream(&targetfile);
-            outStream << content;
-        }
-        targetfile.close();
-    }
-    else
-    {
-        ui->projNotice->setText("Please Select A Project!");
-    }
-}
+// void MainWindow::on_project_5_pressed()// Save as prog 1
+// {
+//     if(ui->fileTableView->currentIndex().isValid())
+//     {
+//         QDir prog_dir;
+//         QDir save_dir;
+//         // Go to the saved directory. if not found, create it
+//         QString m_prog_dir = PROG_DIR;
+//         QString m_save_dir = SAVE_DIR;
+//         if (prog_dir.cd(m_prog_dir) == 0) {
+//             prog_dir.mkdir(m_prog_dir);
+//             prog_dir.cd(m_prog_dir);
+//         }
+//         save_dir.cd(m_save_dir);
+//         QFile sourcefile(save_dir.filePath(fileModel->fileName(ui->fileTableView->currentIndex())));
+//         QFile targetfile(prog_dir.filePath("prog1.txt"));
+//         QString content;
+//         if (sourcefile.open(QIODevice::ReadOnly)) {
+//             QTextStream inStream(&sourcefile);
+//             content = inStream.readAll();
+//         }
+//         sourcefile.close();
+//         if (targetfile.open(QFile::WriteOnly | QFile::Truncate)) {
+//             QTextStream outStream(&targetfile);
+//             outStream << content;
+//         }
+//         targetfile.close();
+//     }
+//     else
+//     {
+//         ui->projNotice->setText("Please Select A Project!");
+//     }
+// }
 
-void MainWindow::on_project_4_pressed() // Save as prog 2
-{
-    if(ui->fileTableView->currentIndex().isValid())
-    {
-        QDir prog_dir;
-        QDir save_dir;
-        // Go to the saved directory. if not found, create it
-        QString m_prog_dir = PROG_DIR;
-        QString m_save_dir = SAVE_DIR;
-        if (prog_dir.cd(m_prog_dir) == 0) {
-            prog_dir.mkdir(m_prog_dir);
-            prog_dir.cd(m_prog_dir);
-        }
-        save_dir.cd(m_save_dir);
-        QFile sourcefile(save_dir.filePath(fileModel->fileName(ui->fileTableView->currentIndex())));
-        QFile targetfile(prog_dir.filePath("prog2.txt"));
-        QString content;
-        if (sourcefile.open(QIODevice::ReadOnly)) {
-            QTextStream inStream(&sourcefile);
-            content = inStream.readAll();
-        }
-        sourcefile.close();
-        if (targetfile.open(QFile::WriteOnly | QFile::Truncate)) {
-            QTextStream outStream(&targetfile);
-            outStream << content;
-        }
-        targetfile.close();
-    }
-    else
-    {
-        ui->projNotice->setText("Please Select A Project!");
-    }
-}
+// void MainWindow::on_project_4_pressed() // Save as prog 2
+// {
+//     if(ui->fileTableView->currentIndex().isValid())
+//     {
+//         QDir prog_dir;
+//         QDir save_dir;
+//         // Go to the saved directory. if not found, create it
+//         QString m_prog_dir = PROG_DIR;
+//         QString m_save_dir = SAVE_DIR;
+//         if (prog_dir.cd(m_prog_dir) == 0) {
+//             prog_dir.mkdir(m_prog_dir);
+//             prog_dir.cd(m_prog_dir);
+//         }
+//         save_dir.cd(m_save_dir);
+//         QFile sourcefile(save_dir.filePath(fileModel->fileName(ui->fileTableView->currentIndex())));
+//         QFile targetfile(prog_dir.filePath("prog2.txt"));
+//         QString content;
+//         if (sourcefile.open(QIODevice::ReadOnly)) {
+//             QTextStream inStream(&sourcefile);
+//             content = inStream.readAll();
+//         }
+//         sourcefile.close();
+//         if (targetfile.open(QFile::WriteOnly | QFile::Truncate)) {
+//             QTextStream outStream(&targetfile);
+//             outStream << content;
+//         }
+//         targetfile.close();
+//     }
+//     else
+//     {
+//         ui->projNotice->setText("Please Select A Project!");
+//     }
+// }
 
-void MainWindow::on_project_6_pressed() // Save as prog 3
-{
-    if(ui->fileTableView->currentIndex().isValid())
-    {
-        QDir prog_dir;
-        QDir save_dir;
-        // Go to the saved directory. if not found, create it
-        QString m_prog_dir = PROG_DIR;
-        QString m_save_dir = SAVE_DIR;
-        if (prog_dir.cd(m_prog_dir) == 0) {
-            prog_dir.mkdir(m_prog_dir);
-            prog_dir.cd(m_prog_dir);
-        }
-        save_dir.cd(m_save_dir);
-        QFile sourcefile(save_dir.filePath(fileModel->fileName(ui->fileTableView->currentIndex())));
-        QFile targetfile(prog_dir.filePath("prog3.txt"));
-        QString content;
-        if (sourcefile.open(QIODevice::ReadOnly)) {
-            QTextStream inStream(&sourcefile);
-            content = inStream.readAll();
-        }
-        sourcefile.close();
-        if (targetfile.open(QFile::WriteOnly | QFile::Truncate)) {
-            QTextStream outStream(&targetfile);
-            outStream << content;
-        }
-        targetfile.close();
-    }
-    else
-    {
-        ui->projNotice->setText("Please Select A Project!");
-    }
-}
+// void MainWindow::on_project_6_pressed() // Save as prog 3
+// {
+//     if(ui->fileTableView->currentIndex().isValid())
+//     {
+//         QDir prog_dir;
+//         QDir save_dir;
+//         // Go to the saved directory. if not found, create it
+//         QString m_prog_dir = PROG_DIR;
+//         QString m_save_dir = SAVE_DIR;
+//         if (prog_dir.cd(m_prog_dir) == 0) {
+//             prog_dir.mkdir(m_prog_dir);
+//             prog_dir.cd(m_prog_dir);
+//         }
+//         save_dir.cd(m_save_dir);
+//         QFile sourcefile(save_dir.filePath(fileModel->fileName(ui->fileTableView->currentIndex())));
+//         QFile targetfile(prog_dir.filePath("prog3.txt"));
+//         QString content;
+//         if (sourcefile.open(QIODevice::ReadOnly)) {
+//             QTextStream inStream(&sourcefile);
+//             content = inStream.readAll();
+//         }
+//         sourcefile.close();
+//         if (targetfile.open(QFile::WriteOnly | QFile::Truncate)) {
+//             QTextStream outStream(&targetfile);
+//             outStream << content;
+//         }
+//         targetfile.close();
+//     }
+//     else
+//     {
+//         ui->projNotice->setText("Please Select A Project!");
+//     }
+// }
 
-void MainWindow::on_project_7_pressed() // Save as prog 4
-{
-    if(ui->fileTableView->currentIndex().isValid())
-    {
-        QDir prog_dir;
-        QDir save_dir;
-        // Go to the saved directory. if not found, create it
-        QString m_prog_dir = PROG_DIR;
-        QString m_save_dir = SAVE_DIR;
-        if (prog_dir.cd(m_prog_dir) == 0) {
-            prog_dir.mkdir(m_prog_dir);
-            prog_dir.cd(m_prog_dir);
-        }
-        save_dir.cd(m_save_dir);
-        QFile sourcefile(save_dir.filePath(fileModel->fileName(ui->fileTableView->currentIndex())));
-        QFile targetfile(prog_dir.filePath("prog4.txt"));
-        QString content;
-        if (sourcefile.open(QIODevice::ReadOnly)) {
-            QTextStream inStream(&sourcefile);
-            content = inStream.readAll();
-        }
-        sourcefile.close();
-        if (targetfile.open(QFile::WriteOnly | QFile::Truncate)) {
-            QTextStream outStream(&targetfile);
-            outStream << content;
-        }
-        targetfile.close();
-    }
-    else
-    {
-        ui->projNotice->setText("Please Select A Project!");
-    }
-}
+// void MainWindow::on_project_7_pressed() // Save as prog 4
+// {
+//     if(ui->fileTableView->currentIndex().isValid())
+//     {
+//         QDir prog_dir;
+//         QDir save_dir;
+//         // Go to the saved directory. if not found, create it
+//         QString m_prog_dir = PROG_DIR;
+//         QString m_save_dir = SAVE_DIR;
+//         if (prog_dir.cd(m_prog_dir) == 0) {
+//             prog_dir.mkdir(m_prog_dir);
+//             prog_dir.cd(m_prog_dir);
+//         }
+//         save_dir.cd(m_save_dir);
+//         QFile sourcefile(save_dir.filePath(fileModel->fileName(ui->fileTableView->currentIndex())));
+//         QFile targetfile(prog_dir.filePath("prog4.txt"));
+//         QString content;
+//         if (sourcefile.open(QIODevice::ReadOnly)) {
+//             QTextStream inStream(&sourcefile);
+//             content = inStream.readAll();
+//         }
+//         sourcefile.close();
+//         if (targetfile.open(QFile::WriteOnly | QFile::Truncate)) {
+//             QTextStream outStream(&targetfile);
+//             outStream << content;
+//         }
+//         targetfile.close();
+//     }
+//     else
+//     {
+//         ui->projNotice->setText("Please Select A Project!");
+//     }
+// }
 
 void MainWindow::goto_prog(int prog_num)
 {
@@ -1308,7 +1308,7 @@ void MainWindow::on_teachButton_7_pressed()//change mode
                 QString ss;
                 ss.append(cmd.method + " {" + cmd.target + "} ");
                 for(int i = 0; i < cmd.pointsNum*6; i++)
-                    ss.append(QString::number(cmd.motion_params[i]) + " ");
+                    ss.append(QString::number(cmd.motion_params[i], 'g', 4) + " ");
                 ss.append("[" + QString::number(cmd.duration) + "] (" + cmd.units + ") {" + cmd.frame + "}");
                 working_thread->project->lineList.replace(row, ss);
                 refreshListView(1);
@@ -1376,7 +1376,7 @@ void MainWindow::on_teachButton_8_pressed()//duration up
             QString ss;
             ss.append(cmd.method + " {" + cmd.target + "} ");
             for(int i = 0; i < cmd.pointsNum*6; i++)
-                ss.append(QString::number(cmd.motion_params[i]) + " ");
+                ss.append(QString::number(cmd.motion_params[i], 'g', 4) + " ");
             ss.append("[" + QString::number(cmd.duration) + "] (" + cmd.units + ") {" + cmd.frame + "}");
             working_thread->project->lineList.replace(row, ss);
             refreshListView(1);
@@ -1427,7 +1427,7 @@ void MainWindow::on_teachButton_10_pressed()//duration down
             QString ss;
             ss.append(cmd.method + " {" + cmd.target + "} ");
             for(int i = 0; i < cmd.pointsNum*6; i++)
-                ss.append(QString::number(cmd.motion_params[i]) + " ");
+                ss.append(QString::number(cmd.motion_params[i], 'g', 4) + " ");
             ss.append("[" + QString::number(cmd.duration) + "] (" + cmd.units + ") {" + cmd.frame + "}");
             working_thread->project->lineList.replace(row, ss);
             refreshListView(1);
@@ -2171,7 +2171,7 @@ void MainWindow::on_setCmd_clicked()
     setCommand->duration = ui->setCmdSpinBox->text().toInt();
     command.append(setCommand->method + " {" + setCommand->target + "} ");
     for(int i = 0; i < 6; i++)
-        command.append(QString::number(setCommand->motion_params.at(i)) + " ");
+        command.append(QString::number(setCommand->motion_params.at(i), 'g', 4) + " ");
     command.append("[" + QString::number(setCommand->duration) + "] (" + setCommand->units + ") {" + setCommand->frame + "}");
     working_thread->extraCmd->setCommand(command);
     working_thread->states->imode = EXTRACMD;
@@ -2401,12 +2401,12 @@ void MainWindow::saveUserFrame()
     framefile.open(QIODevice::Append);
     QTextStream outStream(&framefile);
     outStream << userFrame->name + " " + userFrame->parent + " ";
-    outStream << QString::number(userFrame->origin.at(0)) + " ";
-    outStream << QString::number(userFrame->origin.at(1)) + " ";
-    outStream << QString::number(userFrame->origin.at(2)) + " ";
-    outStream << QString::number(userFrame->rotation.at(0)) + " ";
-    outStream << QString::number(userFrame->rotation.at(1)) + " ";
-    outStream << QString::number(userFrame->rotation.at(2)) + "\n";
+    outStream << QString::number(userFrame->origin.at(0), 'g', 4) + " ";
+    outStream << QString::number(userFrame->origin.at(1), 'g', 4) + " ";
+    outStream << QString::number(userFrame->origin.at(2), 'g', 4) + " ";
+    outStream << QString::number(userFrame->rotation.at(0), 'g', 4) + " ";
+    outStream << QString::number(userFrame->rotation.at(1), 'g', 4) + " ";
+    outStream << QString::number(userFrame->rotation.at(2), 'g', 4) + "\n";
     framefile.close();
 
 	ui->userFrameButton_6->setEnabled(0);

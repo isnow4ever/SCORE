@@ -34,7 +34,7 @@
     <widget class="QWidget" name="jointState" native="true">
      <property name="geometry">
       <rect>
-       <x>620</x>
+       <x>630</x>
        <y>10</y>
        <width>401</width>
        <height>61</height>
@@ -305,7 +305,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
     <widget class="Line" name="line">
      <property name="geometry">
       <rect>
-       <x>610</x>
+       <x>620</x>
        <y>5</y>
        <width>20</width>
        <height>71</height>
@@ -629,7 +629,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
      </font>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="page_1">
      <widget class="QWidget" name="layoutWidget12">
@@ -1250,7 +1250,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
           </property>
           <property name="geometry">
            <rect>
-            <x>10</x>
+            <x>120</x>
             <y>0</y>
             <width>101</width>
             <height>101</height>
@@ -1324,7 +1324,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
           </property>
           <property name="geometry">
            <rect>
-            <x>230</x>
+            <x>10</x>
             <y>0</y>
             <width>101</width>
             <height>101</height>
@@ -1357,7 +1357,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
          <widget class="QLabel" name="label_23">
           <property name="geometry">
            <rect>
-            <x>230</x>
+            <x>10</x>
             <y>110</y>
             <width>91</width>
             <height>31</height>
@@ -1412,7 +1412,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
          <widget class="QLabel" name="label_19">
           <property name="geometry">
            <rect>
-            <x>20</x>
+            <x>240</x>
             <y>110</y>
             <width>81</width>
             <height>31</height>
@@ -1434,7 +1434,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
           </property>
           <property name="geometry">
            <rect>
-            <x>120</x>
+            <x>230</x>
             <y>0</y>
             <width>101</width>
             <height>101</height>
@@ -3107,7 +3107,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
             <enum>QAbstractSpinBox::NoButtons</enum>
            </property>
            <property name="minimum">
-            <number>1</number>
+            <number>-1</number>
            </property>
            <property name="maximum">
             <number>100</number>
@@ -3952,7 +3952,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        </rect>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="additionPage_1">
        <widget class="QWidget" name="formLayoutWidget_3">
@@ -4825,7 +4825,7 @@ border-image: url(:/topBar/images/topBar/logo_text.png)
        <widget class="QPushButton" name="setCmd">
         <property name="geometry">
          <rect>
-          <x>430</x>
+          <x>470</x>
           <y>400</y>
           <width>231</width>
           <height>81</height>

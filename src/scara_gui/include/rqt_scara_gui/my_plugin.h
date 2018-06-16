@@ -15,7 +15,7 @@
 #include <tf/LinearMath/Matrix3x3.h>
 
 #include <rqt_gui_cpp/plugin.h>
-#include <scara_gui/ui_my_plugin.h>
+#include <ui_my_plugin.h>
 #include <QWidget>
 #include <QMessageBox>
 #include <QTimer>

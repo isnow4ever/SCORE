@@ -1,0 +1,49 @@
+<launch>
+
+  <arg name="db" default="true" />
+  <arg name="debug" default="false" />
+ 
+ 
+  <!-- load the robot_description parameter -->
+  <include file="$(find scara_moveit_config)/launch/planning_context.launch" >
+    <arg name="load_robot_description" value="true" />
+  </include>
+
+  <!-- broadcast static tf for robot root -->
+ >
+
+  <!-- run the "real robot" interface nodes -->
+  <!--include file="$(find x50_interface)/launch/x50_interface.launch" >
+    <arg name="robot_ip" value="$(arg robot_ip)"/>
+  </include -->
+
+  <!-- publish the robot state (tf transforms) -->
+
+
+  <!-- Run the main MoveIt executable without trajectory execution 
+  <include file="$(find x50_moveit_config)/launch/x50_group.launch">
+    <arg name="allow_trajectory_execution" value="true"/>  
+    <arg name="fake_execution" value="false"/>
+    <arg name="info" value="true"/>
+    <arg name="debug" value="$(arg debug)"/>
+    <arg name="publish_monitored_planning_scene" value="true" />
+  </include>
+  -->
+
+  <!-- Run Rviz and load the default config to see the state of the move_group node -->
+  <include file="$(find scara_moveit_config)/launch/x50_rviz.launch">
+    <arg name="config" value="true"/>
+    <arg name="debug" value="$(arg debug)"/>
+  </include>
+  
+  <!-- run the "real robot" coodinator nodes -->
+  <node name="coordinator" pkg="scara_interface" type="coordinator" respawn="true" output="screen"/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  <!-- If database loading was enabled, start mongodb as well 
+  <include file="$(find x50_moveit_config)/launch/home_warehouse_db.launch" if="$(arg db)"/>
+  -->  
+  <!--node name="gui_coordinator" pkg="scara_interface"   type="gui_coordinator" /-->
+  <node name="mxx_interface" pkg="scara_interface"   type="mxx_interface" respawn="true" output="screen"/>
+  <node name="scara_gui" pkg="rqt_scara_gui"   type="scara_gui" respawn="true" output="screen" />
+
+</launch>

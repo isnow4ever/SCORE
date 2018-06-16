@@ -121,17 +121,17 @@
 #define PROG_CMD           ("PROG" REGEX_SPACE REGEX_FILE)
 
 
-#define LIMIT_MIN_POSITION_JOINT_1          -170
-#define LIMIT_MIN_POSITION_JOINT_2          -70
-#define LIMIT_MIN_POSITION_JOINT_3          -65
+#define LIMIT_MIN_POSITION_JOINT_1          -90
+#define LIMIT_MIN_POSITION_JOINT_2          -90
+#define LIMIT_MIN_POSITION_JOINT_3          -5
 #define LIMIT_MIN_POSITION_JOINT_4          -360
 #define LIMIT_MIN_POSITION_JOINT_5          -125
 #define LIMIT_MIN_POSITION_JOINT_6          -360
 #define LIMIT_MIN_POSITION_JOINT_2_AND_3    -135
 
-#define LIMIT_MAX_POSITION_JOINT_1          170
-#define LIMIT_MAX_POSITION_JOINT_2          70
-#define LIMIT_MAX_POSITION_JOINT_3          65
+#define LIMIT_MAX_POSITION_JOINT_1          90
+#define LIMIT_MAX_POSITION_JOINT_2          90
+#define LIMIT_MAX_POSITION_JOINT_3          100
 #define LIMIT_MAX_POSITION_JOINT_4          360
 #define LIMIT_MAX_POSITION_JOINT_5          125
 #define LIMIT_MAX_POSITION_JOINT_6          360

@@ -276,7 +276,7 @@ void ROS_Communication::run()
         {
             //            listener.waitForTransform("/root", "/tool",
             //                                      ros::Time (0), ros::Duration(10.0));
-            listener.lookupTransform("/root", "/tool",
+            listener.lookupTransform("/base_link", "/link3",
              ros::Time(0), transform);
         }
         catch (tf::TransformException ex)
@@ -321,10 +321,11 @@ void ROS_Communication::run()
         // 2.  Handle Joint States Msgs.
         if (joint_state_handler.newMsg())
         {
-            for (int i = 0; i < 4; i++)
-            {
-                params->joint_state[i] = (joint_state_handler.mCrtMsg.position[i]) * 180 / PI;
-            }
+            params->joint_state[0] = (joint_state_handler.mCrtMsg.position[0]) * 180 / PI;
+            params->joint_state[1] = (joint_state_handler.mCrtMsg.position[1]) * 180 / PI;
+            params->joint_state[2] = (joint_state_handler.mCrtMsg.position[2]) * 1000;
+            params->joint_state[3] = (joint_state_handler.mCrtMsg.position[3]) * 180 / PI;
+            
             params->joint_state[4] = 0;
             params->joint_state[5] = 0;
         }
@@ -332,36 +333,38 @@ void ROS_Communication::run()
         // 3. Handle Controller States Msgs.
         if (driver_state_handler.newMsg())
         {
-            QString qs = QString::fromStdString(driver_state_handler.fetchMsg().data);
-            QStringList list = qs.split(QRegExp("\\b"));
-
-            controller_states->robot_state = QVariant::fromValue(list.at(0)).toBool();
-            controller_states->servo_state = QVariant::fromValue(list.at(1)).toBool();
-            controller_states->error_state = QVariant::fromValue(list.at(2)).toBool();
-            controller_states->auto_state = QVariant::fromValue(list.at(3)).toBool();
+            std::string msg = driver_state_handler.fetchMsg().data;
+            std::vector<std::string> result;
+            boost::algorithm::split(result, msg, boost::algorithm::is_any_of(" "), boost::algorithm::token_compress_on);
+  
+            ROS_INFO("driver states: %s.", msg.c_str());
+            controller_states->robot_state = QString::fromStdString(result.at(0)).toInt();
+            controller_states->servo_state = QString::fromStdString(result.at(1)).toInt();
+            controller_states->error_state = QString::fromStdString(result.at(2)).toInt();
+            controller_states->auto_state = QString::fromStdString(result.at(3)).toInt();
         }
-        // if (controller_state_handler.newMsg())
-        // {
-        //     boost::regex reg(STATE_FORMAT);
-        //     boost::smatch mat;
-        //     std::string cmd = controller_state_handler.fetchMsg().data;
-        //     bool r = boost::regex_match(cmd, mat, reg);
-        //     if (r)
-        //     {
-        //         controller_states->_robot_state = mat[1];
-        //         controller_states->current_id = mat[2];
-        //         controller_states->action_result = mat[3];
+        if (controller_state_handler.newMsg())
+        {
+            boost::regex reg(STATE_FORMAT);
+            boost::smatch mat;
+            std::string cmd = controller_state_handler.fetchMsg().data;
+            bool r = boost::regex_match(cmd, mat, reg);
+            if (r)
+            {
+                controller_states->_robot_state = mat[1];
+                controller_states->current_id = mat[2];
+                controller_states->action_result = mat[3];
 
-        //         if (controller_states->_robot_state == "moving")
-        //             controller_states->robot_state = true;
-        //         else
-        //             controller_states->robot_state = false;
-        //     }
-        //     else
-        //     {
-        //         ROS_WARN("unknown robot state!");
-        //     }
-        // }
+                // if (controller_states->_robot_state == "moving")
+                //     controller_states->robot_state = true;
+                // else
+                //     controller_states->robot_state = false;
+            }
+            else
+            {
+                ROS_WARN("unknown robot state!");
+            }
+        }
 
         // 4. Handle Joystick Signals Msgs.
         if (joystick_handler.newMsg())
@@ -847,7 +850,7 @@ void ROS_Communication::get_joystickCtrl_states(Parameter &params, State &states
 
 void ROS_Communication::workspaceNotification(Parameter &params, State &states)
 {
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 4; i++)
     {
         if (params.joint_state[i] < params.joint_limit_min_position[i])
         {
@@ -859,8 +862,12 @@ void ROS_Communication::workspaceNotification(Parameter &params, State &states)
             states.joint_workspace_state[i] = 1;
             beyond_workspace();
         }
+        else
+        {
+            states.joint_workspace_state[i] = 0;
+        }
     }
-
+    /*
     if ((params.joint_state[1] + params.joint_state[2]) < params.joint_limit_min_position[6])
     {
         states.joint_workspace_state[1] = -1;
@@ -873,6 +880,7 @@ void ROS_Communication::workspaceNotification(Parameter &params, State &states)
         states.joint_workspace_state[2] = 1;
         beyond_workspace();
     }
+    */
 }
 
 QString ROS_Communication::io_decode(const char ch)

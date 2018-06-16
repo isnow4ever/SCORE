@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<launch>
+
+<!-- This launch file provides a socket-based connection to the Motoman FS100 controller
+using the standard ROS Industrial simple_message protocol.
+
+Several nodes are started, to supply both low-level robot communication
+and higher-level actionlib support:
+- robot_state : publishes current joint positions and robot state data
+- motion_download_interface : command robot motion by sending motion points to robot
+- joint_trajectory_action : actionlib interface to control robot motion
+
+Usage:
+robot_interface.launch robot_ip:=<value>
+-->
+
+<!-- robot_ip: IP-address of the robot's socket-messaging server -->
+<!--<arg name="robot_ip" default="192.6.94.5" />-->
+
+<!-- motion_streaming_interface: sends robot motion commands by STREAMING path to robot
+                                 (using socket connection to robot) -->
+
+<!-- -->
+<node name="ethercat_interface" pkg="x50_interface" type="ethercat_interface"  output="screen" />
+<!--<node name="ethercat_interface" pkg="ethercat_interface" type="interface" out="screen"/>-->
+
+<!-- joint_trajectory_action: provides actionlib interface for high-level robot control -->
+<!--<node name="x50_controller" pkg="industrial_robot_client" type="joint_trajectory_action" />-->
+
+</launch>

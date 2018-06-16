@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+
+  <!-- GDB functionality -->
+  <arg name="debug" default="false" />
+  <arg name="eth" default="eth0" />
+  <arg unless="$(arg debug)" name="launch_prefix" value="" />
+  <arg     if="$(arg debug)" name="launch_prefix" value="gdb --ex run --args" />
+
+  <arg name="simulation" default="false" />
+  <arg unless="$(arg simulation)" name="control_args" value="-i $(arg eth)" />
+  <arg     if="$(arg simulation)" name="control_args" value="--loopback" />
+
+  <!-- Load hardware interface -->
+  <node name="main" pkg="minas_control"
+        type="main" args="$(arg control_args)"
+        respawn="false" output="screen" launch-prefix="$(arg launch_prefix)">
+  </node>
+
+</launch>
