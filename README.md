@@ -2,44 +2,34 @@
 SCARA Controller based On ROS and EtherCAT
 
 
-########################
+########################################################################
 ## scara_interface
-##
-##+  contains "kinematic controller", "interface to minas drivers", and "GUIs for debug".
+contains "kinematic controller", "interface to minas drivers", and "GUIs for debug".
 ##----------------------
 ## scara_description
-##
-##+  contains scara STL files from Solidworks and URDFs.
+contains scara STL files from Solidworks and URDFs.
 ##----------------------
 ## scara_moveit_config
-##
-##+  generated from MoveIt! tools.
+generated from MoveIt! tools.
 ##----------------------
 ## minas_control
-##
-##+  Panasonic minas drivers library.
+Panasonic minas drivers library.
 ##----------------------
 ## ethercat_manager
-##
-##+  EtherCAT manager library based on SOEM.
+EtherCAT manager library based on SOEM.
 ##----------------------
 ## RT-core
-##
-##+  based on Xenomai. (unfinished)
+based on Xenomai. (unfinished)
 ##----------------------
 ## scara_gui
-##
-##+  display robot and driver states.
+display robot and driver states.
 ##----------------------
 ## iPendant
-##
-##+  teach pendant program for articulated robots
-##  
+teach pendant program for articulated robots
 ##----------------------
 ## u_devices
-##
-##+  Hardware interface program for teach pendant based on Marsboard.
-########################
+Hardware interface program for teach pendant based on Marsboard.
+########################################################################
 
 partly refers to Yongzhuo Gao, Zhijiang Du, Xueshan Gao, Yanyu Su, Yu Mu, Li Ning Sun, Wei Dong, (2018) "Implementation of openarchitecture kinematic controller for articulated robots under ROS", Industrial Robot: An International Journal
 
